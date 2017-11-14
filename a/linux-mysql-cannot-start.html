@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>linux mysql无故无法启动了,centos 7 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="转自： http://support.moonpoint.com/software/database/mysql/not-running-centos7.php
+下面简单翻译一下。 详细内容可以阅读英文原文。
+笔者的情况是这样的。购买的linode VPS 默认使用wordpress的 centos">
+  
+
+  <meta property="og:title" content="linux mysql无故无法启动了,centos 7"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        linux mysql无故无法启动了,centos 7
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-11-07T04:45:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-11-07
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/server/">SERVER</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/linux/">linux</a>·<a href="/tags/mysql/">mysql</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>转自： <a href="http://support.moonpoint.com/software/database/mysql/not-running-centos7.php" target="_blank" rel="external">http://support.moonpoint.com/software/database/mysql/not-running-centos7.php</a></p>
+<p>下面简单翻译一下。 详细内容可以阅读英文原文。</p>
+<p>笔者的情况是这样的。购买的linode VPS 默认使用wordpress的 centos7 模板为环境一键安装的。 安装完成后，导入WP数据库上传wordpress主题，配置环境设置文件夹权限， 域名解析过去，完毕后一切正常。但是第二天，忽然就无法访问数据库了。 使用控制台连进去之后发现mysql服务死掉了。 重启命令无效，重启系统无效。</p>
+<p>service mysqld start</p>
+<p>始终提示如下：</p>
+<pre>Failed to issue method call: Unit mysqld.service failed to load: No such file or directory.</pre>
+
+<p>死活都提示找不到。</p>
+<p>无奈，网上搜索半天总算找到一个可以用的。 其实是默认的这个环境一起安装了一个叫MariaDB的东西（可以把它理解为mysql的安全向导），帮助提高mysql的安全性。&nbsp;</p>
+<p>原文的思路如下，先查看mysql版本，发现是mysql是有的，但是为何提示不存在呢，那就一步步排查原因。&nbsp;</p>
+<p>后面就找到 etc/my.cnf 这个文件打开查看引用的各个路径，也都一一找到了。 那这到底是为啥呢，这老外也是百思不得解，然后他也进行了搜索，搜到一篇stackoverflow的内容，就是安装MariaDB之后，就找不到mysqld了。于是乎一楼的答案就给出了：</p>
+<p>安装MariaDB之后必须先启动MariaDB才能启动mysqld，其实就是运行一下MariaDB向导，它是个一次性的东东，就是帮助你提高mysql安全性的，详细看这里：<a href="http://www.jb51.net/article/47727.htm" target="_blank" rel="external">http://www.jb51.net/article/47727.htm</a></p>
+<p>总结一下就是运行下面三句就搞定啦：</p>
+<p>systemctl start mariadb.service<br>systemctl enable mariadb.service<br>mysql_secure_installation</p>
+<h2 id="MySQL-service-not-running-on-CentOS-7-system"><a href="#MySQL-service-not-running-on-CentOS-7-system" class="headerlink" title="MySQL service not running on CentOS 7 system"></a>MySQL service not running on CentOS 7 system</h2><p>I had installed the&nbsp;<a href="http://en.wikipedia.org/wiki/MariaDB" target="_blank" rel="external">MariaDB</a>, a&nbsp;<a href="http://en.wikipedia.org/wiki/Fork_%28software_development%29" target="_blank" rel="external">fork</a>&nbsp;of the&nbsp;<a href="http://en.wikipedia.org/wiki/MySQL" target="_blank" rel="external">MySQL</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Relational_database_management_system" target="_blank" rel="external">relational database management system (RDBMS)</a>&nbsp;on a CentOS 7 system when I set up the system. When I checked the version of the software with the&nbsp;<code>mysql --version</code>&nbsp;command, I saw the following:</p>
+<div><br><pre># mysql –version<br>mysql  Ver 15.1 Distrib 5.5.37-MariaDB, for Linux (x86_64) using readline 5.1</pre><br></div>
+
+<p>But, when I ran the&nbsp;<code>mysql</code>&nbsp;command on the system, I received the error message shown below:</p>
+<div><br><pre># mysql<br>ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’ (111)</pre><br></div>
+
+<p>I checked to see if the mysqld service was running and found it was not.</p>
+<div><br><pre># systemctl status mysqld.service<br>mysqld.service<br>   Loaded: not-found (Reason: No such file or directory)<br>   Active: inactive (dead)</pre><br></div>
+
+<p>When I tried to start the service, it wouldn’t start.</p>
+<div><br><pre># service mysqld start<br>Redirecting to /bin/systemctl start  mysqld.service<br>Failed to issue method call: Unit mysqld.service failed to load: No such file or directory.<br># systemctl start mysqld.service<br>Failed to issue method call: Unit mysqld.service failed to load: No such file or directory.</pre><br></div>
+
+<p>I checked the contents of the&nbsp;<code>/etc/my.cnf</code>&nbsp;file and saw the following:</p>
+<div><br><pre>[mysqld]<br>datadir=/var/lib/mysql<br>socket=/var/lib/mysql/mysql.sock<br># Disabling symbolic-links is recommended to prevent assorted security risks<br>symbolic-links=0<br># Settings user and group are ignored when systemd is used.<br># If you need to run mysqld under a different user or group,<br># customize your systemd unit file for mariadb according to the<br># instructions in <a href="http://fedoraproject.org/wiki/Systemd" target="_blank" rel="external">http://fedoraproject.org/wiki/Systemd</a><br><br>[mysqld_safe]<br>log-error=/var/log/mariadb/mariadb.log<br>pid-file=/var/run/mariadb/mariadb.pid<br><br>#<br># include all files from the config directory<br>#<br>!includedir /etc/my.cnf.d</pre><br></div>
+
+<p>I checked for the existence of files and directories listed in that file. I saw the following results for the locations for&nbsp;<code>datadir</code>,&nbsp;<code>socket</code>,&nbsp;<code>log-error</code>, and&nbsp;<code>pid-file</code>:</p>
+<div><br><pre># ls -ld /var/lib/mysql<br>drwxr-xr-x. 19 mysql mysql 4096 Oct 14 23:46 /var/lib/mysql<br>[root@localhost install]# ls -l /var/lib/mysql/mysql.sock<br>srwxrwxrwx. 1 mysql mysql 0 Sep 29 15:05 /var/lib/mysql/mysql.sock<br># ls -l /var/log/mariadb/mariadb.log<br>-rw-r—–. 1 mysql mysql 0 Oct  5 20:49 /var/log/mariadb/mariadb.log<br># ls -l /var/run/mariadb/mariadb.pid<br>ls: cannot access /var/run/mariadb/mariadb.pid: No such file or directory</pre><br></div>
+
+<p>I didn’t see any&nbsp;<code>mariadb.pid</code>&nbsp;file, but I wouldn’t expect it to be created until the mysqld service successfully started.</p>
+<p>When I checked the files in the&nbsp;<code>includedir</code>&nbsp;directory, I saw the following:</p>
+<div><br><pre># ls -l /etc/my.cnf.d<br>total 12<br>-rw-r–r–. 1 root root 295 Apr 15  2014 client.cnf<br>-rw-r–r–. 1 root root 232 Apr 15  2014 mysql-clients.cnf<br>-rw-r–r–. 1 root root 744 Apr 15  2014 server.cnf</pre><br></div>
+
+<p>So I didn’t know why I was getting the “Can’t connect to local MySQL server through socket ‘/var/lib/mysql/mysql.sock’” message when I issued the command&nbsp;<code>mysql</code>&nbsp;nor why my attempt to start the mySQL service failed with a “No such file or directory” message. Searching online, I found a posting by&nbsp;<a href="http://serverfault.com/users/79524/danneth" target="_blank" rel="external">danneth</a>&nbsp;at&nbsp;<a href="http://serverfault.com/questions/626922/no-mysqld-or-mysql-server-after-mariadb-server-install" target="_blank" rel="external">No mysqld or mysql.server after mariadb-server install</a>&nbsp;to use&nbsp;<code>systemctl start mariadb.service</code>. When I used that command, I didn’t see any error messages. I tried the<code>systemctl startus mysqld service</code>&nbsp;after issuing the command, but still saw a error message for it. But, when I then issued the&nbsp;<code>mysql</code>&nbsp;command I received an “access denied” message this time, which seemed reasonable, since I hadn’t provided the password for the root account when I issued the command..</p>
+<div><br><pre># systemctl start mariadb.service<br># systemctl status mysqld service<br>mysqld.service<br>   Loaded: not-found (Reason: No such file or directory)<br>   Active: inactive (dead)<br><br>service.service<br>   Loaded: not-found (Reason: No such file or directory)<br>   Active: inactive (dead)<br><br># mysql<br>ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: NO)</pre><br></div>
+
+<p>When I was using CentOS 5, I had MySQL rather than MariaDB and I didn’t know I needed to start the MariaDB RDBMS service on the CentOS 7 system using a command referencing&nbsp;<code>mariadb</code>&nbsp;rather&nbsp;<code>mysqld</code>. I assumed I could reference mysqld to start the service.</p>
+<p>The history behind the creation of MariaDB can be found in the&nbsp;<a href="http://en.wikipedia.org/wiki/MySQL#History" target="_blank" rel="external">history section of the Wikipedia article on MySQL</a>. MariaDB was created by one of the cofounders of MySQL,&nbsp;<a href="http://en.wikipedia.org/wiki/Michael_Widenius" target="_blank" rel="external">Michael Widenius</a>, after&nbsp;<a href="http://en.wikipedia.org/wiki/Oracle_Corporation" target="_blank" rel="external">Oracle Corporation</a>&nbsp;obtained rights to the MySQL software from&nbsp;<a href="http://en.wikipedia.org/wiki/Sun_Microsystems" target="_blank" rel="external">Sun Microsystems</a>.</p>
+<p>To have the MariaDB service start automatically each time the system boots, issue the command&nbsp;<code>systemctl enable mariadb.service</code>. After you have started the service, also issue the command&nbsp;<code>mysql_secure_installation</code>.</p>
+<div><br><pre># mysql_secure_installation<br>/usr/bin/mysql_secure_installation: line 379: find_mysql_client: command not found<br><br>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB<br>      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!<br><br>In order to log into MariaDB to secure it, we’ll need the current<br>password for the root user.  If you’ve just installed MariaDB, and<br>you haven’t set the root password yet, the password will be blank,<br>so you should just press enter here.<br><br>Enter current password for root (enter for none):<br>ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: NO)<br>Enter current password for root (enter for none):<br>OK, successfully used password, moving on…<br><br>Setting the root password ensures that nobody can log into the MariaDB<br>root user without the proper authorisation.<br><br>You already have a root password set, so you can safely answer ‘n’.<br><br>Change the root password? [Y/n] n<br> … skipping.<br><br>By default, a MariaDB installation has an anonymous user, allowing anyone<br>to log into MariaDB without having to have a user account created for<br>them.  This is intended only for testing, and to make the installation<br>go a bit smoother.  You should remove them before moving into a<br>production environment.<br><br>Remove anonymous users? [Y/n] y<br> … Success!<br><br>Normally, root should only be allowed to connect from ‘localhost’.  This<br>ensures that someone cannot guess at the root password from the network.<br><br>Disallow root login remotely? [Y/n] Y<br> … Success!<br><br>By default, MariaDB comes with a database named ‘test’ that anyone can<br>access.  This is also intended only for testing, and should be removed<br>before moving into a production environment.<br><br>Remove test database and access to it? [Y/n] Y<br> - Dropping test database…<br> … Success!<br> - Removing privileges on test database…<br> … Success!<br><br>Reloading the privilege tables will ensure that all changes made so far<br>will take effect immediately.<br><br>Reload privilege tables now? [Y/n] Y<br>ERROR 1146 (42S02) at line 1: Table ‘mysql.servers’ doesn’t exist<br> … Failed!<br><br>Cleaning up…<br><br>All done!  If you’ve completed all of the above steps, your MariaDB<br>installation should now be secure.<br><br>Thanks for using MariaDB!</pre><br></div>
+
+<p>I had it remove the anonymous account, since leaving it would be a security vulnerability. I also chose to disallow remote root login to MariaDB and the test database for the same reason.</p>
+<p>I had copied the contents of the&nbsp;<code>/var/lib/mysql</code>&nbsp;directory from the hard drive of the prior CentOS 5 system to the new CentOS 7 system to have all of the databases from the old system available on the new system, so that appeared to be the reason that the&nbsp;<code>mysql_secure_installation</code>, which can be found in&nbsp;<code>/usr/bin</code>, did not accept my just hitting&nbsp;<em>Enter</em>&nbsp;for the password initially. When I entered the root password for MySQL on the old system, it was accepted. And I was able finally get a prompt where I could enter SQL commands using that password with&nbsp;<code>mysql -u root -p&amp;nbsp;</code>.</p>
+<div><br><pre># mysql -u root -p<br>Enter password:<br><strong>Welcome to the MariaDB monitor.  Commands end with ; or \g.<br>Your MariaDB connection id is 11<br>Server version: 5.5.37-MariaDB MariaDB Server<br><br>Copyright (c) 2000, 2014, Oracle, Monty Program Ab and others.<br><br>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</strong><br><br>MariaDB [(none)]&gt;</pre><br></div>
+
+<p>So the 3 steps to enable and run MariaDB are as follows, assuming it was previously installed during the initial setup for the system or with&nbsp;<code>yum install mariadb mariadb-server</code>:</p>
+<p>systemctl start mariadb.service<br>systemctl enable mariadb.service<br>mysql_secure_installation</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="544" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

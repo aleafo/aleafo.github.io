@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>git windows下快速入门与心得 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="前言之前的团队主要使用的还是SVN，对于开发环境主要为windows，且规模较小的团队来说，只进行轻度入门级的使用，那么SVN无论是学习成本，还是操作舒适度都是远胜GIT的（如果你非要说windows的命令行也很方便，就当我没说），但是为什么GIT的受欢迎度会高于SVN呢，其实是有原因的，个人就使用">
+  
+
+  <meta property="og:title" content="git windows下快速入门与心得"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        git windows下快速入门与心得
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-09-01T08:06:46.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-09-01
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/tools/">TOOLS</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/git/">git</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前的团队主要使用的还是SVN，对于开发环境主要为windows，且规模较小的团队来说，只进行轻度入门级的使用，那么SVN无论是学习成本，还是操作舒适度都是远胜GIT的（如果你非要说windows的命令行也很方便，就当我没说），但是为什么GIT的受欢迎度会高于SVN呢，其实是有原因的，个人就使用方面，简单总结如下：</p>
+<ul>
+<li>GIT的分支是分布式的，每个分支都可以在服务端有一个单独的拷贝（领导要看xxx的代码可以单独clone分支）</li>
+<li>GIT的数据校验采用SHA1算法，比SVN对数据的完整性保存更胜一筹</li>
+<li>GIT可以方便的merge分支，较好的防止分支的遗漏</li>
+<li>由于采取的保存方式不同，GIT在分支切换速度方面完全碾压SVN，对于需要频繁修复BUG的场景，快速切换不同的branch而又不丢失原有的工作场景，那GIT再适合不过了</li>
+</ul>
+<h2 id="快速入门教程"><a href="#快速入门教程" class="headerlink" title="快速入门教程"></a>快速入门教程</h2><p>主要介绍一下常用的命令，需要快速入门推荐参考 <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰的GIT教程</a> 或者阮一峰的GIT教程，这里仅仅作为一个记录windows下快速入门的方法</p>
+<h3 id="安装，下载windows客户端"><a href="#安装，下载windows客户端" class="headerlink" title="安装，下载windows客户端"></a>安装，下载windows客户端</h3><p>下载git，GIT官网下载地址 <a href="https://git-scm.com/downloads" target="_blank" rel="external">https://git-scm.com/downloads</a>，根据自己操作系统的版本下载对应的安装包，一路下一步安装。</p>
+<h3 id="初始化配置git身份信息"><a href="#初始化配置git身份信息" class="headerlink" title="初始化配置git身份信息"></a>初始化配置git身份信息</h3><p>在本地要建立项目的文件夹右键——Git Bash Here， 打开git窗口。运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置git的用户名，仅需要执行一次，名字随便写，用来标识你的身份</span></span><br><span class="line">git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line"><span class="comment">#配置git的邮箱，仅需要执行一次，邮箱随便写，用来标识你的身份</span></span><br><span class="line">git config --global user.email youremail<span class="comment">#example.com</span></span><br><span class="line"><span class="comment">#生成你的身份公钥和私钥</span></span><br><span class="line"><span class="comment">#公钥用来和服务端进行匹配验证身份，需要提供给git服务器管理员</span></span><br><span class="line"><span class="comment">#私钥用来保证你的身份不被冒充</span></span><br><span class="line"><span class="comment">#输入命令后一路回车即可</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail#example.com"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="将git的公钥提供给管理员或者保存到你的github等网站的指定位置"><a href="#将git的公钥提供给管理员或者保存到你的github等网站的指定位置" class="headerlink" title="将git的公钥提供给管理员或者保存到你的github等网站的指定位置"></a>将git的公钥提供给管理员或者保存到你的github等网站的指定位置</h3><p>在上一步中我们执行了 ssh-kegen后，在C:\Users\Administrator 文件夹（根据你的用户名，如果不知道可以直接在资源管理器地址栏输入 %userprofile% 回车），找到.ssh文件夹，打开后即可看到.pub结尾的文件，用记事本打开即可得到你的公钥内容。<br>将公钥内容保存到你的github个人信息中的keys中，或者提供给你的git服务器管理员为你添加到服务端</p>
+<h3 id="初始化仓库或者拉取已有的仓库"><a href="#初始化仓库或者拉取已有的仓库" class="headerlink" title="初始化仓库或者拉取已有的仓库"></a>初始化仓库或者拉取已有的仓库</h3><p>如果是新建的项目，需要初始化仓库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化</span></span><br><span class="line">git init</span><br><span class="line"><span class="comment">#...新建文件，修改文件等操作...</span></span><br><span class="line"><span class="comment">#添加所有修改到缓存区</span></span><br><span class="line">git add .</span><br><span class="line"><span class="comment">#提交缓存区的文件到仓库</span></span><br><span class="line"><span class="comment">#其中-m "comment" 为必选参数，如果不填写将自动调用vim编辑器要求你输入提交说明</span></span><br><span class="line">git commit -m <span class="string">"comment"</span> </span><br><span class="line"><span class="comment">#提交到仓库后，再推送到远程服务器</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<p>如果是拉取 已有的项目协同开发<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取远程仓库到本地文件夹</span></span><br><span class="line">git <span class="built_in">clone</span> git@SERVER:path/to/repo.git</span><br><span class="line"><span class="comment">#与远程仓库建立关联</span></span><br><span class="line">git remote add origin git@SERVER:path/to/repo.git</span><br><span class="line"><span class="comment">#然后就可以进行 add commit push 操作了</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="忽略指定文件夹"><a href="#忽略指定文件夹" class="headerlink" title="忽略指定文件夹"></a>忽略指定文件夹</h3><p>在git所在目录找到或新建 .gitignore文件，然后每行一个，目录以/开头，保存即可。注意：如果之前已经对目录进行了add等操作，则需要先 rm commit 才能生效</p>
+<h3 id="每次都要执行add-commit-push-太麻烦了，有没有一步到位的。"><a href="#每次都要执行add-commit-push-太麻烦了，有没有一步到位的。" class="headerlink" title="每次都要执行add commit push 太麻烦了，有没有一步到位的。"></a>每次都要执行add commit push 太麻烦了，有没有一步到位的。</h3><p>有， 添加快捷操作别名即可，并且可以保存为全局的git配置，例如一句命令执行add commit push操作<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将 add commit push 命令保存为git的全局配置</span></span><br><span class="line">git config --global alias.amp <span class="string">'!git add . &amp;&amp; git commit -a -m "commit" &amp;&amp; git push'</span></span><br></pre></td></tr></table></figure></p>
+<p>运行后，即可在%userprofile%.gitconfig 文件中找到对应的配置项信息如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">alias</span>]</span><br><span class="line">    amp = !git add . &amp;&amp; git commit -a -m \<span class="string">"commit\" &amp;&amp; git push</span></span><br></pre></td></tr></table></figure></p>
+<p>这样再想一步添加，提交并推送到远程仓库就可以运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git amp</span><br></pre></td></tr></table></figure></p>
+<p>ok，一步到位了。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="413" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

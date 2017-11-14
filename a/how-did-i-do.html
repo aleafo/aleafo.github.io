@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>我到底是做什么的 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="此文属于牢骚文，不喜欢看的死远些，哈哈
+这件事情说来时间还挺长的，刚入公司不久，满腔热血的，就想着好好做事，好好干。接手一个交友网站，是要求改版，出一个新的页面效果。网站原来是05年左右用过一段时间，后来下线了，接过来一看全站使用的table布局+漏洞百出的ASP+mdb数据库制作的，刚看了几页代码">
+  
+
+  <meta property="og:title" content="我到底是做什么的"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        我到底是做什么的
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-04-26T09:41:44.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-04-26
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/life/">life</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>此文属于牢骚文，不喜欢看的死远些，哈哈</p>
+<p>这件事情说来时间还挺长的，刚入公司不久，满腔热血的，就想着好好做事，好好干。接手一个交友网站，是要求改版，出一个新的页面效果。网站原来是05年左右用过一段时间，后来下线了，接过来一看全站使用的table布局+漏洞百出的ASP+mdb数据库制作的，刚看了几页代码就不禁冒汗，注册的时候密码竟然明文在地址栏传输，然后没有经过任何加密直接写入数据库，就连数据库的表都直接使用.mdb扩展名存在服务器上，我虽然不熟悉ASP但是这些基本常识一看便知。这样的网站竟然被说成运营过2年的，我表示重大怀疑。</p>
+<p>之后也不知道是自己傻还是什么原因就把整个网站揽过来了，本来以为同事可以帮忙一起做程序那块，结果他倒是推的干净理由就是自己没用过ASP，我还是个做前端设计的呢，这下好了，美工、前端、程序全我一个人包了。当时以为每天都可以全身心的投入做这个项目，然后报了个时间1个半月改版完成，后来感觉真的是压力太大。</p>
+<p>我把全站重新作图，然后使用XHTML+CSS重构，程序90%几乎都进行了重写，整个网站原来的结构是所有文件几乎都在根目录，除了图片和很少的几个包含文件，就连连接数据库的文件都被分成了好几份，而且有些连接数据库的程序代码甚至直接写在了页面里面。由于当时严重低估了整个程序的垃圾程度，导致最后自己加班赶工，没日没夜的写代码，最后算是按时交付了网站。新网站目录结构更清晰，数据库连接进行了优化，用户密码MD5+特殊前缀加密，数据库修改扩展名保存，通用包含过滤攻击字符串。全站XHTML+CSS重构，首页使用HTML5+CSS3+JQuery动画，冗长的ASP链接及复杂的参数等使用URL重写改为静态页面。全站的title及desciption标签经过优化。用户注册时使用Ajax无刷新检测。</p>
+<p>其实不用大家猜，我自己也知道，网站部分代码是直接复制了原来的有的直接复制了互联网上的模块稍加改动，一些详细的逻辑考虑的根本没有那么周全，就这样网站准备上线了。但是对方这个时候又要求改版页面，原因是原来的页面不好看。这个时候我真的很无奈，当时是先出了效果图对方确认了之后才开始做的，现在还没等使用又要求改。</p>
+<p>这里要说的第一点，以后前端设计在做项目的时候一定要注意，重点强调一下页面是否确认，然后再开始做，要把后期改版页面说的非常困难这样他们才不会匆忙确定从而导致后期推到重来。</p>
+<p>再然后，网站上线了，大家都开始测试，其实不用说大家也猜得到网站的漏洞很多，但是我实在没有能力和精力来修复这些问题。原因是我拼命的加班，拼命的完成项目，换来的结果是领导说公司的其他网站没有更新，我艹，你让我一个人负责做这一个整站，还让我同时更新其他网站，这TM是不是脑残啊，行，我可以更新，我也可以把内容做到每天都有新添加，让你看到网站一直在有人维护，Ctrl+C Ctrl+V 谁还不会啊，但是那样的文章有意义吗，既然都知道没意义为什么还要强调让我去更新！靠复制粘贴出来的网站能有什么意思，还不如直接写个采集程序去采集得了。</p>
+<p>再后来，网站开始进行了，技术方面出现问题我来解决，网站运营方面要我来解决，合作方我来沟通，线下活动我来跟着执行，公司其他网站内容我来更新，网站改版效果图我来做，页面我来做，程序我来嵌入。我的跨度可真大，从美工到前端到技术，从线上SEO到线下活动跟踪，是，小公司分工是没那么细，但是这样有点太粗了吧。</p>
+<p>我是技术？前端？美工？运营？Seo？推广？活动策划？我到底是做什么的。。。真的迷茫了。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="204" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

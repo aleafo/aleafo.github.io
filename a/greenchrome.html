@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>谷歌浏览器免安装绿色版（完美解决QQ面板启动问题） - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="话说谷歌浏览器默认一键安装是够SB的，本文给大家介绍个新方法就是解压谷歌的安装包，将其变为绿色免安装版。
+1. 下载谷歌浏览器的离线安装包可以通过官方下载最新版的离线安装包下载：http://www.google.com/chrome/eula.html?hl=zh-CN&amp;amp;standalon">
+  
+
+  <meta property="og:title" content="谷歌浏览器免安装绿色版（完美解决QQ面板启动问题）"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        谷歌浏览器免安装绿色版（完美解决QQ面板启动问题）
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-07-05T08:27:42.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-07-05
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/Google/">Google</a>·<a href="/tags/Chrome/">Chrome</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>话说谷歌浏览器默认一键安装是够SB的，本文给大家介绍个新方法就是解压谷歌的安装包，将其变为绿色免安装版。</p>
+<h2 id="1-下载谷歌浏览器的离线安装包"><a href="#1-下载谷歌浏览器的离线安装包" class="headerlink" title="1. 下载谷歌浏览器的离线安装包"></a>1. 下载谷歌浏览器的离线安装包</h2><p>可以通过官方下载最新版的离线安装包下载：<a href="http://www.google.com/chrome?hl=zh-cn" target="_blank" rel="external">http://www.google.com/chrome/eula.html?hl=zh-CN&amp;standalone=1</a>  （简体中文版）。也可以通过 <a href="http://dl.pconline.com.cn/download/51614-1.html" target="_blank" rel="external">http://dl.pconline.com.cn/download/51614-1.html</a> 来选择稳定版或dev版来下载（推荐）。</p>
+<h2 id="2-解压谷歌浏览器"><a href="#2-解压谷歌浏览器" class="headerlink" title="2.解压谷歌浏览器"></a>2.解压谷歌浏览器</h2><p>直接使用winrar或者7zip解压这个安装包得到chrome.7z，然后再次解压后得到一个文件夹Chrome-bin。</p>
+<h2 id="3-谷歌浏览器免安装绿色版制作完成"><a href="#3-谷歌浏览器免安装绿色版制作完成" class="headerlink" title="3.谷歌浏览器免安装绿色版制作完成"></a>3.谷歌浏览器免安装绿色版制作完成</h2><p>看到其中的一个13.0.782.32 这样的一个文件夹了吗，这个就是谷歌浏览器的版本号，把chrome.exe复制到这个文件夹下。然后将次文件夹随便改成你需要的名字，随便找个你想要它呆的地方，然后发送chrome.exe的快捷方式到桌面，至此绿色版制作完成。</p>
+<h2 id="4-改变谷歌浏览器缓存文件存放位置"><a href="#4-改变谷歌浏览器缓存文件存放位置" class="headerlink" title="4.改变谷歌浏览器缓存文件存放位置"></a>4.改变谷歌浏览器缓存文件存放位置</h2><p>但是面临一个问题就是默认的浏览器缓存文件都在C盘，感觉很不良好。其实谷歌浏览器默认是支持启动参数的，只需要在谷歌浏览器的快捷方式上右键——属性——目标中增加参数如下所示 Chrome.exe –user-data-dir=e:\chrome2.0 –enable-extensions，以后再通过这个快捷方式启动就可以将缓存文件放到你设定的目录下了。</p>
+<h2 id="5-不爽啊，QQ面板启动谷歌浏览器的时候没有参数啊"><a href="#5-不爽啊，QQ面板启动谷歌浏览器的时候没有参数啊" class="headerlink" title="5. 不爽啊，QQ面板启动谷歌浏览器的时候没有参数啊"></a>5. 不爽啊，QQ面板启动谷歌浏览器的时候没有参数啊</h2><p>嗯，接下来你会发现，通过QQ面板等启动谷歌浏览器的时候会调用到没带参数的谷歌浏览器，怎么办，经过<a href="http://chromi.org" title="Chrome迷" target="_blank" rel="external">Chrome迷</a>论坛的大牛们帮助，发现了如下的方法通过修改注册表实现QQ面板等启动带参数。把下面的代码保存为xxoo.reg  扩展名的文件双击导入注册表即可。</p>
+<p><pre>Windows Registry Editor Version 5.00</pre></p>
+<p>[HKEY_CLASSES_ROOT\ftp\shell\open\command]<br>@=”\”<code>E:\\Chrome\\Data\\chrome.exe</code>\” –enable-extensions –enable-user-scripts –user-data-dir=\”<code>E:\\Chrome\\Profile\</code>“ – \”%1\””</p>
+<p>[HKEY_CLASSES_ROOT\ChromeHTML\shell\open\command]<br>@=”\”E:\Chrome\Data\chrome.exe\” –enable-extensions –enable-user-scripts –user-data-dir=\”E:\Chrome\Profile\” – \”%1\””</p>
+<p>[HKEY_CLASSES_ROOT\http\shell\open\command]<br>@=”\”E:\Chrome\Data\chrome.exe\” –enable-extensions –enable-user-scripts –user-data-dir=\”E:\Chrome\Profile\” – \”%1\””</p>
+<p>[HKEY_CLASSES_ROOT\https\shell\open\command]<br>@=”\”E:\Chrome\Data\chrome.exe\” –enable-extensions –enable-user-scripts –user-data-dir=\”E:\Chrome\Profile\” – \”%1\””<br>注意，其中的E:\Chrome\Data\chrome.exe 为谷歌浏览器存放路径； E:\Chrome\Profile\ 为谷歌浏览器缓存文件路径；上面代码中双反斜线不可以去掉或变为一条。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="335" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

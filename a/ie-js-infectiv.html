@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>IE浏览器打不开链接（JS失效导致）的解决方法 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="前两天准小姨子在电脑上使用在线教学课程的时候，点击左侧的分类树中打开对应课程的时候，发现点击任何链接都没有反应。于是乎这事就又找上我了。
+其实之前我没碰到过这种情况。在我自己电脑上测试了一下发现那个链接是正常的，但是到了她电脑上就无效了。于是远程在她的桌面上建立了一个测试htm文件，先来一个超链接 ">
+  
+
+  <meta property="og:title" content="IE浏览器打不开链接（JS失效导致）的解决方法"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        IE浏览器打不开链接（JS失效导致）的解决方法
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-08-16T08:43:40.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-08-16
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/html/">HTML</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/ie/">ie</a>·<a href="/tags/compatibility/">兼容性</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>前两天准小姨子在电脑上使用在线教学课程的时候，点击左侧的分类树中打开对应课程的时候，发现点击任何链接都没有反应。于是乎这事就又找上我了。</p>
+<p>其实之前我没碰到过这种情况。在我自己电脑上测试了一下发现那个链接是正常的，但是到了她电脑上就无效了。于是远程在她的桌面上建立了一个测试htm文件，先来一个超链接 &lt;a href=”<a href="http://www.google.com&quot;&gt;google&lt;/a&gt;发现是可以正常打开的。然后再来个js的链接测试（她电脑上就一个IE，找代码坑爹啊，不如直接自己来测试了）&lt;a" target="_blank" rel="external">http://www.google.com&quot;&gt;google&lt;/a&gt;发现是可以正常打开的。然后再来个js的链接测试（她电脑上就一个IE，找代码坑爹啊，不如直接自己来测试了）&lt;a</a> href=”javascript:window.open(‘<a href="http://www.google.com&#39;)&quot;&gt;Google&lt;/a&gt;，然后运行，发现怎么都不好使了，但是这句代码肯定在任何浏览器都应该是正常的，由此可以确认，她的电脑上是IE的js失效导致的链接打不开。" target="_blank" rel="external">http://www.google.com&#39;)&quot;&gt;Google&lt;/a&gt;，然后运行，发现怎么都不好使了，但是这句代码肯定在任何浏览器都应该是正常的，由此可以确认，她的电脑上是IE的js失效导致的链接打不开。</a></p>
+<p>然后找到IE的选项设置，全部恢复默认，重启浏览器，结果仍然不好使。额，看样子问题没那么简单。</p>
+<p>Windows+IE8，我先把她的IE8卸载了，开始——控制面板——添加/删除程序，点击显示更新，找到IE8，然后卸载。卸载后需要重启电脑。然后电脑重启之后发现js仍然无效。悲催之余，陷入无限无奈当中。然后突然想起来，悲催的IE运行是需要dll组件的，搜了一下资料发现还真有碰到这个js失效问题的，原文地址 <a href="http://blog.sina.com.cn/s/blog_57e47bf6010002pt.html" target="_blank" rel="external">IE浏览器js失效(无法登陆邮箱)的处理方法</a>。文章中讲的很明了，主要就是重新注册两个dll组件即可。方法如下：</p>
+<p>开始——运行——以下命令分别运行</p>
+<p><pre>regsvr32 jscript.dll<br>regsvr32 vbscript.dll</pre><br>然后重启IE，果然凑效。这么个简单的问题，我搞了1个多小时，各种病毒各种中的小姨子你伤不起啊。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="384" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

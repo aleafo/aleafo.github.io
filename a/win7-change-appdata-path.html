@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>win7下如何改变appdata的文件夹位置 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="由于当时安装win7的时候给C盘留的空间有点小，尽管什么软件都没往C盘装，但是还是显得比较拥挤，因为随着你安装软件，很多软件的配置文件信息以及临时文件可能都存到了C盘了，所以这就使得appdata文件夹变得比较臃肿（默认appdata）是隐藏的文件夹，没办法，网上搜了半天，在一个帖子中看到了解决方法">
+  
+
+  <meta property="og:title" content="win7下如何改变appdata的文件夹位置"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        win7下如何改变appdata的文件夹位置
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-02-26T12:19:38.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-02-26
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/tools/">TOOLS</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>由于当时安装win7的时候给C盘留的空间有点小，尽管什么软件都没往C盘装，但是还是显得比较拥挤，因为随着你安装软件，很多软件的配置文件信息以及临时文件可能都存到了C盘了，所以这就使得appdata文件夹变得比较臃肿（默认appdata）是隐藏的文件夹，没办法，网上搜了半天，在一个帖子中看到了解决方法，其实跟winxp下比较类似，就是通过修改注册表的几个值实现的转移功能。</p>
+<p>1. 将c:\users\default\（默认这个目录是隐藏的）复制到d:\Users\下</p>
+<p>2.将c:\users\public\复制到d:\Users\下</p>
+<p>3. 在命令行中输入regedit回车，找到 HKEY_LOCAL_MACHINE\SOFTWARE\MICROSOFT\WINDOWS NT\CurrentVersion\ProfileList.</p>
+<p>4. 将 Default, Public, Profile Directory 键的值改为新的位置，在此将%SystemDrive%替换为d:</p>
+<p>5. 注销. 从现在开始，所有新建的用户，都会在d:\Users\下建立相应的文件夹</p>
+<p>6. 新建一个账号并登录，可以看到你的账号是在d:\users\下创建的，而c:\Users\下并没有创建</p>
+<p>7. 将原来账号下的文件复制过来，就可以删除掉原来的账号了，当然，为了以防万一有重要文件没有复制过来，可以先暂时保留这个方法，实现起来非常简单，只要安装上面的方法做，保证输入的文件夹位置正确，就肯定不会有问题的。</p>
+<p>经过本人测试，上面的方法不可行，网上有人使用mklink命令修改的win7的C:\users文件夹，具体步骤如下，本人亲测成功！</p>
+<p>1. 按一下“Windows”键，输入“计算机管理”之后按“Enter”，呼出“计算机管理器”；</p>
+<p>2. 鼠标点击“Administrator”，选择属性，而后在随后的对话框中去掉“帐户已禁用”之前的勾，而后关闭“计算机管理器”；</p>
+<p>3. 注销当前用户（注意，不是“切换用户”），而后以“Administrator”登录<br>4. 打开命令行窗口，输入以下命令：</p>
+<p><pre><br>robocopy “C:\Users” “D:\Users” /E /COPYALL /XJ /XD<br>rmdir “C:\Users” /S /Q<br>mklink /J “C:\Users” “D:\Users”<br><code>注意，上面的引号为半角输入法状态下的引号</code><br></pre><br>代码解释：<br>第一行是复制C盘下的Users文件夹到D盘Users文件夹；<br>第二行，强制删除C盘users文件夹及所有子文件夹；<br>第三行，在C盘建立D盘的Users文件夹link镜像。</p>
+<p>5. 注销Administrator，重新用你的用户名登录Windows7，而后到“计算机管理器”里禁用Administrator,重启计算机即可。</p>
+<p>上面的方法执行成功后会在C盘看到users文件夹，其实只是一个链接过去的快捷方式类似的东西，真实的文件在d盘的users文件夹，而且查看C盘空间也能知道。</p>
+<p>而使用上面的方法后，谷歌浏览器访问QQ的几乎所有产品均出现严重问题，最后我修改了谷歌的默认文件夹位置，解决了这个问题，详细步骤以后发出来，绿色版的谷歌浏览器。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="211" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

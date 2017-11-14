@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>阿里云ecs遭到频繁的ddos攻击始末 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="苦逼熬夜近俩月的时间搞出来个小东东，还指望它能给自己捞点~ &amp;nbsp;结果刚上线没多久就遭到竞争对手疯狂的ddos攻击。 可怜的阿里云默认只能抗住5G的攻击，超出的直接黑洞，也是很无奈，然而能免费抗5G这在国内已经没有几家可以做到了。
+一旦被黑洞就面临30分钟-2.5小时的无法访问，这样对网站的用">
+  
+
+  <meta property="og:title" content="阿里云ecs遭到频繁的ddos攻击始末"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        阿里云ecs遭到频繁的ddos攻击始末
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-06-13T18:04:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-06-14
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>苦逼熬夜近俩月的时间搞出来个小东东，还指望它能给自己捞点~ &nbsp;结果刚上线没多久就遭到竞争对手疯狂的ddos攻击。 可怜的阿里云默认只能抗住5G的攻击，超出的直接黑洞，也是很无奈，然而能免费抗5G这在国内已经没有几家可以做到了。</p>
+<p>一旦被黑洞就面临30分钟-2.5小时的无法访问，这样对网站的用户体验来说是很糟糕的。 于是乎不停的寻找破解之法，当然以牙还牙，给对方一个警告还是要有的。 当然对方也是弱鸡一只，一打就挂，然而就是这样他们竟然还不停的发起挑衅，真是杀敌1000自损800也要干下去的节奏，不知道我哪里得罪了他们。</p>
+<p>当然，这样被动的打来打去的也不是办法，得想法子防住他们的攻击，然后把阿里云的产品研究了一大圈，什么SLB, CDN,OSS 问了一下除了OSS 其他的都无法防御ddos，而且OSS也无法保证。阿里云的高防价格贵上了天，我等穷屌丝站长只能望洋兴叹了。</p>
+<p>后来想了一个权宜之计，那就是使用SLB作为前端服务器，然后一旦被打死，马上更换解析。因为SLB是可以按小时计费的，2分钱/小时，所以一旦受到猛烈攻击可以直接使用SLB隐藏真实IP，然后被打死之后更换新的SLB即可。</p>
+<p>然而，对方不知道是吃了什么药，某个周末疯狂的攻击，换多少SLB对方打死你多少SLB，简直像疯狗一样。最后只好求助万能的淘宝，发现还真的有高防IP，然后试用了一家，果然可以防得住，性价比相对淘宝的高防IP来说便宜的一B。 据淘宝卖家发来的截图，峰值攻击流量达到了32Gbps，这样的防御阿里云 2万多一个月的高防都挡不住啊，有木有！不爽的地方就是很多地区的联通线路延迟过高，ping出现丢包等现象。</p>
+<p>最后找到了一个目前比较好用的东东，yundun.com 有需要的自己去看下吧。 免费防20G ddos~~ 这样的流量规模已经不是一般的小黑客可以搞出来的了，所以对付大部分的ddos都够了。</p>
+<p>来更新2016.8.3：</p>
+<p>用过一段时间的yundun.com之后，发现部分地区的访问会时断时连，反正就是免费的午餐不好吃，很多用户反映无法访问。 通过站长工具ping测试发现确实很多地区的网络是不通的，没办法只能另寻他法。 再后来偶然的机会看到了百度召开的一个百度云解析的一个什么大会，号称防住了 几百还是几千GB的 DDOS，仔细一看，是百度的加速了（我靠，这个很早以前就知道了好么，竟然不知道它还有这么神奇的功能），然后去研究了一下，果然跟云盾的功能雷同，解析过去之后发现免费的节点还挺多的，不错，这样黑客就很难通过攻击云加速解析的大量IP来弄死网站了。 到目前稳定免费运行。期间也出现个别地区用户无法访问的情况，不过比起云盾要好很多，给百度的云加速点个赞，中小站长防DDOS利器啊有木有~~</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="524" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

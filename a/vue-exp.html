@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>vue + vue-router + mint 开发记录 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近公司的项目正式开始使用 vue 的 cli脚手架进行开发。 开发过程中踩的一些坑，做一个简单的总结。
+文件保存目录方面弄清楚在webpack中的配置里面， /src/assets 是会由webpack自动编译后按照规则输出到/dist，而 /static则会原封不动的复制到 /dist
+基于以上">
+  
+
+  <meta property="og:title" content="vue + vue-router + mint 开发记录"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        vue + vue-router + mint 开发记录
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-08-24T08:56:50.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-08-24
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>·<a href="/categories/js/vue/">vue</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近公司的项目正式开始使用 vue 的 cli脚手架进行开发。 开发过程中踩的一些坑，做一个简单的总结。</p>
+<h2 id="文件保存目录方面"><a href="#文件保存目录方面" class="headerlink" title="文件保存目录方面"></a>文件保存目录方面</h2><p>弄清楚在webpack中的配置里面， /src/assets 是会由webpack自动编译后按照规则输出到/dist，而 /static则会原封不动的复制到 /dist</p>
+<p>基于以上原因， 建议项目中的 sass文件、img文件都保存到assets下，对于img文件等的引用使用相对路径即可。<br>一些开发阶段的demo图片等资源可以存放在 /static 下，用于测试。</p>
+<p>关于/src/assets/中的静态资源编译规则，可以参考这里：<a href="http://hq5544.github.io/vue-webpack/static.html" target="_blank" rel="external">http://hq5544.github.io/vue-webpack/static.html</a></p>
+<h2 id="router-问题"><a href="#router-问题" class="headerlink" title="router 问题"></a>router 问题</h2><p>可以使用<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--方式一--&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123;name: 'enroll', query:&#123;id:1&#125;"</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--方式二--&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123;name: 'enroll', params:&#123;id:1&#125;&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>第一种方式，参数接收可以使用，地址栏的查询字符串接收。<br>而第二种方式，需要在路由中设置形如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">path: path: <span class="string">'/detail/:id'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>的方式，在目标页面，使用 this.$route.params.xxx 的方式接收参数。同时，地址栏的表现也会不一样。 第一种地址栏为查询字符串， 第二种为path中设置的格式。<br>特别的一点， 在提交表单等内容后，若用户点击返回按钮，不想让用户返回到之前的表单页，则可以使用 replace 代替，push，或者在router-link中 增加属性 replace</p>
+<h2 id="关于infinite-scroll-记住位置的实现思路。"><a href="#关于infinite-scroll-记住位置的实现思路。" class="headerlink" title="关于infinite scroll 记住位置的实现思路。"></a>关于infinite scroll 记住位置的实现思路。</h2><p>在 router.beforeEach() 中将滚动位置写入localStorage（以页面名称为键名），然后再 router.afterEach() 中，读取并滚动到指定位置。 同时对无限滚动列表开启缓存。<br>注意： 若启用页面动画，则以上动作将失效。 可以将记住位置 以及 滚动到指定位置的功能放在动画的 回调事件中，达到同样的效果。</p>
+<h2 id="关于配合服务端项目，将spa-放入子目录相关的问题"><a href="#关于配合服务端项目，将spa-放入子目录相关的问题" class="headerlink" title="关于配合服务端项目，将spa 放入子目录相关的问题"></a>关于配合服务端项目，将spa 放入子目录相关的问题</h2><p>路由使用传统的hash模式，问题较少，但是如果为了更美观的路径以及减少页面跳转参数的复杂度等方面考虑，改为 history模式，将会麻烦许多。 官方给了一个nginx配置的例子，只是针对根目录，实际使用中，一般是要放在子目录的，因此配置较为繁琐，如果理解不明的话，可能会浪费很多时间。下面说一下思路<br>主要配置参数都在 webpack部分， 来看 /config/index.js 中的几个参数：</p>
+<ol>
+<li>如果需要放在子目录的话，那么 build.assetsPublicPath 必须使用相对目录，即 ‘./‘ 这代表了，输出到dist文件中 assets的引用路径是相index.html的路径，而不是相对于根目录的路径。</li>
+<li>在 /router/index.js 中，所有的路径要统一为服务器端设置的子目录路径，例如，服务器端的路径为 <a href="http://www.abc.com/path/to/dist/" target="_blank" rel="external">http://www.abc.com/path/to/dist/</a>  则路由index.js 中的路径也要统一为 /path/to/dist/router-name</li>
+<li>在nginx 配置中，使用转发， 将对应目录下找不到的文件，统一转发到 dist/index.html 只有这样才能找到 vue的路由，从而找到对应视图（这一句很重要，配置不对就会导致打开后页面完全空白）。<br>下面是一个 nginx配置的示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80</span><br><span class="line"></span><br><span class="line">        root D:/Webs/path/to/dist;</span><br><span class="line"></span><br><span class="line">        index index.html;</span><br><span class="line"></span><br><span class="line">        server_name localhost;</span><br><span class="line"></span><br><span class="line">        location /your-sub-dir/ &#123;</span><br><span class="line">            try_files $uri $uri/ /index.html last;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="关于使用vue-进行跨域请求的问题"><a href="#关于使用vue-进行跨域请求的问题" class="headerlink" title="关于使用vue 进行跨域请求的问题"></a>关于使用vue 进行跨域请求的问题</h2><p>其实跨域请求可以通过服务端增加 header allow-access-origion的方式将跨域请求的域添加进来，这样就可以使用axios请求同域一样的方式进行。 如果服务端设置有困难，那及建议的方式是引入 jsonp的 npm包。 具体的可以npm搜索jsonp 查看对应的参数。</p>
+<h2 id="关于使用axios-传递表单类型数据的问题"><a href="#关于使用axios-传递表单类型数据的问题" class="headerlink" title="关于使用axios 传递表单类型数据的问题"></a>关于使用axios 传递表单类型数据的问题</h2><p>默认的axios发送给服务端的数据为 json类型，需要服务端以实体的形式才能接收到，例如php需要使用 php://input 才能接收到输入流，传统的 get post 无法取到。 如果有些情况下无法获取值，那可以将要发送的json格式通过qs转换为 querystring的方式，然后修改请求的headers，实现代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先导入qs</span></span><br><span class="line"><span class="keyword">import</span> Qs <span class="keyword">from</span> <span class="string">'qs'</span></span><br><span class="line"><span class="comment">//在发送的时候修改头部信息。</span></span><br><span class="line">headers: &#123;</span><br><span class="line">    <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded; charset=UTF-8'</span></span><br><span class="line">&#125;,</span><br><span class="line">data: Qs.stringify(postData)</span><br></pre></td></tr></table></figure></p>
+<h2 id="关于过渡动画和缓存-keepAlive-问题"><a href="#关于过渡动画和缓存-keepAlive-问题" class="headerlink" title="关于过渡动画和缓存(keepAlive)问题"></a>关于过渡动画和缓存(keepAlive)问题</h2><p>可以在过渡动画的回调事件中进行记住列表位置等操作。 如果是无限滚动的列表，可以通过keepAlive来取消重复加载数据的问题。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="404" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

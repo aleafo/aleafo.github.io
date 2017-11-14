@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>配置好postfix邮件服务器之后就可以使用它来发送邮件了 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="下面是一段摘自W3school关于php mail函数的栗子，经过测试发现两个问题。
+&amp;lt;?php$to = “somebody@example.com, somebodyelse@example.com”;$subject = “HTML email”;$message = “HTML ema">
+  
+
+  <meta property="og:title" content="配置好postfix邮件服务器之后就可以使用它来发送邮件了"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        配置好postfix邮件服务器之后就可以使用它来发送邮件了
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-05-05T00:32:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-05-05
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/server/">SERVER</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>下面是一段摘自W3school关于php mail函数的栗子，经过测试发现两个问题。</p>
+<div class="cnblogs_code"><br><pre>&lt;?<span style="color: #000000;">php<br><br></span><span style="color: #800080;">$to</span> = “somebody@example.com, somebodyelse@example.com”<span style="color: #000000;">;<br></span><span style="color: #800080;">$subject</span> = “HTML email”<span style="color: #000000;">;<br><br></span><span style="color: #800080;">$message</span> = “<span style="color: #000000;"><br><html><br><head><br><title>HTML email</title><br></head><br><body><br><br>This email contains HTML Tags!<br><br><table><br><tr><br><th>Firstname</th><br><th>Lastname</th><br></tr><br><tr><br><td>John</td><br><td>Doe</td><br></tr><br></table><br></body><br></html><br></span>“<span style="color: #000000;">;<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 当发送 HTML 电子邮件时，请始终设置 content-type</span><br><span style="color: #800080;">$headers</span> = “MIME-Version: 1.0” . “\r\n”<span style="color: #000000;">;<br></span><span style="color: #800080;">$headers</span> .= “Content-type:text/html;charset=iso-8859-1” . “\r\n”<span style="color: #000000;">;<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 更多报头</span><br><span style="color: #800080;">$headers</span> .= ‘From: <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#58;&#x77;&#x65;&#98;&#109;&#x61;&#115;&#x74;&#101;&#114;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;">&#x77;&#x65;&#98;&#109;&#x61;&#115;&#x74;&#101;&#114;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;</a>‘ . “\r\n”<span style="color: #000000;">;<br></span><span style="color: #800080;">$headers</span> .= ‘Cc: myboss@example.com’ . “\r\n”<span style="color: #000000;">;<br><br></span><span style="color: #008080;">mail</span>(<span style="color: #800080;">$to</span>,<span style="color: #800080;">$subject</span>,<span style="color: #800080;">$message</span>,<span style="color: #800080;">$headers</span><span style="color: #000000;">);<br></span>?&gt;</pre><br></div>
+
+<p>首先是 编码问题。 测试发现中文乱码，改为 utf-8即可</p>
+<p>第二是回车换行符的问题，经过测试发现，headers信息并没有生效，而是被原样输出了。经过谷歌找到原因将回车换行改为PHP_EOL</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008000;">//</span><span style="color: #008000;"> 当发送 HTML 电子邮件时，请始终设置 content-type</span><br><span style="color: #800080;">$headers</span> = “MIME-Version: 1.0” . <span style="color: #ff00ff;">PHP_EOL</span><span style="color: #000000;">;<br></span><span style="color: #800080;">$headers</span> .= “Content-type:text/html;charset=iso-8859-1” . <span style="color: #ff00ff;">PHP_EOL</span><span style="color: #000000;">;<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 更多报头</span><br><span style="color: #800080;">$headers</span> .= ‘From: <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#119;&#101;&#98;&#109;&#97;&#115;&#x74;&#x65;&#114;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;">&#119;&#101;&#98;&#109;&#97;&#115;&#x74;&#x65;&#114;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;</a>‘ . <span style="color: #ff00ff;">PHP_EOL</span><span style="color: #000000;">;<br></span><span style="color: #800080;">$headers</span> .= ‘Cc: myboss@example.com’ . <span style="color: #ff00ff;">PHP_EOL</span>;</pre><br></div>
+
+<p>其实出现这个问题是因为windows下回车换行和linux下不一致导致的，PHP有内置解决方案。这样就搞定啦~</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="527" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

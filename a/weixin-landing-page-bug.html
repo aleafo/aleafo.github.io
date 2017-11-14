@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>微信iOS浏览器 单页应用（SPA) jssdk失效的bug - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近在vue的spa开发中使用到 jssdk， 遇到了不少坑。 总算填上了吧。下面说说一些jssdk 签名失败的问题，以及微信的签名分享的一些说明你。
+问题描述环境：iphone开发： vue-cli  hash模式直接从连接点击进入页面，jssdk调用成功。 如果先进入其他页面，再点击进入则提示 ">
+  
+
+  <meta property="og:title" content="微信iOS浏览器 单页应用（SPA) jssdk失效的bug"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        微信iOS浏览器 单页应用（SPA) jssdk失效的bug
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-11-14T08:40:36.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-11-14
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/JavaScript/">JavaScript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近在vue的spa开发中使用到 jssdk， 遇到了不少坑。 总算填上了吧。下面说说一些jssdk 签名失败的问题，以及微信的签名分享的一些说明你。</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>环境：iphone<br>开发： vue-cli  hash模式<br>直接从连接点击进入页面，jssdk调用成功。 如果先进入其他页面，再点击进入则提示 signatrue: failed。 </p>
+<p>其实也就是： iphone下，jssdk的调用只对 landingPage 有效，对通过spa跳转的URL 是无效的。举个例子：</p>
+<p>微信直接通过链接或者菜单访问 aa.com/a/,此时的landingPage 为aa.com/a/.</p>
+<p>然后通过该页跳转到  aa.com/b/， 在b页面进行jssdk调用的时候，微信会认为当前的URL仍然是a，也就是a仍然是landingPage，此时将location.href作为jssdk请求的URL发送，会出现signatrue失败的提示。</p>
+<p>但是，如果直接通过链接或者菜单访问 aa.com/b/ 就会成功。 此时的landingPage 就变成了 aa.com/b/</p>
+<p>而在安卓下则规则正常。也就是当前URL是啥微信就会怎么判断。 不管是直接点进来还是通过landingPage进行跳转。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>其实上面的原理 也是根据测试进行反推的。 既然知道了原理，就有了解决的办法。</p>
+<p>在router.afterEach() 中，判断如果为ios设备则去取 sessionStroage中的landingPage，若为空则说明当前页面即为landingPage，保存该url。<br>然后在需要调用jssdk的地方，判断若为ios设备，则取sessionStroage的值，否则取location.href</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//从其他页面进入列表页</span></span><br><span class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//判断是否为着陆页</span></span><br><span class="line">  <span class="keyword">if</span> ( navigator.userAgent.toLowerCase().indexOf(<span class="string">'iphone'</span>) !== <span class="number">-1</span>  &amp;&amp; !sessionStorage.getItem(<span class="string">'landingUrl'</span>))&#123;</span><br><span class="line">      sessionStorage.setItem(<span class="string">'landingUrl'</span>, location.href);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//然后再需要调用jssdk初始化的位置对url赋值</span></span><br><span class="line"><span class="keyword">let</span> url = location.href;</span><br><span class="line"><span class="keyword">if</span> (navigator.userAgent.toLowerCase().indexOf(<span class="string">'iphone'</span>) !== <span class="number">-1</span>)&#123;</span><br><span class="line">  url = sessionStorage.landingUrl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过以上方法即可实现 ios和安卓在 spa的hash模式下 兼容分享的问题。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="1199" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

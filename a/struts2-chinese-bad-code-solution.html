@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>struts2 中文乱码问题，自定义过滤器通用解决方法 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="问题描述在JSP中使用form表单向后台action中传递中文参数，后台action接收到参数出现中文乱码。JSP页面统一采用了utf-8编码格式。由于struts2默认采用的编码为utf-8，根据官方文档的提示,编码格式改为GBK,就能解决中文乱码。遂改之。但是，改为GBK后仍然出现中文乱码。很是">
+  
+
+  <meta property="og:title" content="struts2 中文乱码问题，自定义过滤器通用解决方法"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        struts2 中文乱码问题，自定义过滤器通用解决方法
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-01-30T23:54:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-01-31
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/java/">JAVA</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在JSP中使用form表单向后台action中传递中文参数，后台action接收到参数出现中文乱码。JSP页面统一采用了utf-8编码格式。由于struts2默认采用的编码为utf-8，根据官方文档的提示,编码格式改为GBK,就能解决中文乱码。遂改之。但是，改为GBK后仍然出现中文乱码。很是不解（后来去官网查了一下，发现这是个BUG）。</p>
+<h2 id="环境描述"><a href="#环境描述" class="headerlink" title="环境描述"></a>环境描述</h2><p>服务器采用tomcat6.0，struts的版本为2.3.12，spring的版本为2.5.6</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>1.如果你的项目采用了spring,那么请用spring的自带的过滤器来解决这个问题，你只要在web.xml添加如下代码（不推荐）：</p>
+<div class="cnblogs_Highlighter"><br><pre class="brush:java;gutter:true;"><!-- 利用Spring的Filter解决中文乱码问题 --><br>  <filter><br>      <filter-name>Set Character Encoding</filter-name><br>      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class><br>      <init-param><br>      <param-name>encoding</param-name><br>      <param-value>utf8</param-value><br>      </init-param><br>  </filter><br>  <filter-mapping><br>      <filter-name>Set Character Encoding</filter-name><br>      <url-pattern>/*</url-pattern><br>  </filter-mapping></pre><br></div><br><div>&nbsp;</div>
+
+<p><span><span><span>但是spring3.x之后的版本这个方法就失效了。所以最好的办法就是自己写一个过滤器。一个简单的字符过滤器实现如下（推荐）：</span></span></span></p>
+<div class="cnblogs_Highlighter"><br><pre class="brush:java;gutter:true;">package org.felix.common;<br><br>import java.io.IOException;<br><br>import javax.servlet.Filter;<br>import javax.servlet.FilterChain;<br>import javax.servlet.FilterConfig;<br>import javax.servlet.ServletException;<br>import javax.servlet.ServletRequest;<br>import javax.servlet.ServletResponse;<br><br>public class CharacterEncodingFilter implements Filter {<br><br>    protected FilterConfig filterConfig = null;<br>    protected String encoding = “”;<br>    public void destroy() {<br>        filterConfig = null;<br>        encoding = null;<br>    }<br><br>    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,<br>            FilterChain filterChain) throws IOException, ServletException {<br>        if(encoding != null &amp;&amp; !””.equals(encoding))<br>            servletRequest.setCharacterEncoding(encoding);<br>        filterChain.doFilter(servletRequest, servletResponse);<br>    }<br><br>    public void init(FilterConfig filterConfig) throws ServletException {<br>        this.filterConfig = filterConfig;<br>        this.encoding = filterConfig.getInitParameter(“encoding”);<br>    }<br><br>}<br></pre><br></div>
+
+<p><span style="line-height: 1.5;">注意，上面import的javax.servlet 需要你设置好tomcat的lib库才能生效，Project-&gt;Properties-&gt;Java Build Path-&gt;Libraries-&gt;Add Libraries -&gt; Server Runtime 找到你的Tomcat服务器确定。</span></p>
+<p><span style="line-height: 1.5;">然后你在web.xml中添加下面代码：</span></p>
+<div class="cnblogs_Highlighter"><br><pre class="brush:java;gutter:true;"><filter><br>        <filter-name>characterEncodingFilter</filter-name><br>        <filter-class>org.felix.common.CharacterEncodingFilter</filter-class><br>        <init-param><br>            <param-name>encoding</param-name><br>            <param-value>UTF-8</param-value><br>        </init-param><br>    </filter><br>    <filter-mapping><br>      <filter-name>characterEncodingFilter</filter-name><br>      <url-pattern>/*</url-pattern><br>    </filter-mapping><br></pre><br></div>
+
+<p><span style="line-height: 1.5;">2.如果你表单提交采用的是get请求.那么请在tomcat的server.xml中添加</span><em><strong>URIEncoding=”utf-8”</strong></em><span style="line-height: 1.5;">.(注意添加完后清理掉tomcat的缓存)</span></p>
+<div class="cnblogs_Highlighter"><br><pre class="brush:java;gutter:true;"><connector connectiontimeout="20000" port="8080" protocol="HTTP/1.1" redirectport="8443" uriencoding="utf-8"></connector></pre><br></div>
+
+<p>3.不建议采用的办法,在接收参数的时候进行转码(虽然能解决问题，但坚决抵制)，例如：</p>
+<div class="cnblogs_Highlighter"><br><pre class="brush:java;gutter:true;">String str = new String(request.getParameter(“something”).getBytes(“ISO-8859-1”),”utf-8”);</pre><br></div>
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="585" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

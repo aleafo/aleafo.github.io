@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>前端面试题 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="CSS部分说明： 按照难易程度 见到到困难依次为 1-5， 答案仅供参考。
+1. 如何清除浮动 1答案：
+
+父元素定义 overflow:hidden;
+使用 :after 伪类或新增一个div 设置 content 及 clear:both
+
+2. margin-bottom 对默认样式的span">
+  
+
+  <meta property="og:title" content="前端面试题"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        前端面试题
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-04T02:38:36.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-01-04
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/html/">HTML</a>·<a href="/categories/html/CSS/">CSS</a>·<a href="/categories/html/CSS/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="CSS部分"><a href="#CSS部分" class="headerlink" title="CSS部分"></a>CSS部分</h2><p>说明： 按照难易程度 见到到困难依次为 1-5， 答案仅供参考。</p>
+<h3 id="1-如何清除浮动-1"><a href="#1-如何清除浮动-1" class="headerlink" title="1. 如何清除浮动 1"></a>1. 如何清除浮动 1</h3><p>答案：</p>
+<ul>
+<li>父元素定义 overflow:hidden;</li>
+<li>使用 :after 伪类或新增一个div 设置 content 及 clear:both</li>
+</ul>
+<h3 id="2-margin-bottom-对默认样式的span-是否起作用，为什么？-3"><a href="#2-margin-bottom-对默认样式的span-是否起作用，为什么？-3" class="headerlink" title="2. margin-bottom 对默认样式的span 是否起作用，为什么？ 3"></a>2. margin-bottom 对默认样式的span 是否起作用，为什么？ 3</h3><p>答案： margin在竖直方向上 等对inline元素不起作用，因为inline元素默认没有宽高属性。</p>
+<h3 id="3-padding-left-对默认的span-元素是否起作用，-padding-bottom呢？-3"><a href="#3-padding-left-对默认的span-元素是否起作用，-padding-bottom呢？-3" class="headerlink" title="3. padding-left 对默认的span 元素是否起作用， padding-bottom呢？ 3"></a>3. padding-left 对默认的span 元素是否起作用， padding-bottom呢？ 3</h3><p>答案： padding-left 有效， 而 padding-bottom 无效，因为inline元素没有宽高属性。</p>
+<h3 id="4-简单解释一下-font-size-10rem-中-rem-的作用-好处？-3"><a href="#4-简单解释一下-font-size-10rem-中-rem-的作用-好处？-3" class="headerlink" title="4. 简单解释一下 font-size: 10rem 中 rem 的作用/好处？ 3"></a>4. 简单解释一下 font-size: 10rem 中 rem 的作用/好处？ 3</h3><p>参考答案： 可以根据root元素大小来 自适应 改变字体大小。方便全站统一调整尺寸。</p>
+<h3 id="5-使用css选择器选择-被选中的-checkbox-类型的按钮-3"><a href="#5-使用css选择器选择-被选中的-checkbox-类型的按钮-3" class="headerlink" title="5.  使用css选择器选择 被选中的 checkbox 类型的按钮 3"></a>5.  使用css选择器选择 被选中的 checkbox 类型的按钮 3</h3><p>答案： [type=checkbox]:checked</p>
+<h3 id="6-使用伪类，编写一个样式，实现每行4个li元素中的最后一个元素右外边距为0-2"><a href="#6-使用伪类，编写一个样式，实现每行4个li元素中的最后一个元素右外边距为0-2" class="headerlink" title="6. 使用伪类，编写一个样式，实现每行4个li元素中的最后一个元素右外边距为0 2"></a>6. 使用伪类，编写一个样式，实现每行4个li元素中的最后一个元素右外边距为0 2</h3><p>答案： li:nth-child(4n+4){margin-right:0;}</p>
+<h3 id="7-display-和-visibility的区别-2"><a href="#7-display-和-visibility的区别-2" class="headerlink" title="7. display 和 visibility的区别 2"></a>7. display 和 visibility的区别 2</h3><p>  display: none 相当于 remove dom.  而 visibility: hidden 相当于 hide dom.</p>
+<h3 id="8-了解哪些浏览器内核？-2"><a href="#8-了解哪些浏览器内核？-2" class="headerlink" title="8. 了解哪些浏览器内核？ 2"></a>8. 了解哪些浏览器内核？ 2</h3><p>参考答案： IE 火狐（Gecko） webkit opera（Presto）</p>
+<h3 id="9-title-与-alt-的应用场景-2"><a href="#9-title-与-alt-的应用场景-2" class="headerlink" title="9. title 与 alt 的应用场景 2"></a>9. title 与 alt 的应用场景 2</h3><p>参考答案： title 一般用于提示超链接等， alt用户图片，且为标准设计中的必填属性</p>
+<h3 id="10-如何理解html标签语义化-3"><a href="#10-如何理解html标签语义化-3" class="headerlink" title="10. 如何理解html标签语义化 3"></a>10. 如何理解html标签语义化 3</h3><h3 id="11-CSS的几种标签选择器的优先级是如何排列的-2"><a href="#11-CSS的几种标签选择器的优先级是如何排列的-2" class="headerlink" title="11. CSS的几种标签选择器的优先级是如何排列的 2"></a>11. CSS的几种标签选择器的优先级是如何排列的 2</h3><p> important  行内 id  class tagName</p>
+<h3 id="12-相邻选择器如何表示？-3"><a href="#12-相邻选择器如何表示？-3" class="headerlink" title="12. 相邻选择器如何表示？ 3"></a>12. 相邻选择器如何表示？ 3</h3><ul>
+<li>或 ~</li>
+</ul>
+<h3 id="13。-子选择器如何表示？-2"><a href="#13。-子选择器如何表示？-2" class="headerlink" title="13。 子选择器如何表示？ 2"></a>13。 子选择器如何表示？ 2</h3><p>  大于号或空格</p>
+<h3 id="14-垂直居中的方法？-3"><a href="#14-垂直居中的方法？-3" class="headerlink" title="14. 垂直居中的方法？ 3"></a>14. 垂直居中的方法？ 3</h3><p>参考答案：</p>
+<h3 id="15-了解哪些前端框架-2"><a href="#15-了解哪些前端框架-2" class="headerlink" title="15. 了解哪些前端框架 2"></a>15. 了解哪些前端框架 2</h3><p>参考答案：bootstrap  easyUI jquery angular vue react  等</p>
+<h3 id="16-IE8-的hack-怎么写-2"><a href="#16-IE8-的hack-怎么写-2" class="headerlink" title="16.  IE8 的hack 怎么写 2"></a>16.  IE8 的hack 怎么写 2</h3><p>参考 color: #66ffcc\9;</p>
+<h3 id="17-absolute-定位的元素-是相对于什么元素进行定位-2"><a href="#17-absolute-定位的元素-是相对于什么元素进行定位-2" class="headerlink" title="17.  absolute 定位的元素 是相对于什么元素进行定位 2"></a>17.  absolute 定位的元素 是相对于什么元素进行定位 2</h3><p>参考答案： 所有的父元素中最近的 非static定位的元素</p>
+<h3 id="18-设置为-visibility-hidden的-img-标签元素，会触发http请求吗？-2"><a href="#18-设置为-visibility-hidden的-img-标签元素，会触发http请求吗？-2" class="headerlink" title="18. 设置为 visibility: hidden的 img 标签元素，会触发http请求吗？ 2"></a>18. 设置为 visibility: hidden的 img 标签元素，会触发http请求吗？ 2</h3><p>答案： 会。</p>
+<h3 id="19-左右结构的网页布局中，左侧为侧边栏，右侧为正文，如何才能先显示出正文，再显示出侧边栏？-3"><a href="#19-左右结构的网页布局中，左侧为侧边栏，右侧为正文，如何才能先显示出正文，再显示出侧边栏？-3" class="headerlink" title="19. 左右结构的网页布局中，左侧为侧边栏，右侧为正文，如何才能先显示出正文，再显示出侧边栏？ 3"></a>19. 左右结构的网页布局中，左侧为侧边栏，右侧为正文，如何才能先显示出正文，再显示出侧边栏？ 3</h3><p>答案： 在html结构中，先写正文部分，再写侧边栏部分，通过css控制样式即可。因为html结构是自上而下渲染的。</p>
+<h3 id="20-使用字体图标的优点。2"><a href="#20-使用字体图标的优点。2" class="headerlink" title="20. 使用字体图标的优点。2"></a>20. 使用字体图标的优点。2</h3><p>参考答案：</p>
+<ul>
+<li>① 可以自定义图标颜色；</li>
+<li>② 自定义图标尺寸；</li>
+<li>③ 减少图片带来的http请求</li>
+<li>④ 兼容性好（png24在低版本IE中出现灰色背景）</li>
+</ul>
+<h3 id="21-cookies-locaStorage-sessionStorage-区别-2"><a href="#21-cookies-locaStorage-sessionStorage-区别-2" class="headerlink" title="21. cookies  locaStorage sessionStorage 区别 2"></a>21. cookies  locaStorage sessionStorage 区别 2</h3><p>参考答案：</p>
+<ul>
+<li>相同点： 都可以用来存储浏览器客户的数据；</li>
+<li>不同点： cookies 可以用来保存的数据长度有限。 sessionStorage 保存的数据在会话结束后自动清除。localStorage则不会<h3 id="22-script标签通常都放在html页面的什么位置最佳。-2"><a href="#22-script标签通常都放在html页面的什么位置最佳。-2" class="headerlink" title="22. script标签通常都放在html页面的什么位置最佳。 2"></a>22. script标签通常都放在html页面的什么位置最佳。 2</h3>答案： body之前</li>
+</ul>
+<h3 id="23-box-sizing-border-box-属性是什么意思？-2"><a href="#23-box-sizing-border-box-属性是什么意思？-2" class="headerlink" title="23. box-sizing: border-box 属性是什么意思？ 2"></a>23. box-sizing: border-box 属性是什么意思？ 2</h3><p>答案： 计算dom宽高的时候将border和padding一并计算为 宽和高。</p>
+<h3 id="24-transform-translateX-10px-的作用是什么？-2"><a href="#24-transform-translateX-10px-的作用是什么？-2" class="headerlink" title="24. transform: translateX(-10px) 的作用是什么？ 2"></a>24. transform: translateX(-10px) 的作用是什么？ 2</h3><p>答案： 将元素沿X轴，移动 -10px</p>
+<h3 id="25-display-flex-是什么意思？-3"><a href="#25-display-flex-是什么意思？-3" class="headerlink" title="25. display: flex 是什么意思？ 3"></a>25. display: flex 是什么意思？ 3</h3><p>答案： 元素内的元素将以flex的布局方式排列。</p>
+<h2 id="JS-部分"><a href="#JS-部分" class="headerlink" title="JS 部分"></a>JS 部分</h2><h3 id="1-var-foo-10-‘20’-输出结果-2"><a href="#1-var-foo-10-‘20’-输出结果-2" class="headerlink" title="1.  var foo = 10 +  ‘20’; 输出结果 2"></a>1.  var foo = 10 +  ‘20’; 输出结果 2</h3><p>答案： 1020</p>
+<h3 id="2-window-document-document-输出结果-2"><a href="#2-window-document-document-输出结果-2" class="headerlink" title="2.  window.document === document 输出结果 2"></a>2.  window.document === document 输出结果 2</h3><p>答案： true</p>
+<h3 id="3-js-获取元素的方法有哪些？-3"><a href="#3-js-获取元素的方法有哪些？-3" class="headerlink" title="3. js 获取元素的方法有哪些？ 3"></a>3. js 获取元素的方法有哪些？ 3</h3><p>答案：<br>getElementById getElementsByClassName  getElementsByTagName querySelector querySelectorAll</p>
+<h3 id="4-题3中，最快的是哪一种？-2"><a href="#4-题3中，最快的是哪一种？-2" class="headerlink" title="4. 题3中，最快的是哪一种？ 2"></a>4. 题3中，最快的是哪一种？ 2</h3><p>答案 : getElementById</p>
+<h3 id="5-如何获取整个页面的文本内容（不包含任何标签的文本）-2"><a href="#5-如何获取整个页面的文本内容（不包含任何标签的文本）-2" class="headerlink" title="5. 如何获取整个页面的文本内容（不包含任何标签的文本） 2"></a>5. 如何获取整个页面的文本内容（不包含任何标签的文本） 2</h3><p>答案： document.body.innerText;</p>
+<h3 id="6-async-关键字用于script标签时，如果是内嵌的js，能否生效？-3"><a href="#6-async-关键字用于script标签时，如果是内嵌的js，能否生效？-3" class="headerlink" title="6. async 关键字用于script标签时，如果是内嵌的js，能否生效？ 3"></a>6. async 关键字用于script标签时，如果是内嵌的js，能否生效？ 3</h3><p>答案： 不能。 async 只对外链的js生效。</p>
+<h3 id="7-简述一下事件冒泡过程。-4"><a href="#7-简述一下事件冒泡过程。-4" class="headerlink" title="7. 简述一下事件冒泡过程。 4"></a>7. 简述一下事件冒泡过程。 4</h3><p>答案： 例如 table&gt;tr&gt;td中点击td，将依次触发 td tr table body document的点击事件。</p>
+<h3 id="8-编写给一个元素添加-类名的函数。-3"><a href="#8-编写给一个元素添加-类名的函数。-3" class="headerlink" title="8.  编写给一个元素添加 类名的函数。 3"></a>8.  编写给一个元素添加 类名的函数。 3</h3><p>参考答案：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClass</span>(<span class="params">selector, className</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">var</span> elm = <span class="built_in">document</span>.querySelector(selector);</span><br><span class="line">   <span class="keyword">if</span> (elm)&#123;</span><br><span class="line">      elm.classList.add(className);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="9-简述-null-和-undefined-的区别。-4"><a href="#9-简述-null-和-undefined-的区别。-4" class="headerlink" title="9. 简述 null 和 undefined 的区别。 4"></a>9. 简述 null 和 undefined 的区别。 4</h3><p>答案： undefined 意味着变量没有被定义。以下情形会返回undefined</p>
+<ul>
+<li>已定义但是未赋值的变量</li>
+<li>没有任何返回值的函数或者片段</li>
+<li>在对象中查找不存在的属性</li>
+<li>是一个全局变量<br>null<br>空的或者不存在的值。<br>null ==  undefined</li>
+</ul>
+<h3 id="10-和-的区别-2"><a href="#10-和-的区别-2" class="headerlink" title="10. ==  和 === 的区别 2"></a>10. ==  和 === 的区别 2</h3><p>答案： === 除了对比值是否相等，还要对比类型是否相等，只有全部相等才会成立。</p>
+<h3 id="11-举例说明-split-的用法-2"><a href="#11-举例说明-split-的用法-2" class="headerlink" title="11.  举例说明 split 的用法 2"></a>11.  举例说明 split 的用法 2</h3><p>参考：<br>var a = ‘1,2,3,5’;<br>console.log(a.split(‘,’));</p>
+<h3 id="12-jQuery常用的一些优化性能的写法举例-3"><a href="#12-jQuery常用的一些优化性能的写法举例-3" class="headerlink" title="12.  jQuery常用的一些优化性能的写法举例 3"></a>12.  jQuery常用的一些优化性能的写法举例 3</h3><p>参考：</p>
+<ul>
+<li>缓存dom元素。 例如 var $dom = $(‘#parent-selector’);</li>
+<li>使用for 循环 代替 for in 遍历数组。因为for in 遍历包含元素自身的属性。</li>
+<li>尽量使用id查询</li>
+<li>classed前面使用tags</li>
+<li>链式写法</li>
+<li>减少dom的操作。 例如，循环中先生成html，最后再操作dom</li>
+</ul>
+<h3 id="13-下面的代码片段输出结果是什么？-3"><a href="#13-下面的代码片段输出结果是什么？-3" class="headerlink" title="13. 下面的代码片段输出结果是什么？ 3"></a>13. 下面的代码片段输出结果是什么？ 3</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">"Hello"</span>;</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> bar = <span class="string">" World"</span>;</span><br><span class="line">  alert(foo + bar);</span><br><span class="line">&#125;)();</span><br><span class="line">alert(foo + bar);</span><br><span class="line">答案： Hello world !</span><br></pre></td></tr></table></figure>
+<h3 id="14-下面代码运行结束后，foo-length-的结果是什么？-2"><a href="#14-下面代码运行结束后，foo-length-的结果是什么？-2" class="headerlink" title="14. 下面代码运行结束后，foo.length 的结果是什么？ 2"></a>14. 下面代码运行结束后，foo.length 的结果是什么？ 2</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = [];</span><br><span class="line">foo.push(<span class="number">1</span>);</span><br><span class="line">foo.push(<span class="number">2</span>);</span><br><span class="line">答案： <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h3 id="15-下面代码运行结束后，-foo-x-的结果是什么？-3"><a href="#15-下面代码运行结束后，-foo-x-的结果是什么？-3" class="headerlink" title="15. 下面代码运行结束后， foo.x 的结果是什么？ 3"></a>15. 下面代码运行结束后， foo.x 的结果是什么？ 3</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;<span class="attr">n</span>: <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> bar = foo;</span><br><span class="line">foo.x = foo = &#123;<span class="attr">n</span>: <span class="number">2</span>&#125;;</span><br><span class="line">答案：  <span class="literal">undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="16-什么是重绘-repaint-3"><a href="#16-什么是重绘-repaint-3" class="headerlink" title="16.  什么是重绘 repaint 3"></a>16.  什么是重绘 repaint 3</h3><p>答案： 元素外观改变，大小不变。</p>
+<h3 id="17-什么事渲染-reflow-3"><a href="#17-什么事渲染-reflow-3" class="headerlink" title="17. 什么事渲染 reflow 3"></a>17. 什么事渲染 reflow 3</h3><p>答案：元素大小改变或增减元素。</p>
+<h3 id="18-重绘和渲染的区别-是什么？-3"><a href="#18-重绘和渲染的区别-是什么？-3" class="headerlink" title="18. 重绘和渲染的区别 是什么？ 3"></a>18. 重绘和渲染的区别 是什么？ 3</h3><p>渲染开销较大，位于其后的所有元素都将重新渲染。 而重绘，只是修改了外观，开销相对较小。尤其是移动端。</p>
+<h3 id="19-http-请求返回的状态码中-200，-500-，404-分别代表什么含义？-2"><a href="#19-http-请求返回的状态码中-200，-500-，404-分别代表什么含义？-2" class="headerlink" title="19. http 请求返回的状态码中 200， 500 ，404 分别代表什么含义？ 2"></a>19. http 请求返回的状态码中 200， 500 ，404 分别代表什么含义？ 2</h3><p>答案： 200 请求成功。 500 服务器内部错误， 404 找不到页面。</p>
+<h3 id="20-前端开发中减少-http-请求的方法有哪些？-3"><a href="#20-前端开发中减少-http-请求的方法有哪些？-3" class="headerlink" title="20.  前端开发中减少 http 请求的方法有哪些？ 3"></a>20.  前端开发中减少 http 请求的方法有哪些？ 3</h3><p>答案：</p>
+<ul>
+<li>合并js css</li>
+<li>使用雪碧图</li>
+<li>使用字体图标</li>
+</ul>
+<h3 id="21-用过的前端构建工具有哪些，构建工具的好处是什么？-3"><a href="#21-用过的前端构建工具有哪些，构建工具的好处是什么？-3" class="headerlink" title="21. 用过的前端构建工具有哪些，构建工具的好处是什么？ 3"></a>21. 用过的前端构建工具有哪些，构建工具的好处是什么？ 3</h3><p>参考答案： 例如， grunt gulp webpack 等。 好处是 可以提升前端开发的效率，使前端开发流程更加规范化。</p>
+<h3 id="22-用过什么-MVVM框架，简述一下MVVM框架-解决了什么问题？-4"><a href="#22-用过什么-MVVM框架，简述一下MVVM框架-解决了什么问题？-4" class="headerlink" title="22. 用过什么 MVVM框架，简述一下MVVM框架 解决了什么问题？ 4"></a>22. 用过什么 MVVM框架，简述一下MVVM框架 解决了什么问题？ 4</h3><p>参考答案： Angular/Vue/React  解决了，修改modal层的数据后，更新view层的麻烦，以及使VIEW层逻辑更加清晰且易于维护。</p>
+<h3 id="23-let-与-const-区别-3"><a href="#23-let-与-const-区别-3" class="headerlink" title="23. let 与 const 区别 3"></a>23. let 与 const 区别 3</h3><p>let 类似于var 只作用于所在的代码块，相当于局部变量；<br>const 声明一个不可修改的常量。</p>
+<h3 id="24-正则表达式中-ig-代表的含义是什么？-3"><a href="#24-正则表达式中-ig-代表的含义是什么？-3" class="headerlink" title="24. 正则表达式中 /ig  代表的含义是什么？ 3"></a>24. 正则表达式中 /ig  代表的含义是什么？ 3</h3><p>答案： i 代表 ignore 忽略大小写， g 代表globa 全局匹配</p>
+<h3 id="25-以下表达式输出什么？-4"><a href="#25-以下表达式输出什么？-4" class="headerlink" title="25. 以下表达式输出什么？ 4"></a>25. 以下表达式输出什么？ 4</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(a)&#123;</span><br><span class="line">    <span class="keyword">this</span>.a = a;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> C(<span class="number">2</span>).a);</span><br></pre></td></tr></table></figure>
+<p>答案： 2</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="701" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

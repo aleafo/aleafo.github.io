@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>国内主流大型网站的服务器操作系统和webserver - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="偶然心血来潮想看看国内的这些大大网站们都用的什么服务器，神马OS，于是开始找谷歌阿姨商量解决我的疑问。搜了半天也没见几个人在讨论这个问题，只好自己动手，具体的资料没找到但是相关资料已经可以让我基本解决我的好奇心了。
+第一个点击就是CSDN上面有为哥们给出了新浪微博所使用的OS和webserver，新">
+  
+
+  <meta property="og:title" content="国内主流大型网站的服务器操作系统和webserver"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        国内主流大型网站的服务器操作系统和webserver
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-05-09T07:18:31.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-05-09
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/linux/">linux</a>·<a href="/tags/server/">server</a>·<a href="/tags/nginx/">nginx</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>偶然心血来潮想看看国内的这些大大网站们都用的什么服务器，神马OS，于是开始找谷歌阿姨商量解决我的疑问。搜了半天也没见几个人在讨论这个问题，只好自己动手，具体的资料没找到但是相关资料已经可以让我基本解决我的好奇心了。</p>
+<p>第一个点击就是CSDN上面有为哥们给出了新浪微博所使用的OS和webserver，<a href="http://topic.csdn.net/u/20100407/15/2d31c268-1455-469a-8319-7ad67291cf1c.html" title="来自CSDN上面的帖子 - 新浪微博用什么服务器" target="_blank" rel="external">新浪微博用什么语言开发的</a>，应该比较容易看出来是PHP+APACHE，通过FF的网络头信息也能看到</p>
+<p><pre>Date    Thu, 05 May 2011 07:31:00 GMT<br>Server    Apache<br>Set-Cookie    U_TRS1=00000015.4ac012a0.4dc25234.d04155b1; …<br>Cache-Control    no-cache, must-revalidate<br>Expires    Sat, 26 Jul 1997 05:00:00 GMT<br>Pragma    no-cache</pre><br>呵呵，你还不知道怎么使用FF的firebug来查看一个网站的网络头部信息吗，那这里就再啰嗦几句：</p>
+<p>FF安装firebug（不会的自己找谷歌阿姨），然后打开你要查看头部信息的网页，启动firebug（就是点一下下那个小虫子的图标），然后切换到网络（net）标签，刷新网页，这个时候你就能看到加载该页面的HTTP请求都有哪些了，然后点击其中的一个前面的+号，就能看到头部信息了，so easy！</p>
+<p>下面再介绍几种查看头网站所使用的服务器的操作系统网站服务器的方法：</p>
+<p>1. 在对应域名下输入一个不存在的网址，比如 <a href="http://baidu.com/bendan/，这种情况下就会返回一个404错误，开启浏览器的错误显示，可能会得到需要的信息，但是通常一个好的网站一般不会返回给你有用的信息；" target="_blank" rel="external">http://baidu.com/bendan/，这种情况下就会返回一个404错误，开启浏览器的错误显示，可能会得到需要的信息，但是通常一个好的网站一般不会返回给你有用的信息；</a></p>
+<p>2.在对应域名下输入index/default .  扩展名（asp,php,jsp,aspx,py,pl,rb,cgi）来尝试，但是也很有可能没有一个好使，而且还有一种可能即时好使了也未必就一定是对应的语言，因为完全可以通过URLREWRITE来实现重写URL，比如大猫的博客每篇文章的扩展名不是我们所熟知的任意一种而是<a href="http://ooxx.me/hosts.orz" title="orz扩展名示例，改HOSTS文件更换网址对应IP" target="_blank" rel="external">ORZ的扩展名</a>；</p>
+<p>3.使用php文件获取文件头信息，代码如下：</p>
+<p><pre>&lt;?php<br>$url = ‘<a href="http://www.qhdhzx.cn/" target="_blank" rel="external">http://www.qhdhzx.cn/</a>‘;<br>print_r(get_headers($url));<br>echo “&lt;br /&gt;”;<br>print_r(get_headers($url, 1));<br>?&gt;</pre><br>4. 使用firebug来查看网页头部信息的方法，上面已经说了，自己翻；</p>
+<p>5. 专业的查看网站，大家可以通过这个网站来看：<a href="http://toolbar.netcraft.com/site_report?url=google.com" target="_blank" rel="external">http://toolbar.netcraft.com/site_report?url=google.com</a></p>
+<p>废话了一大堆了，下面就使用我们介绍的这几种方法来查看到的国内的大大网站们用的服务器了，当然这些只是表象，内部的程序我们不作讨论。</p>
+<p>谷歌 google.com.hk</p>
+<p>GWS(貌似是谷歌自己的WEBSERVER） + 未知</p>
+<p>腾讯 qq.com</p>
+<p>nginx  + php/jsp</p>
+<p>百度 baidu.com</p>
+<p>BWS(估计是百度自己改的，看上去跟谷歌的怎么那么像，呵呵，你懂的）+ php （可以直接访问 <a href="http://www.baidu.com/index.php）" target="_blank" rel="external">http://www.baidu.com/index.php）</a></p>
+<p>新浪 www.sina.com.cn</p>
+<p>Apache/2.0.63 (Unix) + php/jsp</p>
+<p>网易 163.com</p>
+<p>nginx  + php (163.com/index.php可以访问,被直接302到了163.com)</p>
+<p>可以看到<a href="http://wiki.nginx.org/Chs" title="nginx的介绍，很牛B的server" target="_blank" rel="external">nginx</a>在构建门户网站上面的应用越来越有分量了，而挨踢界大佬的微软webserver解决方案所用的IIS却压根没有出现在以上网站中，其实主要原因是大多数的网站服务器的操作系统都是linux的而非Windows。</p>
+<p>本文以上内容是个人测试的实际情况，跟网站实际使用的服务器和开发语言可能有出入，仅供参考。最后给出一篇古老的文章，传送门：<a href="http://www.cnblogs.com/midea0978/archive/2007/03/17/678322.html" title="cnblog上的 - 各大网站的web服务器分析" target="_blank" rel="external">各大网站的web服务器分析</a>。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="238" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

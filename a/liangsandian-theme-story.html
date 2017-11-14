@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>两三点wordpress主题那点事 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="我这个难产的博客，从去年就开始做，做了3个版本，都是匆匆完工，结果自我感觉一点也不良好。最后终于肯静下来认真的写一写了，不过直到现在还是不满意，但最起码见得了人了，呵呵。
+后期的主题优化方面，在主题里面包含了N个插件，以便更换或者升级的时候更方便一些。把社会化分享、日志评论排版、文章目录、中文摘要、">
+  
+
+  <meta property="og:title" content="两三点wordpress主题那点事"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        两三点wordpress主题那点事
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-05-05T07:04:24.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-05-05
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/wordpress/">wordpress</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>我这个难产的博客，从去年就开始做，做了3个版本，都是匆匆完工，结果自我感觉一点也不良好。最后终于肯静下来认真的写一写了，不过直到现在还是不满意，但最起码见得了人了，呵呵。</p>
+<p>后期的主题优化方面，在主题里面包含了N个插件，以便更换或者升级的时候更方便一些。把社会化分享、日志评论排版、文章目录、中文摘要、去目录URL中category等功能直接放到了主题中的functions.php文件中。</p>
+<p>然后又自己加了点乱七八糟的，比如<a href="http://liangsandian.com/a/remove-wordpress-nav-classes/" title="去掉wordpress导航菜单样式表名">去掉导航中冗余样式表名称</a>，去掉侧边栏的一些用不到的样式表名称，去掉头部的<a href="http://www.metsky.com/archives/461.html" title="如何使用wordpress shortlink标签" target="_blank" rel="external">shortlink</a>等。</p>
+<p>后来通过FF的性能检测，发现样式表在首页的时候出现了大量冗余，然后就在头部增加一个判断，如果是单页频道再加载那些控制评论表单的样式，这样可以节省那些只访问首页用户的带宽，但是如果只访问内页的时候就会增加一个HTTP请求，其实有利有弊，但是访问量不大的情况下也没那必要做的太抠门，呵呵。图片已经使用split了就不必再在这里抠了。</p>
+<p>再接下来的步骤就是在线的W3C验证。这里简单罗列一下需要注意的一些问题。</p>
+<p>1. 自己做的个文章目录addfilter，结果粗心导致&lt;/ul&gt;闭合标签没能匹配正确，用W3C验证一下问题很明显，这就告诫童鞋们做完之后一定记得验证，虽然有些问题不必修复；</p>
+<p>2. 出现警告“Byte-Order Mark found in UTF-8 File.” 没太翻译明白，但是大体意思就是UTF-8编码的问题，后来谷歌了一下说是使用某些文本编辑器导致文件头部增加了BOM所以才出现这个警告提示。后来回忆了一下，我用win记事本修改过header.php文件和functions.php文件。</p>
+<p>检查的方法很简单，使用ultraEdit打开文件，然后切换到16进制下面，看文件开头部分是否为0xEF, 0xBB, 0xBF，如果是这些标记那肯定就是被添加了BOM头，只需要另存为UTF-8（无BOM）格式即可。大家也可以使用下面的代码来快速移除带有UTF-8 BOM的文件头(注，下面的代码我没有测试过，内容来自互联网)。</p>
+<p><pre>//此文件用于快速测试UTF-8的文件是否加了BOM，并可以快速移除。<br>//By Bob Shen </pre></p>
+<p>$basedir=”.”; //修改此行为需要检测的目录，点表示当前目录<br>$auto=1; //是否自动移除BOM信息，1为是，0为否。</p>
+<p>//以下不用改动 </p>
+<p>if ($dh = opendir($basedir)) {<br>while (($file = readdir($dh)) !== false) {<br>if ($file!=’.’ &amp;&amp; $file!=’..’ &amp;&amp; !is_dir($basedir.”/“.$file)) echo “filename: $file “.checkBOM(“$basedir/$file”).”<br>“;<br>}<br>closedir($dh);<br>} </p>
+<p>function checkBOM ($filename) {<br>global $auto;<br>$contents=file_get_contents($filename);<br>$charset[1]=substr($contents, 0, 1);<br>$charset[2]=substr($contents, 1, 1);<br>$charset[3]=substr($contents, 2, 1);<br>if (ord($charset[1])==239 &amp;&amp; ord($charset[2])==187 &amp;&amp; ord($charset[3])==191) {<br>if ($auto==1) {<br>$rest=substr($contents, 3);<br>rewrite ($filename, $rest);<br>return (“BOM found, automatically removed.”);<br>} else {<br>return (“BOM found.”);<br>}<br>}<br>else return (“BOM Not Found.”);<br>} </p>
+<p>function rewrite ($filename, $data) {<br>$filenum=fopen($filename,”w”);<br>flock($filenum,LOCK_EX);<br>fwrite($filenum,$data);<br>fclose($filenum);<br>}<br>?&gt;<br>3. CSS部分，一些主要提示就是新的CSS3私有属性不被支持，但是为了好的视觉效果就牺牲这里的检测结果吧，呵呵，或者使用js输出样式表，不过那就有点纯属为了看到那个诱人的绿色passed而做了，没洁癖的话就不要那么做了。</p>
+<p>4. 一点疑问，在CSS3检测的时候border-radius属性不被支持，会提示对应的样式“语法错误 [empty string]”，但是本身这个属性在webkit和FF下都可以正常运行，而W3C检测却出现问题，可能是W3C的规则还没有跟上步伐吧，本条说法纯属个人YY，实际情况可能并非如此。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="236" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

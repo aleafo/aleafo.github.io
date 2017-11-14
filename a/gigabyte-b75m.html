@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>技嘉 gigabyte b75m d3v 主板 定时开机无效问题解决 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="BIOS 里面设置定时开机后发现到点并没有正常启动~~~ &amp;nbsp;百思不得解。后来发现原来是WIN8系统下的控制面板的关机并非正常关机，而是不保存设置的非正常关机，在开始菜单右键&amp;mdash;&amp;mdash;关闭或注销&amp;mdash;&amp;mdash;关闭计算机 这里的关闭才是传统意义上的正常关机。 定">
+  
+
+  <meta property="og:title" content="技嘉 gigabyte b75m d3v 主板 定时开机无效问题解决"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        技嘉 gigabyte b75m d3v 主板 定时开机无效问题解决
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2014-01-23T18:33:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2014-01-24
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>BIOS 里面设置定时开机后发现到点并没有正常启动~~~ &nbsp;百思不得解。后来发现原来是WIN8系统下的控制面板的关机并非正常关机，而是不保存设置的非正常关机，在开始菜单右键&mdash;&mdash;关闭或注销&mdash;&mdash;关闭计算机 这里的关闭才是传统意义上的正常关机。 定时开机不起作用正是因为这里的非正常关机导致。同时注意ERP功能必须处于关闭状态（Disabled）</p>
+<p>&nbsp;</p>
+<p><span style="line-height: 1.5;">附：定时开机设置步骤，前提是你的主板支持该功能</span></p>
+<p>1.进入系统BIOS（台式机开机del，笔记本通常是F2或F10，具体可以自行百度电脑品牌+进入BIOS方法），移动光标到&ldquo;Power Management Setup “项后按回车。</p>
+<p>2.在打开的菜单中找到&ldquo;Power Up Alarm “选项（若找不到说明主板不支持），其默认值为&ldquo;Disabled “,即不能定时开机，按PageDown键将其改为&ldquo;Enabled “.</p>
+<p>3.后面的 Day 表示日，范围1~31，设置为0表示每天； Hour 小时 1~23，24小时制的；Minute分钟和Second秒： 1~59；</p>
+<p>4.设置完毕，按F10键退出保存BIOS设置并重启，进入系统后必须正常关机一次才能生效（这就是本文开头提到的WIN8里面的右侧浮动菜单&mdash;&mdash;设置&mdash;&mdash;电源，此处的关机为非正常关机，定时启动将无效）。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="597" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>Ecshop商品详情一会显示一会不显示 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="Ecshop商品详情一会显示一会不显示，很让人蛋疼的一个诡异问题。
+Ecshop二次开发的时候碰到个奇怪的问题，那就是在购买商品提交订单之后查看商品详情页面发现商品的详情参数都不见了，只剩下商品名称，其他的商品货号，上架时间，本店售价都不显示了。然后进后台管理中心清空缓存后又恢复正常，再次提交订单又">
+  
+
+  <meta property="og:title" content="Ecshop商品详情一会显示一会不显示"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Ecshop商品详情一会显示一会不显示
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-07-19T07:26:38.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-07-19
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">PHP</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/ecshop/">ecshop</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>Ecshop商品详情一会显示一会不显示，很让人蛋疼的一个诡异问题。</p>
+<p>Ecshop二次开发的时候碰到个奇怪的问题，那就是在购买商品提交订单之后查看商品详情页面发现商品的详情参数都不见了，只剩下商品名称，其他的商品货号，上架时间，本店售价都不显示了。然后进后台管理中心清空缓存后又恢复正常，再次提交订单又不显示了，无限纠结外加蛋疼中。</p>
+<p>初步预测原因出在goods.dwt或者flow.dwt文件中。只能挨着试试了，恢复默认模板之后发现与flow.dwt无关，而回复goods.dwt的默认模板之后再次提交订单发现正常无问题了。然后就从goods.dwt开刀。经过反复测试，最终发现问题出在自己左侧自定义的top商品和hot商品这里。经过仔细思考之后发觉最可能的原因就是这部分的代码和中间商品详情部分的代码冲突了。</p>
+<p>果然如此，其实是左侧的代码中使用的smarty实例化的对象中，item都使用了goods这个参数，结果可想而知，左侧是一个数组，右侧是一个实际数据，当然也就无法输出了。解决方法很简单，那就修改左侧的item名称即可。例如这里我的修改方法为，将</p>
+<p><pre>&lt;ul class=”topsale-list” id=”c101”&gt;<br>    &lt;!– {foreach name=best_goods from=$best_goods item=<code>goods</code>}–&gt;<br>    {if $smarty.foreach.best_goods.index &lt;= 4}<br>    &lt;li&gt;<br>                &lt;a href=”<code>{$goods.url}</code>“&gt; …</pre><br>修改为</p>
+<p><pre>&lt;ul class=”topsale-list” id=”c101”&gt;<br>    &lt;!– {foreach name=best_goods from=$best_goods item=<code>bgoods</code>}–&gt;<br>    {if $smarty.foreach.best_goods.index &lt;= 4}<br>    &lt;li&gt;<br>                &lt;a href=”<code>{$bgoods.url}</code>“&gt; …</pre><br>这样，参数就不会产生冲突了，问题解决，欢迎拍砖。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="348" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>呵呵哒，LNMP下通过fread方式下载文件时，中文名称文件找不到文件 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="哎，整整折腾一个下午。&amp;nbsp;
+本来好好的，thinkphp 自动的uniq方式保存的文件名，非要使用原文件名，真心蛋疼~~
+然后就只好写个脚本 把原来的所有文件都重新命名一下 - - 然后把数据库对应字段也改为对应的中文文件名。
+因为对自己的脚本太自信，也就没有备份数据库。然后杯具发生了 - ">
+  
+
+  <meta property="og:title" content="呵呵哒，LNMP下通过fread方式下载文件时，中文名称文件找不到文件"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        呵呵哒，LNMP下通过fread方式下载文件时，中文名称文件找不到文件
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-12-17T03:21:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-12-17
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">PHP</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/linux/">linux</a>·<a href="/tags/nginx/">nginx</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>哎，整整折腾一个下午。&nbsp;</p>
+<p>本来好好的，thinkphp 自动的uniq方式保存的文件名，非要使用原文件名，真心蛋疼~~</p>
+<p>然后就只好写个脚本 把原来的所有文件都重新命名一下 - - 然后把数据库对应字段也改为对应的中文文件名。</p>
+<p>因为对自己的脚本太自信，也就没有备份数据库。然后杯具发生了 - - 是的，它真滴发生了。。。。</p>
+<p>在本地测试（wamp）的fread方式下载文件好好的，结果上传到服务器（LNMP）就杯具鸟，下载的时候提示找不到文件，查看路径文件真真切切的就在那里，不远不近，怎么搞都不好使 - -</p>
+<p>折腾啊折腾，各种输出变量调试，经过近2个小时的折腾。发现了一点问题，那就是在本地测试的时候把中文文件名传参数过去之后，服务器端获取的也是中文，然后就顺利的读到了文件。</p>
+<p>然而上传到LNMP之后，传的中文文件名被URL转码了(相当于自动urlencode)，惯性的以为转码后服务端也可以认识，然而并不是这样的。。。。</p>
+<p>file_exists 介个函数不认识转码的东西，它只认识一样的东西。因此问题就出在这里。 最后通过接收的URL中文部分进行反转码(urldecode)，然后再执行file_exists这个函数就搞定了。。。 哎 我的半个下午就毁在这里了，内牛满面哇 - -0</p>
+<p>下面上一段下载的代码吧</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">function</span><span style="color: #000000;"> download_file(){<br>        </span><span style="color: #800080;">$file</span> = <span style="color: #008080;">urldecode</span>(<span style="color: #800080;">$this</span>-&gt;_get(‘file’<span style="color: #000000;">));<br>        </span><span style="color: #800080;">$base_path</span> = <span style="color: #800080;">$_SERVER</span>[‘DOCUMENT_ROOT’].’/Uploads/Attachement/‘<span style="color: #000000;">;<br>        </span><span style="color: #800080;">$file</span> = <span style="color: #008080;">iconv</span>(‘UTF-8’,’gb2312’,<span style="color: #800080;">$file</span><span style="color: #000000;">);<br>        </span><span style="color: #800080;">$file</span> = <span style="color: #800080;">$base_path</span>. <span style="color: #800080;">$file</span><span style="color: #000000;">;<br>        </span><span style="color: #008080;">var_dump</span>(<span style="color: #800080;">$file</span><span style="color: #000000;">);<br>        </span><span style="color: #008000;">//</span><span style="color: #008000;"> exit();</span><br>        <span style="color: #0000ff;">if</span>(<span style="color: #008080;">file_exists</span>(<span style="color: #800080;">$file</span><span style="color: #000000;">)){<br>            </span><span style="color: #800080;">$length</span> = <span style="color: #008080;">filesize</span>(<span style="color: #800080;">$file</span><span style="color: #000000;">);<br>            </span><span style="color: #008000;">//</span><span style="color: #008000;"> $type = mime_content_type($file);</span><span style="color: #008000;"><br>/<em></em></span><span style="color: #008000;">            $fi = new finfo(FILEINFO_MIME);<br>            $type = $fi-&gt;buffer(file_get_contents($file));</span><span style="color: #008000;">/</span><br>            <span style="color: #800080;">$showname</span> =  <span style="color: #008080;">ltrim</span>(<span style="color: #008080;">strrchr</span>(<span style="color: #800080;">$file</span>,’/‘),’/‘<span style="color: #000000;">);<br>            </span><span style="color: #008080;">header</span>(“Content-Description: File Transfer”<span style="color: #000000;">);<br>            </span><span style="color: #008000;">//</span><span style="color: #008000;"> header(‘Content-type: ‘ . $type);</span><br>            <span style="color: #008080;">header</span>(‘Content-Length:’ . <span style="color: #800080;">$length</span><span style="color: #000000;">);<br>            </span><span style="color: #008080;">header</span>(‘content-type:text/html; charset=utf-8’<span style="color: #000000;">);<br><br>             </span><span style="color: #0000ff;">if</span> (<span style="color: #008080;">preg_match</span>(‘/MSIE/‘, <span style="color: #800080;">$_SERVER</span>[‘HTTP_USER_AGENT’])) { <span style="color: #008000;">//</span><span style="color: #008000;">for IE</span><br>                 <span style="color: #008080;">header</span>(‘Content-Disposition: attachment; filename=”‘ . <span style="color: #008080;">rawurlencode</span>(<span style="color: #800080;">$showname</span>) . ‘“‘<span style="color: #000000;">);<br>             } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {<br>                 </span><span style="color: #008080;">header</span>(‘Content-Disposition: attachment; filename=”‘ . <span style="color: #800080;">$showname</span> . ‘“‘<span style="color: #000000;">);<br>             }<br>             </span><span style="color: #008080;">ob_clean</span><span style="color: #000000;">();<br>             </span><span style="color: #008080;">flush</span><span style="color: #000000;">();<br>             </span><span style="color: #008080;">readfile</span>(<span style="color: #800080;">$file</span><span style="color: #000000;">);<br>             </span><span style="color: #0000ff;">exit</span><span style="color: #000000;">;<br>         } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {<br>             </span><span style="color: #0000ff;">exit</span>(‘文件已被删除！’<span style="color: #000000;">);<br>         }<br>     }</span></pre><br></div>
+
+<p>客户端很简单咯：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">div</span><span style="color: #0000ff;">&gt;&lt;</span><span style="color: #800000;">a </span><span style="color: #ff0000;">href</span><span style="color: #0000ff;">=”<strong>APP</strong>/Index/download_file/file/&lt;{$post.attachment}&gt;”</span><span style="color: #0000ff;">&gt;</span>下载{$post.attachment}<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">a</span><span style="color: #0000ff;">&gt;&lt;/</span><span style="color: #800000;">div</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
+
+<p>顺便吐个槽，最近两天比较郁闷， 我们的老板，对，他是连office word都用不明白的银，然后在他眼里，软件开发完成后就不能有BUG，使用不方便的情况也算BUG奥。然后做的越多，那被的锅就越多，然后各种被嫌弃，还让我自己找问题，美其名曰主动是天堂。好叭，被你打败了，没啥好留恋的了，春节后，下一站再见！</p>
+<p>&nbsp;</p>
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;后记</p>
+<p>哈哈，不得不说上面客户端的代码还是有点问题，如果附件是图片等格式的话，那上面的代码会导致部分内容无法下载。经过测试，修改为以下形式即可下载成功。</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">div</span><span style="color: #0000ff;">&gt;&lt;</span><span style="color: #800000;">a </span><span style="color: #ff0000;">href</span><span style="color: #0000ff;">=”<strong>APP</strong>/Index/download_file?file=&lt;{$post.attachment}&gt;”</span><span style="color: #0000ff;">&gt;</span>下载{$post.attachment}<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">a</span><span style="color: #0000ff;">&gt;&lt;/</span><span style="color: #800000;">div</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
+
+<p>&nbsp;</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="539" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

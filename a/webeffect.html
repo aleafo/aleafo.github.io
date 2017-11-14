@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>制作网页效果图注意事项 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="其实本文是因为之前和一个被称作美工能力很强的同事合作而产生的，因为对方发来的网页效果图实在让人大跌眼镜，除了图片处理的比较干净一点之外，整个页面的布局堪称破烂。可能是我的要求比较高吧，但是在设计方面我得承认我没什么天赋，不过本文想说的不是关于设计而是关于设计的注意事项。本文仅为个人一家之言，不代表你">
+  
+
+  <meta property="og:title" content="制作网页效果图注意事项"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        制作网页效果图注意事项
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-05-26T07:58:59.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-05-26
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/UI/">UI</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/photoshop/">photoshop</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>其实本文是因为之前和一个被称作美工能力很强的同事合作而产生的，因为对方发来的网页效果图实在让人大跌眼镜，除了图片处理的比较干净一点之外，整个页面的布局堪称破烂。可能是我的要求比较高吧，但是在设计方面我得承认我没什么天赋，不过本文想说的不是关于设计而是关于设计的注意事项。本文仅为个人一家之言，不代表你一定要遵循这里所有的规则，所以你需要根据自己的实际情况予以甄别。<br>设计网页效果图注意事项：</p>
+<h2 id="1-图层分组并命名，便于查找和管理"><a href="#1-图层分组并命名，便于查找和管理" class="headerlink" title="1. 图层分组并命名，便于查找和管理"></a>1. 图层分组并命名，便于查找和管理</h2><p>试想一个超过100个图层的PSD发给你，每个图层都没有名称，也没有对图层分组，那即使你可以通过Ctrl+单击来点选某个图层，但是很多情况下你会对于点选的图层附近的很多没有名字的图层而感到困惑，给图层命名并分组不是一件多么费时间的事情，而这样做却可以为前端省去很多找图层的时间，对于后期的修改也方便很多，何乐而不为。</p>
+<h2 id="2-细节部分精确到像素，1px-往往会导致页面错位或者BUG连连"><a href="#2-细节部分精确到像素，1px-往往会导致页面错位或者BUG连连" class="headerlink" title="2. 细节部分精确到像素，1px 往往会导致页面错位或者BUG连连"></a>2. 细节部分精确到像素，1px 往往会导致页面错位或者BUG连连</h2><p>大家都知道IE6下精彩会发现网页错位的问题，通常都是由于计算错误或者内部的层宽度溢出等，当然这里说的1px导致溢出只是一个极端的例子，实际上在设计中很有必要将所有的图层精确到1个像素的级别，你做的是效果图，不是模样图，所以这点很重要。</p>
+<h2 id="3-页面不同区块之间适当留白，不要太拥挤也不要太松散"><a href="#3-页面不同区块之间适当留白，不要太拥挤也不要太松散" class="headerlink" title="3. 页面不同区块之间适当留白，不要太拥挤也不要太松散"></a>3. 页面不同区块之间适当留白，不要太拥挤也不要太松散</h2><p><a href="http://www.niyun.net/v/taobao-shouye-gaiban.htm" title="淘宝950首页" target="_blank" rel="external">淘宝曾经改版过一个950</a>的版本，那个版本的左右距离都设置的比较拥挤，看上去有一种喘不过气来的感觉，这样拥挤的画面如果布局整齐也许感觉不出来什么，但是如果布局稍微乱一点，恐怕所有的人看了都不会舒服，所以适当的留白在网页设计中是很重要的。</p>
+<h2 id="4-页面排版布局整齐，最好拉一些参考线出来，除非你对自己的视觉有充分的自信"><a href="#4-页面排版布局整齐，最好拉一些参考线出来，除非你对自己的视觉有充分的自信" class="headerlink" title="4. 页面排版布局整齐，最好拉一些参考线出来，除非你对自己的视觉有充分的自信"></a>4. 页面排版布局整齐，最好拉一些参考线出来，除非你对自己的视觉有充分的自信</h2><p>试想一个效果图布局分为十几个小块甚至几十个小块堆在页面上，但是没有一条参考线，这些小块是如何对齐的，凭的是你的火眼金睛吗，我想大多数人的眼睛没有参考线来的准确吧。</p>
+<h2 id="5-页面上的文字颜色使用不要太随意，前端需要严格对你的文字取色，清晰易于辨认且不刺眼即可"><a href="#5-页面上的文字颜色使用不要太随意，前端需要严格对你的文字取色，清晰易于辨认且不刺眼即可" class="headerlink" title="5. 页面上的文字颜色使用不要太随意，前端需要严格对你的文字取色，清晰易于辨认且不刺眼即可"></a>5. 页面上的文字颜色使用不要太随意，前端需要严格对你的文字取色，清晰易于辨认且不刺眼即可</h2><p>例如文字使用#333333而不是纯黑；页面的文字颜色不要以为差不多就行，很多设计都是在细节上决定成败，你很多时候随意从调色板划过一个差不多的颜色，对看上去是差不多，但是到了前端那里，可能就因为文字的颜色不一样而需要多写好多代码，并且不利于整体风格的统一，所以，请勤快一点，让颜色统一起来。</p>
+<h2 id="6-突出网页重点内容，颜色选用恰当，这点你做的不错"><a href="#6-突出网页重点内容，颜色选用恰当，这点你做的不错" class="headerlink" title="6. 突出网页重点内容，颜色选用恰当，这点你做的不错"></a>6. 突出网页重点内容，颜色选用恰当，这点你做的不错</h2><p>整体页面要有重点，一个没有重点的页面是失败的，这个不用多做什么解释了。颜色搭配要适当，如果实在不懂得搭配，那你可以使用<a href="http://www.google.com.hk/search?hl=zh-CN&amp;safe=strict&amp;q=ColorSchemer+Studio+2&amp;aq=f&amp;aqi=&amp;aql=&amp;oq=" title="ColorSchemer Studio 2" target="_blank" rel="external">ColorSchemer Studio</a>来配色，或者自己来制作一个调色板，通常的做法都是取近似色、相反色、对比色等。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="285" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

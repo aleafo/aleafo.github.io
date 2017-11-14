@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>OPENCART开发部署常见问题 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近在做一个opencart的项目，遇到的坑不少，不过相对来说还是一套比较成熟的系统，该有的功能都比较齐全了。 如果选一套合适的主题，可以实现大多数的功能了。 下面说一下部署方面遇到的几个问题吧。
+使用的git自动部署，忽略以下文件，手动上传1234567/install/journal-cache">
+  
+
+  <meta property="og:title" content="OPENCART开发部署常见问题"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        OPENCART开发部署常见问题
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-10-19T07:21:08.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-10-19
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">PHP</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近在做一个opencart的项目，遇到的坑不少，不过相对来说还是一套比较成熟的系统，该有的功能都比较齐全了。 如果选一套合适的主题，可以实现大多数的功能了。 下面说一下部署方面遇到的几个问题吧。</p>
+<h2 id="使用的git自动部署，忽略以下文件，手动上传"><a href="#使用的git自动部署，忽略以下文件，手动上传" class="headerlink" title="使用的git自动部署，忽略以下文件，手动上传"></a>使用的git自动部署，忽略以下文件，手动上传</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/install</span><br><span class="line">/journal-cache</span><br><span class="line">/<span class="built_in">test</span></span><br><span class="line">/config.php</span><br><span class="line">/system/storage/cache/</span><br><span class="line">/system/storage/logs/</span><br><span class="line">/admin/config.php</span><br></pre></td></tr></table></figure>
+<p>其中config.php的配置 包括 admin/config.php的文件中的路径是相对服务器的根路径的。 因此这个位置的修改比较重要，如果没有写对，通常后台会报500。</p>
+<p>另外，登录后发现前台或者后台报了一堆错误，通常是 unexpect xxx 之类的内容。 fclose failed 等等，推测应该是文件读写权限问题，或者找不到对应的问题。 仔细一想就明白了，那就是linux下的 缓存文件写入失败了，没权限，从而导致打开失败，关闭文件也失败。  在终端运行一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 /path/to/your/site/system/storage/</span><br></pre></td></tr></table></figure></p>
+<p>OK，运行之后上面报的错误就消失了。</p>
+<h2 id="本地测试导入的图片数据上传后无法显示"><a href="#本地测试导入的图片数据上传后无法显示" class="headerlink" title="本地测试导入的图片数据上传后无法显示"></a>本地测试导入的图片数据上传后无法显示</h2><p>其实 opencart这点做的有点像 WordPress，就是把图片路径使用了绝对路径，这样会导致更换域名或者空间后无法打开文件的问题。 可以将导出的sql文件 放到文本编辑器（例如atom）等，然后使用批量替换 将 <a href="http://www.yourdomain.com/" target="_blank" rel="external">http://www.yourdomain.com/</a> 替换为 /  这样再导入数据库 引用的就是相对路径了，图片一起上传就可以看到啦。</p>
+<h2 id="多语言设置后，指定前台语言无效"><a href="#多语言设置后，指定前台语言无效" class="headerlink" title="多语言设置后，指定前台语言无效"></a>多语言设置后，指定前台语言无效</h2><p>这个问题再网上搜了很久，例如 language front end not working 等， 最后也未能找到答案。 只能翻看源码了， 其实从oc2.3以后，管理后台增加了 language选项locale这个输入框，作用就是根据用户浏览器的接受语言（详见浏览器请求header中的 accept-language 的值）进行自动判断 auto-detected， 而这个优先级是高于后台设置的前台语言的。 也就是说如果判断有匹配的语言，那就会根据用户浏览器的语言读取对应的语言包，如果没有得到才会取后台指定的这个前台语言。</p>
+<p>这部分的逻辑可言从 /siteroot/catelog/controller/startup/startup.php 中找到。 有时候用户就希望无论用户语言是什么都优先显示一种语言，然后允许用户手动切换。 或者只为后台设置中文，前台显示英文，这种情况就只能将判断的逻辑去掉，或者直接用后台设置的选项覆盖。</p>
+<p>例如本例的情况可以将/siteroot/catelog/controller/startup/startup.php 中大概61~63行<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!array_key_exists($code, $languages)) &#123;</span><br><span class="line">  $code = <span class="keyword">$this</span>-&gt;config-&gt;get(<span class="string">'config_language'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if (!array_key_exists($code, $languages)) &#123;</span></span><br><span class="line">  $code = <span class="keyword">$this</span>-&gt;config-&gt;get(<span class="string">'config_language'</span>);</span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样既可将前台语言固定为 后台设置中指定的前台语言。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="601" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

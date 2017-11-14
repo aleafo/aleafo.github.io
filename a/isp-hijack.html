@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>ISP的DNS和HTTP劫持导致谷歌等浏览器（右下角）弹出广告 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近在百度知道里看到了一个提问，说chrome浏览器下角无缘无故出现广告，看了之后首先想到的是中病毒了，不过重装浏览器和操作系统后仍然无效。
+然后使用adblock也无效，后来想到了一点就是之前在月光博客看到的一篇文章解决Chrome自动保存的问题，发现是DNS被ISP（互联网服务提供商）劫持所致。">
+  
+
+  <meta property="og:title" content="ISP的DNS和HTTP劫持导致谷歌等浏览器（右下角）弹出广告"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        ISP的DNS和HTTP劫持导致谷歌等浏览器（右下角）弹出广告
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-08-27T03:20:42.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-08-27
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近在百度知道里看到了一个提问，说<a href="http://zhidao.baidu.com/question/311754130.html" title="谷歌浏览器右下角无故出现广告" target="_blank" rel="external">chrome浏览器下角无缘无故出现广告</a>，看了之后首先想到的是中病毒了，不过重装浏览器和操作系统后仍然无效。</p>
+<p>然后使用adblock也无效，后来想到了一点就是之前在月光博客看到的一篇文章<a href="http://www.williamlong.info/archives/2650.html" title="解决Chrome自动保存的问题（DNS劫持导致）" target="_blank" rel="external">解决Chrome自动保存的问题</a>，发现是DNS被ISP（互联网服务提供商）劫持所致。然后根据上面的说法，需要修改DNS为</p>
+<p><pre>8.8.8.8<br>8.8.4.4</pre><br>具体修改DNS的方法这里不再赘述，不懂的朋友可以去谷歌一下。</p>
+<p>也就是谷歌提供的DNS服务器，然后就可以屏蔽这类DNS劫持的广告了。</p>
+<p>但是先不要得意，有些广告的push不是简单的DNS劫持，而是HTTP劫持，这个就比较**了，解决方法也一般可以这样：</p>
+<p>1. 仔细看看广告上面有没有取消推送等类似的按钮，如果有的话果断取消，根据提示做就行了；</p>
+<p>2. 如果没有，那就只能打电话然后转人工客服，让他们把你的帐号从推送名单中删除，一次不行就继续打，一般都能给处理的。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="390" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

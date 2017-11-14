@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>c语言学习笔记 —— 数组 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="1. 数组的内存分配原理。
+数组定义 &amp;nbsp;int a[3] = {1,3,11};
+如下写法是错误的：
+int number;
+int a[number] = {1,7,9};
+原因是：没有定长的数组初始化的时候，由于计算机不知道该分配多少空间给它，因此初始化会失败！
+如下的写法虽然也可以运">
+  
+
+  <meta property="og:title" content="c语言学习笔记 —— 数组"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        c语言学习笔记 —— 数组
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-04-11T04:19:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-04-11
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/ios/">iOS</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>1. 数组的内存分配原理。</p>
+<p>数组定义 &nbsp;int a[3] = {1,3,11};</p>
+<p>如下写法是错误的：</p>
+<p>int number;</p>
+<p>int a[number] = {1,7,9};</p>
+<p>原因是：没有定长的数组初始化的时候，由于计算机不知道该分配多少空间给它，因此初始化会失败！</p>
+<p>如下的写法虽然也可以运行，但是结果不是我们期望的。</p>
+<p>int a[2] = {3,7};</p>
+<p>int b[3] = {22,33,18};</p>
+<p>b[3] = 99;</p>
+<p>printf(“b[3] is : %i\n”, b[3]); &nbsp;//这里输出的结果是什么？ b只有3个元素，而我们这里输出第四个元素。结果输出还是 99</p>
+<p>再来看</p>
+<p>printf(“a[0] is : %i\n”, a[0]); //这里输出的结果是什么，猜猜看？</p>
+<p>上面的输出结果我们发现a[3]变成了99，这是为什么呢？</p>
+<p>因为数组作为一个变量在内存中也是从高到低存储的，但是数组元素却是按照从低到高排列在该数组所占的存储空间中。所以上面的b[3]挤占了 数组a中的第一个元素。如下图所示：</p>
+<p>地址 &nbsp; &nbsp; &nbsp;数组变量 &nbsp; &nbsp; 数组元素地址 &nbsp; &nbsp; 数组元素值</p>
+<p>0ffc19</p>
+<p>0ffc20</p>
+<p>0ffc21&nbsp; &nbsp;数组b &nbsp; &nbsp; &nbsp; b[0] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;88</p>
+<p>0ffc22&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;b[1] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 33</p>
+<p>0ffc23 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; b[2] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;22</p>
+<p>0ffc24 &nbsp; 数组a&nbsp; &nbsp; &nbsp; &nbsp;a[1] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7<span style="color: #ff0000;">(b[3]的修改导致这里被修改)</span></p>
+<p>0ffc25 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;a[0] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3</p>
+<p>2. 参数传递给形参为数组的函数的时候，传递的是数组的地址，因此数组的元素个数是可以省略的。</p>
+<p>因此，主要是看形参</p>
+<p>3. 数组作为形参会自动转换为指针，而指针在64位系统中占8个字节，也就是说无法在函数中通过传入的形参数组来计算数组的长度，必须将数组长度作为单独的参数进行传递。</p>
+<p>例如</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">int</span> a[<span style="color: #800080;">3</span>] = {<span style="color: #800080;">1</span>,<span style="color: #800080;">2</span>,<span style="color: #800080;">3</span><span style="color: #000000;">};<br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> printArray(arr[]){<br><br></span><span style="color: #0000ff;">int</span> len = <span style="color: #0000ff;">sizeof</span>(arr[]) / <span style="color: #0000ff;">sizeof</span>(arr[<span style="color: #800080;">0</span><span style="color: #000000;">]);<br><br></span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; len; i ++<span style="color: #000000;">){<br><br>　　printf(</span><span style="color: #800000;">“</span><span style="color: #800000;">The nth eleme is : %i\n</span><span style="color: #800000;">“</span><span style="color: #000000;">, arr[i]);<br><br>}<br><br>}</span></pre><br></div>
+
+<p>上面的代码打印后将无法输出正确的结果。 因为 sizeof(arr[])将永远等于8。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="534" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

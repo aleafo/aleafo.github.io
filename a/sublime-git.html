@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>sublime 集成git插件，及git常用命令 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="以前用了很久的totoiseSVN，显然不够高大上，开发界的版本装x利器还得是git。然而git的命令行对没怎么用过linux的人可能觉得还不如用gitGUI，可是当你知道sublime可以集成git插件的时候，你就会改变自己的想法了，真心方便。
+1. 安装git客户端，最常用的msysgit，具体">
+  
+
+  <meta property="og:title" content="sublime 集成git插件，及git常用命令"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        sublime 集成git插件，及git常用命令
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-08-25T00:18:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-08-25
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/tools/">TOOLS</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/sublime/">sublime</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>以前用了很久的totoiseSVN，显然不够高大上，开发界的版本装x利器还得是git。然而git的命令行对没怎么用过linux的人可能觉得还不如用gitGUI，可是当你知道sublime可以集成git插件的时候，你就会改变自己的想法了，真心方便。</p>
+<p>1. 安装git客户端，最常用的msysgit，具体步骤就略过了，大家自行搜索吧。</p>
+<p>2. sublime安装git插件</p>
+<p>Ctrl+shift+P，调出 install package面板，然后搜索git，回车安装</p>
+<p><span style="line-height: 1.5;">3. 配置git公钥，此处以gitHub为例，你也可以参考&nbsp;<a href="/a/git-linux-server.html">git 在linux下服务端搭建</a>&nbsp;自己搭建一个git服务端</span></p>
+<p><span style="line-height: 1.5;">然后通过将公钥添加到服务端进行身份的认证</span></p>
+<p><span style="line-height: 1.5;">4. 初始化本地的git配置信息</span></p>
+<div class="cnblogs_code"><br><pre>git config –global user.name <span style="color: #800000;">“</span><span style="color: #800000;">username</span><span style="color: #800000;">“</span><span style="color: #000000;"><br>git config </span>–global user.email <span style="color: #800000;">“</span><span style="color: #800000;">username@email.com</span><span style="color: #800000;">“</span></pre><br></div>
+
+<p>再设置一下push的参数，因为sublime的插件中push动作并不能接收参数</p>
+<div class="cnblogs_code"><br><pre>git config –global push.default matching #代表提交所有匹配的分支</pre><br></div>
+
+<p>5. 然后就可以通过sublime的Ctrl+Shift+P调用git:init命令创建一个git仓库</p>
+<p>执行命令后会要求你选择一个目录，选择后即可在该目录下新建文件进行git的各种操作了</p>
+<p>6. git常用命令解析</p>
+<p>其实大多数情况下，我们的开发无非就是修改、提交、获取、推送到远程</p>
+<p>git与svn的一点区别就是commit并不会提交到远程服务端，push才是真正的提交到服务端</p>
+<p>因此，我们可以理解为</p>
+<div class="cnblogs_code"><br><pre><span style="color: #000000;">git:add  #把文件添加进去，实际上就是把文件修改添加到暂存区<br>git:commit #提交更改，实际上就是把暂存区的所有内容提交到当前分支<br>git:push #讲缓存中的修改推送到远程服务端<br><br>当然git:add 和 git:commit 也可以使用 git:commit </span>-am <span style="color: #800000;">“</span><span style="color: #800000;">comment content</span><span style="color: #800000;">“</span> 两步合并为一步执行</pre><br></div>
+
+<p><span style="color: #ff0000;">重要提醒：修改文件后如果不执行add直接commit是无效的</span></p>
+<p>版本的回退</p>
+<div class="cnblogs_code"><br><pre><span style="color: #000000;">git reflog #查看历史版本，然后根据现实的版本号回退<br>git reset </span>–hard HEAD^<span style="color: #000000;"> #回退到上一个版本<br>git reset </span>–hard HEAD^^<span style="color: #000000;"> #回退到上上一个版本<br>git reset </span>–hard HEAD~<span style="color: #800080;">100</span><span style="color: #000000;"> #回退到100个以前的版本<br>git reset </span>–hard <span style="color: #800080;">3628164</span> #回退到3628164这个版本</pre><br></div>
+
+<p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout – file。</p>
+<p>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。</p>
+<p>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</p>
+<p>删除文件</p>
+<div class="cnblogs_code"><br><pre>git <span style="color: #0000ff;">rm</span><span style="color: #000000;"> filename #从git删除文件，执行后还需要commit和push才能最终在远程生效<br>git checkout </span>–filename #检出最新的已经commit的版本，可以用于恢复版本或者恢复删除的文件</pre><br></div>
+
+<p>从远程主机获取</p>
+<div class="cnblogs_code"><br><pre>git remote add origin git@github.com:yourname/<span style="color: #000000;">learngit.git #从远程主机获取<br>git push </span>-u origin master #推送到远程主机，首次运行在命令行模式下，运行一次之后再到sublime中直接使用git push即可默认以master分支进行上传</pre><br></div>
+
+<p>分支</p>
+<div class="cnblogs_code"><br><pre><span style="color: #000000;">Git鼓励大量使用分支：<br><br>查看分支：git branch<br><br>创建分支：git branch </span><name><span style="color: #000000;"><br><br>切换分支：git checkout </span><name><span style="color: #000000;"><br><br>创建</span>+切换分支：git checkout -b <name><span style="color: #000000;"><br><br>合并某分支到当前分支：git merge </span><name><span style="color: #000000;"><br><br>删除分支：git branch </span>-d <name></name></name></name></name></name></pre><br><pre><span>强制删除分支：git branch -D <name> #没合并的情况下是禁止删除的，需要强制删除</name></span></pre><br></div>
+
+<p>多人协作开发，远程push和pull</p>
+<div class="cnblogs_code"><br><pre>查看远程库信息，使用git remote -<span style="color: #000000;">v；<br>本地新建的分支如果不推送到远程，对其他人就是不可见的；<br>从本地推送分支，使用git push origin branch</span>-<span style="color: #000000;">name，如果推送失败，先用git pull抓取远程的新提交；<br>在本地创建和远程分支对应的分支，使用git checkout </span>-b branch-name origin/branch-<span style="color: #000000;">name，本地和远程分支的名称最好一致；<br>建立本地分支和远程分支的关联，使用git branch </span>–set-upstream branch-name origin/branch-<span style="color: #000000;">name；<br>从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。</span></pre><br></div>
+
+<p>文件忽略</p>
+<div class="cnblogs_code"><br><pre><span style="color: #000000;">忽略某些文件时，需要编写.gitignore；<br>.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！</span></pre><br></div>
+
+<p>国外某大神做的git常用命令图</p>
+<p><img src="/uploads/2016/08/212228-20160825161934538-201977158.png" alt=""></p>
+<p>详细教程，参考廖老师的git教程：<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a></p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="498" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

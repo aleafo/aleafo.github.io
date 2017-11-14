@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>IE8-绝对定位元素紧邻浮动元素可能导致绝对定位元素消失 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近帮朋友做一个团购网站的时候出现了一个很诡异的问题，购买按钮的背景图片在webkit核心以及FF下显示正常，但是在IE下（IE678）却莫名其妙的消失了。由于浮动元素上面的边框并未消失，所以不是简单的覆盖问题，而是IE下的一个BUG。
+问题的解决得益于豆猫同学，在此感谢一下，大家可以到这里查看详细">
+  
+
+  <meta property="og:title" content="IE8-绝对定位元素紧邻浮动元素可能导致绝对定位元素消失"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        IE8-绝对定位元素紧邻浮动元素可能导致绝对定位元素消失
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-04-22T08:34:55.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-04-22
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/html/">HTML</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/CSS/">CSS</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近帮朋友做一个团购网站的时候出现了一个很诡异的问题，购买按钮的背景图片在webkit核心以及FF下显示正常，但是在IE下（IE678）却莫名其妙的消失了。由于浮动元素上面的边框并未消失，所以不是简单的覆盖问题，而是IE下的一个BUG。</p>
+<p>问题的解决得益于<a href="http://www.ddcat.net/blog/" title="豆猫大大的博客" target="_blank" rel="external">豆猫</a>同学，在此感谢一下，大家可以到这里查看详细的关于<a href="http://www.ddcat.net/web/css/IE_raf3/IE_raf3.html" title="IE7-/WIN:绝对定位元素消失" target="_blank" rel="external">绝对定位元素消失BUG的一些扩展知识</a>，本文在此仅作记录，并以代码的形式写在这里，供以后参考用。</p>
+<p><pre>&lt;div class=”l”&gt;<br>&lt;div class=”price”&gt;<br>    &lt;a href=”/team/buy.php?id=39”&gt;&lt;span&gt;购买&lt;/span&gt;&lt;/a&gt;&lt;b&gt;¥94&lt;/b&gt;<br>&lt;/div&gt;<br>&lt;div class=”sale”&gt;<br>    &lt;p class=”clear”&gt;<br>        &lt;span&gt;原价&lt;b class=”style”&gt;¥380&lt;/b&gt;&lt;/span&gt;<br>        &lt;span&gt;折扣&lt;b&gt;2.47&lt;/b&gt;&lt;/span&gt;<br>        &lt;span&gt;节省&lt;b&gt;¥286&lt;/b&gt;&lt;/span&gt;<br>    &lt;/p&gt;<br>&lt;/div&gt;<br>&lt;/div&gt;</pre><br>对应的CSS如下：</p>
+<p><pre>.price{position:absolute;top:0px;left:-49px;text-align:left;background:url(<a href="http://cms.f.itc.cn/upload/ihome/tuan_red/images/graBg.png" target="_blank" rel="external">http://cms.f.itc.cn/upload/ihome/tuan_red/images/graBg.png</a>) no-repeat 0 -85px;width:272px;height:70px; overflow:hidden;}<br>.price b{font:36px 微软雅黑;color:#fff;padding-left:15px; width:130px; padding-top:10px; text-align:center; display:block;}<br>.price a{border:0px;background:url(<a href="http://cms.f.itc.cn/upload/ihome/tuan_red/images/btnBg.png" target="_blank" rel="external">http://cms.f.itc.cn/upload/ihome/tuan_red/images/btnBg.png</a>) no-repeat ;width:100px;height:45px;float:right;margin:8px 14px 0 0;cursor:pointer;}<br>.sale{border:1px #FFD79E solid;width:204px;padding:88px 1px 15px;margin-left:7px; <code>float:left; display:inline;</code>}</pre><br>大家可以复制到自己电脑运行一下看看，在webkit和FF下显示均没有问题，但是在IE下无论如何price层也无法显示。其实问题出在代码中蓝色部分。那就是浮动元素紧邻绝对定位元素的时候并且浮动元素设置了宽度，这样就会导致绝对定位元素“神秘失踪”。触发了IE的haslayout，解决方法就是取消这两个元素直接相连（比如在他们之间增加一个空元素，或者为其中的一个套一层元素），或者去掉sale的浮动属性。例如本次使用的解决方法就是删除CSS中的蓝色代码部分。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="92" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

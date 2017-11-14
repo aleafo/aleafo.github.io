@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>移动端css3的一些奇葩事er - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="前言最近做移动端 H5 及CSS3的东西比较多。 主要应用在微信服务号和企业号，所以主要是兼容微信浏览器（Chrome 37+）。 这个版本的webkit内核对 CSS3的支持已经相当完善了。但还是免不了要踩到一些坑。本文作为记录，会持续更新，以供后续翻看。
+z-index: -1 引发的问题当设置">
+  
+
+  <meta property="og:title" content="移动端css3的一些奇葩事er"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        移动端css3的一些奇葩事er
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-12-30T09:24:39.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-12-30
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/CSS/">CSS</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近做移动端 H5 及CSS3的东西比较多。 主要应用在微信服务号和企业号，所以主要是兼容微信浏览器（Chrome 37+）。 这个版本的webkit内核对 CSS3的支持已经相当完善了。但还是免不了要踩到一些坑。本文作为记录，会持续更新，以供后续翻看。</p>
+<h2 id="z-index-1-引发的问题"><a href="#z-index-1-引发的问题" class="headerlink" title="z-index: -1 引发的问题"></a>z-index: -1 引发的问题</h2><p>当设置z-index 为-1的元素，在页面中存在的时候，微信浏览器中会出现莫名其妙的bug。<br>bug复现方法：</p>
+<p>制作一个页面高度大于一屏高度的界面，然后在页脚部分加入如下样式的元素<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"position:relative; width: 100px; height: 50px; margin:0 auto;border: 1px solid #ccc;"</span>&gt;</span></span><br><span class="line">    这里是文字内容</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"position:absolute;  height: 1px; background-color: red; left:0; right:0; top: 50%;"</span>&gt;</span>&amp;nbsp;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码，在IOS版本的微信浏览器中（测试用微信版本：6.5.2  设备：iphone 7 plus 128GB ios版本：10.2 14C92） 当拖动到一屏以下的部分再返回，就会出现上方的画面闪动的情况。而去掉z-index:-1属性，恢复正常。 因此在移动端开发中，慎用 z-index:-1</p>
+<h2 id="keyframes动画中-使用-绝对定位的元素-进行位置移动导致的问题"><a href="#keyframes动画中-使用-绝对定位的元素-进行位置移动导致的问题" class="headerlink" title="keyframes动画中 使用 绝对定位的元素 进行位置移动导致的问题"></a>keyframes动画中 使用 绝对定位的元素 进行位置移动导致的问题</h2><p>问题出现的情况为： 当使用keyframes动画控制 absolute定位的元素 进行 top/left 等位置变换的时候，在ios10下会出现拉动到底部拽住不松开导致屏幕快速闪烁的问题。</p>
+<p>复现代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 海豚提示 --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"dolphin-tips"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"dolphin-icon"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tips-box"</span>&gt;</span></span><br><span class="line">      温馨提示：这里是温馨提示的内容。</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- end of 海豚提示 --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>CSS代码如下</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">海豚提醒</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="selector-class">.dolphin-tips</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#ff5b95</span>;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">4rem</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">0.6rem</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(../img/wave.png) repeat-x <span class="number">#fffaea</span>;</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">6%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1rem</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">2rem</span>;</span><br><span class="line">  <span class="attribute">border-bottom-left-radius</span>: .<span class="number">5rem</span>;</span><br><span class="line">  <span class="attribute">border-bottom-right-radius</span>: .<span class="number">5rem</span>;</span><br><span class="line">  <span class="attribute">-webkit-animation</span>: tipswave <span class="number">12s</span> linear infinite;</span><br><span class="line">          <span class="attribute">animation</span>: tipswave <span class="number">12s</span> linear infinite; &#125;</span><br><span class="line">  <span class="selector-class">.dolphin-tips</span> <span class="selector-class">.dolphin-icon</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">3.8rem</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">3.8rem</span>;</span><br><span class="line">    <span class="attribute">top</span>: -<span class="number">2.4rem</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">1.9rem</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(../img/dolphin.png);</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">    <span class="attribute">-webkit-animation</span>: dolphinjump <span class="number">2.5s</span> ease infinite;</span><br><span class="line">            <span class="attribute">animation</span>: dolphinjump <span class="number">2.5s</span> ease infinite; &#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> tipswave &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">background-position</span>: <span class="number">0%</span> <span class="number">0%</span>; &#125;</span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">background-position</span>: <span class="number">50%</span> <span class="number">0%</span>; &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">background-position</span>: <span class="number">100%</span> <span class="number">0%</span>; &#125; &#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> tipswave &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">background-position</span>: <span class="number">0%</span> <span class="number">0%</span>; &#125;</span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">background-position</span>: <span class="number">50%</span> <span class="number">0%</span>; &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">background-position</span>: <span class="number">100%</span> <span class="number">0%</span>; &#125; &#125;</span><br><span class="line"></span><br><span class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> dolphinjump &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">top</span>:-<span class="number">0.25rem</span>; &#125;</span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">0.25rem</span>; &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">top</span>:-<span class="number">0.25rem</span>);&#125; &#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> dolphinjump &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">top</span>:-<span class="number">0.25rem</span>; &#125;</span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">0.25rem</span>; &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">top</span>:-<span class="number">0.25rem</span>);&#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>修复方案：<br>将动画中的 top: xxrem; 修改为 transform: translateY(xxrem); 问题解决。 其实仔细想一下， top等的位移其实是触发了 repaint 而 translateY 的方式则只是CSS自身的坐标偏移，对性能的消耗还是很轻微的。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="601" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

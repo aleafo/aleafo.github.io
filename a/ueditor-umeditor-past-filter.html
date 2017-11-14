@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>ueditor 和 umeditor 粘贴过滤问题 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近遇到需要将WORD WPS等复制的带有格式的内容粘贴到富文本编辑器里面去掉冗余的HTML，只保留最有用的部分。
+第一步肯定是先查官方文档了。
+http://fex.baidu.com/ueditor/#start-config
+里面的filterTxtRules&amp;nbsp;{Object} //">
+  
+
+  <meta property="og:title" content="ueditor 和 umeditor 粘贴过滤问题"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        ueditor 和 umeditor 粘贴过滤问题
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-04-06T01:17:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-04-06
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近遇到需要将WORD WPS等复制的带有格式的内容粘贴到富文本编辑器里面去掉冗余的HTML，只保留最有用的部分。</p>
+<p>第一步肯定是先查官方文档了。</p>
+<p><a href="http://fex.baidu.com/ueditor/#start-config" target="_blank" rel="external">http://fex.baidu.com/ueditor/#start-config</a></p>
+<p>里面的filterTxtRules&nbsp;{Object} //纯文本粘贴模式下的过滤规则&nbsp;</p>
+<p>就是对粘贴的纯文本进行过滤。 当然在ueditor中还带有两个自带的参数</p>
+<p>retainOnlyLabelPasted &nbsp;和&nbsp;pasteplain 也可以对粘贴的内容直接进行过滤。 当然想要自定义过滤还是需要自己来写。 那就是强大的&nbsp;filterTxtRules &nbsp;了。&nbsp;</p>
+<p>下面是官方示例：</p>
+<div class="cnblogs_code"><br><pre>/默认值：<br><span style="color: #0000ff;">function</span><span style="color: #000000;">() {<br>    </span><span style="color: #0000ff;">function</span><span style="color: #000000;"> transP(node) {<br>        node.tagName </span>= ‘p’<span style="color: #000000;">;<br>        node.setStyle();<br>    }<br>    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> {<br>        </span><span style="color: #008000;">//</span><span style="color: #008000;">直接删除及其字节点内容</span><br>        ‘-‘: ‘script style object iframe embed input select’<span style="color: #000000;">,<br>        </span>‘p’<span style="color: #000000;">: {<br>            $: {}<br>        },<br>        </span>‘br’<span style="color: #000000;">: {<br>            $: {}<br>        },<br>        </span>‘div’<span style="color: #000000;">: {<br>            </span>‘$’<span style="color: #000000;">: {}<br>        },<br>        </span>‘li’<span style="color: #000000;">: {<br>            </span>‘$’<span style="color: #000000;">: {}<br>        },<br>        </span>‘caption’<span style="color: #000000;">: transP,<br>        </span>‘th’<span style="color: #000000;">: transP,<br>        </span>‘tr’<span style="color: #000000;">: transP,<br>        </span>‘h1’<span style="color: #000000;">: transP,<br>        </span>‘h2’<span style="color: #000000;">: transP,<br>        </span>‘h3’<span style="color: #000000;">: transP,<br>        </span>‘h4’<span style="color: #000000;">: transP,<br>        </span>‘h5’<span style="color: #000000;">: transP,<br>        </span>‘h6’<span style="color: #000000;">: transP,<br>        </span>‘td’: <span style="color: #0000ff;">function</span><span style="color: #000000;">(node) {<br>            </span><span style="color: #008000;">//</span><span style="color: #008000;">没有内容的td直接删掉</span><br>            <span style="color: #0000ff;">var</span> txt = !!<span style="color: #000000;"> node.innerText();<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (txt) {<br>                node.parentNode.insertAfter(UE.uNode.createText(</span>‘    ‘<span style="color: #000000;">), node);<br>            }<br>            node.parentNode.removeChild(node, node.innerText())<br>        }<br>    }<br>}()</span></pre><br></div>
+
+<p>但是因为使用的是轻量级的UMEditor，所以并没有retainOnlyLabelPasted &nbsp;和&nbsp;pasteplain这两个技能，只能使用自定义的部分。但是又想保留部分标签的格式，那么具体的要求就是允许 span标签和p标签使用 class以及br换行，下面直接上代码，前端的同学一看就懂。记录一下，方便以后用到。</p>
+<div class="cnblogs_code"><br><pre>,filterRules: <span style="color: #0000ff;">function</span><span style="color: #000000;">() {<br>            </span><span style="color: #0000ff;">function</span><span style="color: #000000;"> transP(node) {<br>                node.tagName </span>= ‘p’<span style="color: #000000;">;<br>                node.setStyle();<br>            }<br>            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> {<br>                </span><span style="color: #008000;">//</span><span style="color: #008000;">直接删除及其字节点内容</span><br>                ‘-‘: ‘script style object iframe embed input select’<span style="color: #000000;">,<br>                </span>‘p’<span style="color: #000000;">: {<br>                     $ : {</span>‘class’:1<span style="color: #000000;">}<br>                },<br>                </span>‘br’<span style="color: #000000;">: {<br>                    $: {}<br>                },<br>                </span>‘div’<span style="color: #000000;">: {<br>                    </span>‘$’<span style="color: #000000;">: {}<br>                },<br>                </span>‘li’<span style="color: #000000;">: {<br>                    </span>‘$’<span style="color: #000000;">: {}<br>                },<br>                </span>‘span’<span style="color: #000000;"> : {<br>                    $ : {</span>‘class’:1, ‘style’:1<span style="color: #000000;">}<br>                },<br>                </span>‘caption’<span style="color: #000000;">: transP,<br>                </span>‘th’<span style="color: #000000;">: transP,<br>                </span>‘tr’<span style="color: #000000;">: transP,<br>                </span>‘h1’<span style="color: #000000;">: transP,<br>                </span>‘h2’<span style="color: #000000;">: transP,<br>                </span>‘h3’<span style="color: #000000;">: transP,<br>                </span>‘h4’<span style="color: #000000;">: transP,<br>                </span>‘h5’<span style="color: #000000;">: transP,<br>                </span>‘h6’<span style="color: #000000;">: transP,<br>                </span>‘td’: <span style="color: #0000ff;">function</span><span style="color: #000000;">(node) {<br>                    </span><span style="color: #008000;">//</span><span style="color: #008000;">没有内容的td直接删掉</span><br>                    <span style="color: #0000ff;">var</span> txt = !!<span style="color: #000000;"> node.innerText();<br>                    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (txt) {<br>                        node.parentNode.insertAfter(UE.uNode.createText(</span>‘    ‘<span style="color: #000000;">), node);<br>                    }<br>                    node.parentNode.removeChild(node, node.innerText())<br>                }<br>            }<br>        }()</span></pre><br></div>
+
+<p>OK, Done !</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="535" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

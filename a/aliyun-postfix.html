@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>阿里云centos配置postfix - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="1. 为了防止垃圾邮件，先到域名控制面板设置好。 MX A 记录及TXT记录
+其中TXT记录如下 &amp;nbsp;@ &amp;nbsp;spf1 a mx ~all
+意思就是使用spf1协议，允许a记录和MX记录对应的IP，不允许之外的任何IP
+经过这一步，基本可以防止SPAM了
+2. 一般自动发信、找回密码">
+  
+
+  <meta property="og:title" content="阿里云centos配置postfix"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        阿里云centos配置postfix
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-04-25T22:45:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-04-26
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>1. 为了防止垃圾邮件，先到域名控制面板设置好。 MX A 记录及TXT记录</p>
+<p>其中TXT记录如下 &nbsp;@ &nbsp;spf1 a mx ~all</p>
+<p>意思就是使用spf1协议，允许a记录和MX记录对应的IP，不允许之外的任何IP</p>
+<p>经过这一步，基本可以防止SPAM了</p>
+<p>2. 一般自动发信、找回密码等功能配置的postfix，都不需要收信的功能，因此我们可以直接把收信的功能禁用掉。 老外管这个叫做 postfix null client 大家可以谷歌下原文，有很详细的解答</p>
+<p>原文链接：<a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-as-a-send-only-smtp-server-on-ubuntu-14-04" target="_blank" rel="external">https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-as-a-send-only-smtp-server-on-ubuntu-14-04</a></p>
+<p>这里直接把需要配置的几个字段附上说明，大家按照操作即可。</p>
+<p>安装postfix就不说了，这里是指已经安装之后的，找到下面的文件并打开编辑</p>
+<div class="cnblogs_code"><br><pre>/etc/postfix/main.cf</pre><br></div>
+
+<p>修改下面的几处参数</p>
+<div class="cnblogs_code"><br><pre><span style="color: #000000;">#主机名，这个一般跟MX记录设置成一样的<br>myhostname </span>=<span style="color: #000000;"> mail.example.com<br>#域名<br>mydomain </span>=<span style="color: #000000;"> example.com<br>#原始域名引用上面的变量<br>myorigin </span>=<span style="color: #000000;"> $mydomain<br>#设置允许接收哪些地址的邮件，这里默认是all，意思是接收所有来源的邮件，我们改为loopback</span>-<span style="color: #000000;">only就变为只接收本机发送的邮件，也可以使用localhost达到同样的效果<br>inet_interfaces </span>= loopback-only</pre><br></div>
+
+<p>修改完毕后保存退出。并重启postfix服务</p>
+<div class="cnblogs_code"><br><pre>service postfix restart<br><br>#设置开机启动<br>chkconfig postfix on</pre><br></div>
+
+<p>如果之前安装过其他的邮件服务还需要设置禁用其他邮件服务，并将postfix设为默认和开机启动。</p>
+<p>查看但前的mta</p>
+<div class="cnblogs_code"><br><pre>alternatives <span style="color: #008000;">–</span><span style="color: #008000;">config mta</span><br>There are <span style="color: #800080;">2</span> programs which provide <span style="color: #800000;">‘</span><span style="color: #800000;">mta</span><span style="color: #800000;">‘</span><span style="color: #000000;">.<br>Selection Command<br></span><span style="color: #008000;">#–</span><span style="color: #008000;">———————————————</span><br>*+ <span style="color: #800080;">1</span> /usr/sbin/sendmail.sendmail　#<span style="color: #000000;"> &larr; 当前状态：sendmail为默认MTA<br>　</span><span style="color: #800080;">2</span> /usr/sbin/<span style="color: #000000;">sendmail.postfix<br>Enter to keep the current selection[</span>+], <span style="color: #0000ff;">or</span> <span style="color: #ff00ff;">type</span> selection number: <span style="color: #800080;">2</span>　 &larr; 在这里输入2，使Postfix成为默认MTA</pre><br></div>
+
+<p><span style="line-height: 1.5;">经过上面的步骤之后，我们就可以使用php的mail函数发送邮件啦~~~</span></p>
+<p><span style="line-height: 1.5;">mail函数的详解使用方法 下一篇</span></p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="528" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>关于隐藏元素高度的问题 css visibility:hidden 与 display:none的区别 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="其实这是一个老问题了，s visibility:hidden 与 display:none 共同点就是都会似的元素不可见。但是&amp;nbsp;visibility:hidden 的DOM元素是占用空间的，会挤占其他元素的位置，宽度和高度边框边距等都不会发生变化，所以使用 offsetWidth等属性获取">
+  
+
+  <meta property="og:title" content="关于隐藏元素高度的问题 css visibility:hidden 与 display:none的区别"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        关于隐藏元素高度的问题 css visibility:hidden 与 display:none的区别
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-04-15T17:58:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-04-16
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>其实这是一个老问题了，s visibility:hidden 与 display:none 共同点就是都会似的元素不可见。但是&nbsp;visibility:hidden 的DOM元素是占用空间的，会挤占其他元素的位置，宽度和高度边框边距等都不会发生变化，所以使用 offsetWidth等属性获取的值不会发生变化。 但是display:none 就完全不同了，在DOM树中完全不会渲染，就相当于不存在这个DOM一样，所以使用 offsetWidth 等获取到的结果都是0。 明白了这些，下面我们来看一个简单的应用。</p>
+<p>在IE8中使用angular和bootstrap3的时候，发现引入 ui.bootstrap之后鼠标划过对应的tr（列表布局使用的table&gt;tr）的时候会出现闪动的情况，查找bootstrap的源码就可以发现其实它是在 tr的后面添加了div，这样在IE8中就会导致整个布局错乱，那这里我们只能自己动手来写一个类似的功能了，这里就牵扯到计算隐藏元素高度的问题。</p>
+<p>首先在body结束标签之前，我们新增一个 tootip的div，代码如下（其实就是 bootstrap 中 tooltip插件里面的一个参数 template）：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">div </span><span style="color: #ff0000;">id</span><span style="color: #0000ff;">=”tooltips”</span><span style="color: #ff0000;"> class</span><span style="color: #0000ff;">=”tooltip top”</span><span style="color: #0000ff;">&gt;</span><br>    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">div </span><span style="color: #ff0000;">class</span><span style="color: #0000ff;">=”tooltip-arrow”</span><span style="color: #0000ff;">&gt;&lt;/</span><span style="color: #800000;">div</span><span style="color: #0000ff;">&gt;</span><br>    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">div </span><span style="color: #ff0000;">class</span><span style="color: #0000ff;">=”tooltip-inner”</span><span style="color: #0000ff;">&gt;&lt;/</span><span style="color: #800000;">div</span><span style="color: #0000ff;">&gt;</span><br><span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">div</span><span style="color: #0000ff;">&gt;</span></pre><br></div>
+
+<p>增加如下代码后，bootstrap默认的css会直接渲染为tooltip的样式，这里为了方便，我们就不再更改默认的class，然后我们让这个提示框显示到对应元素的上方，中间位置，但是问题来了，tooltip-inner里面的内容是不固定的，也就是说这里面的内容高度是不确定的，因此我们根据元素位置获取的top值在这里需要经过计算，减去这里的tooltip的高度才能正确加载到文档的对应位置。所以在鼠标移开的事件中就必须使用visibility:hidden 如果使用display:none, 再次获取tooltip的高度会发现高度为0了，看代码吧。</p>
+<p>如果使用display:none (jq中的 hide()方法)</p>
+<div class="cnblogs_code"><br><pre>$.fn.tips = <span style="color: #0000ff;">function</span><span style="color: #000000;">(content){<br>        </span><span style="color: #0000ff;">var</span>    $tt = $(‘#tooltips’<span style="color: #000000;">),<br>            $ttinner </span>= $(‘.tooltip-inner’<span style="color: #000000;">),<br>            pos </span>= $(<span style="color: #0000ff;">this</span><span style="color: #000000;">).offset(),<br>            w </span>= parseInt($(<span style="color: #0000ff;">this</span>).outerWidth(),10<span style="color: #000000;">);<br>        $ttinner.html(content);<br>        </span><span style="color: #0000ff;">var</span> calcWidth = parseInt($tt.outerWidth(), 10<span style="color: #000000;">);<br>        </span><span style="color: #0000ff;">var</span> h = parseInt($tt.outerHeight(),10<span style="color: #000000;">),<br>            l </span>= parseInt(pos.left)<em>1 + (w - calcWidth)</em>0.5<span style="color: #000000;">;<br>        $tt.css({left:l</span>+’px’,top:(pos.top-h)+’px’}).fadeIn(100<span style="color: #000000;">);<br>    }<br>    $.fn.tipshide </span>= <span style="color: #0000ff;">function</span><span style="color: #000000;">(){<br>        $(</span>‘#tooltips’<span style="color: #000000;">).hide();<br>    }</span></pre><br></div>
+
+<p>上面代码只有第一次会正确显示提示框，第二次的时候将无法正确显示，下面是修复后的</p>
+<div class="cnblogs_code"><br><pre>$.fn.tips = <span style="color: #0000ff;">function</span><span style="color: #000000;">(content){<br>        </span><span style="color: #0000ff;">var</span>    $tt = $(‘#tooltips’<span style="color: #000000;">),<br>            $ttinner </span>= $(‘.tooltip-inner’<span style="color: #000000;">),<br>            pos </span>= $(<span style="color: #0000ff;">this</span><span style="color: #000000;">).offset(),<br>            w </span>= parseInt($(<span style="color: #0000ff;">this</span>).outerWidth(),10<span style="color: #000000;">);<br>        $ttinner.html(content);<br>        </span><span style="color: #0000ff;">var</span> calcWidth = parseInt($tt.outerWidth(), 10<span style="color: #000000;">);<br>        </span><span style="color: #0000ff;">var</span> h = parseInt($tt.outerHeight(),10<span style="color: #000000;">),<br>            l </span>= parseInt(pos.left)<em>1 + (w - calcWidth)</em>0.5<span style="color: #000000;">;<br>        $tt.css({left:l</span>+’px’,top:(pos.top-h)+’px’, visibility:”visible”}).fadeIn(100<span style="color: #000000;">);<br>    }<br>    $.fn.tipshide </span>= <span style="color: #0000ff;">function</span><span style="color: #000000;">(){<br>        $(</span>‘#tooltips’).css(“visibility”,”hidden”<span style="color: #000000;">);<br>    }</span></pre><br></div>
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="576" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>腾讯、新浪微博分享链接格式 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近微博很火，所以我们也要跟上脚步。 看到很多分享都是来自 XXX，这样的应用都是开发者使用了appkey实现的。
+那本文就告诉大家关于新浪的分享链接的使用方法。本文以新浪微博为例来说明：
+1. 到新浪开发平台申请一个appkey：http://open.weibo.com
+2. 在新浪微博注册成为">
+  
+
+  <meta property="og:title" content="腾讯、新浪微博分享链接格式"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        腾讯、新浪微博分享链接格式
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-06-08T06:47:32.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-06-08
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/html/">HTML</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近微博很火，所以我们也要跟上脚步。 看到很多分享都是来自 XXX，这样的应用都是开发者使用了appkey实现的。</p>
+<p>那本文就告诉大家关于新浪的分享链接的使用方法。本文以新浪微博为例来说明：</p>
+<p>1. 到新浪开发平台申请一个appkey：<a href="http://open.weibo.com" target="_blank" rel="external">http://open.weibo.com</a></p>
+<p>2. 在新浪微博注册成为开发者，并填写要开发的应用信息确认后会显示一个appkey 和 secretkey给你；</p>
+<p>3. 接下来就可使用上面的appkey开发你的应用了。新浪微博分享链接格式如下：</p>
+<p><pre>switch($share){<br>        case “sina”:<br>            $link = ‘<a href="http://v.t.sina.com.cn/share/share.php?appkey=4052864631&amp;url=&#39;.urlencode($post_link).&#39;&amp;title=&#39;.urlencode($post_title" target="_blank" rel="external">http://v.t.sina.com.cn/share/share.php?appkey=4052864631&amp;url=&#39;.urlencode($post_link).&#39;&amp;title=&#39;.urlencode($post_title</a>) .’&amp;source=&amp;sourceUrl=&amp;content=utf-8&amp;pic=’.urlencode($pic);<br>            break;<br>        case “qq”:<br>            $link = ‘<a href="http://v.t.qq.com/share/share.php?appkey=90ef6a523cb94c28ace7efcc4cae26c8&amp;url=&#39;.urlencode($post_link).&#39;&amp;title=&#39;.urlencode($post_title" target="_blank" rel="external">http://v.t.qq.com/share/share.php?appkey=90ef6a523cb94c28ace7efcc4cae26c8&amp;url=&#39;.urlencode($post_link).&#39;&amp;title=&#39;.urlencode($post_title</a>) .’&amp;site=&amp;pic=’.urlencode($pic);<br>            break;<br>        default:<br>            break;<br>    }</pre><br>上文的示例代码为PHP的示例代码，大家可以修改响应的参数从而实现分享到对应的微博即可。<br>示例：</p>
+<p><pre><a href="http://v.t.sina.com.cn/share/share.php?appkey=4052864631&amp;url=http://www.lovelai.com&amp;title=来爱吧，青岛婚恋交友网站&amp;source=&amp;sourceUrl=&amp;content=来爱吧，青岛婚恋交友网站&amp;pic=http://www.lovelai.com/images/e-logo.gif" target="_blank" rel="external">http://v.t.sina.com.cn/share/share.php?appkey=4052864631&amp;url=http://www.lovelai.com&amp;title=来爱吧，青岛婚恋交友网站&amp;source=&amp;sourceUrl=&amp;content=来爱吧，青岛婚恋交友网站&amp;pic=http://www.lovelai.com/images/e-logo.gif</a></pre><br>这段代码即是将lovelai.com这个网站分享到新浪微博的方式。你们可以自行修改其中的代码分享到其他网站。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="299" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

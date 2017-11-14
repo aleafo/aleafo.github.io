@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>淘宝轮播JS - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="&amp;lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&amp;quot;&amp;gt;
+taobao首页轮播原生js面对对">
+  
+
+  <meta property="og:title" content="淘宝轮播JS"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        淘宝轮播JS
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-09-13T22:29:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-09-14
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;" target="_blank" rel="external">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</a></p>
+<html xmlns="http://www.w3.org/1999/xhtml"><br><head><br><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><br><title>taobao首页轮播原生js面对对象封装版</title><br><style><br><!--
+body, ul, li, p {
+ margin: 0;
+ padding: 0;
+}
+ul{
+ list-style-type:none;
+}
+body {
+ font-family:"Times New Roman", Times, serif;
+}
+#box {
+ position:relative;
+ width:492px;
+ height:172px;
+ margin:10px auto;
+}
+#box .imgList{
+ position:relative;
+ width:490px;
+ height:170px;
+ overflow:hidden;
+}
+#box .imgList li{
+ position:absolute;
+ top:0;
+ left:0;
+ width:490px;
+ height:170px;
+}
+#box .countNum{
+ position:absolute;
+ right:0;
+ bottom:5px;
+}
+#box .countNum li{
+ width:20px;
+ height:20px;
+ float:left;
+ color:#fff;
+ border-radius:20px;
+ background:#f90;
+ text-align:center;
+ margin-right:5px;
+ cursor:pointer;
+ opacity:0.7;
+ filter:alpha(opacity=70);
+}
+#box .countNum li.current{
+ background:#f60;
+ font-weight:bold;
+ opacity:1;
+ filter:alpha(opacity=70);
+}
+--><br></style><br><script><br><!--
+ function runImg(){}
+ runImg.prototype={
+  bigbox:null,//最外层容器
+  boxul:null,//子容器ul
+  imglist:null,//子容器img
+  numlist:null,//子容器countNum
+  prov:0,//上次显示项
+  index:0,//当前显示项
+  timer:null,//控制图片转变效果
+  play:null,//控制自动播放
+  imgurl:[],//存放图片
+  count:0,//存放的个数
+  $:function(obj)
+  {
+   if(typeof(obj)=="string")
+   {
+    if(obj.indexOf("#")>=0)
+    {
+     obj=obj.replace("#","");
+     if(document.getElementById(obj))
+     {
+      return document.getElementById(obj);
+     }
+     else
+     {
+      alert("没有容器"+obj);
+      return null;
+     } 
+    }
+    else
+    {
+     return document.createElement(obj);
+    }
+   }
+   else
+   {
+    return obj;
+   }
+  },
+  //初始化
+  info:function(id)
+  {
+   this.count=this.count<=5?this.count:5;
+   this.bigbox=this.$(id);
+   for(var i=0;i<2;i++)
+   {
+    var ul=this.$("ul");
+    for(var j=1;j<=this.count;j++)
+    {
+     var li=this.$("li");
+     li.innerHTML=i==0?this.imgurl[j-1]:j;
+     ul.appendChild(li);
+    }
+    this.bigbox.appendChild(ul);
+   }
+   this.boxul=this.bigbox.getElementsByTagName("ul");
+   this.boxul[0].className="imgList";
+   this.boxul[1].className="countNum";
+   this.imglist=this.boxul[0].getElementsByTagName("li");
+   this.numlist=this.boxul[1].getElementsByTagName("li");
+   for(var j=0;j<this.imglist.length;j++)
+   {
+    this.alpha(j,0);
+   }
+   this.alpha(0,100);
+   this.numlist[0].className="current";
+  },
+  //封装程序入口
+  action:function(id)
+  {
+   this.autoplay();
+   this.mouseoverout(this.bigbox,this.numlist);
+  },
+  //图片切换效果
+  imgshow:function(num,numlist,imglist)
+  {
+   this.index=num;
+   var pralpha=100;
+   var inalpha=0;
+   for(var i=0;i<numlist.length;i++)
+   {
+    numlist[i].className="";
+   }
+   numlist[this.index].className="current";
+   clearInterval(this.timer);
+                        for(var j=0;j<this.imglist.length;j++)
+          {
+           this.alpha(j,0);
+          }
+   this.alpha(this.prov,100);
+   this.alpha(this.index,0);
+   var $this=this;
+   //利用透明度来实现切换图片
+   this.timer=setInterval(function(){
+    inalpha+=2;
+    pralpha-=2;
+    if(inalpha>100){inalpha=100};//不能大于100
+    if(pralpha<0){pralpha=100};
+    //为兼容性赋样式
+    $this.alpha($this.prov,pralpha);
+    $this.alpha($this.index,inalpha);
+    if(inalpha==100&&pralpha==0){clearInterval($this.timer)};//当等于100的时候就切换完成了
+   },20)//经测试20是我认为最合适的值
+  },
+  //设置透明度
+  alpha:function(i,opacity){
+   this.imglist[i].style.opacity=opacity/100;
+   this.imglist[i].style.filter="alpha(opacity="+opacity+")";
+  },
+  //自动播放
+  autoplay:function(){
+   var $this=this;
+   this.play=setInterval(function(){
+    $this.prov=$this.index;
+    $this.index++;
+    if($this.index>$this.imglist.length-1){$this.index=0};
+    $this.imgshow($this.index,$this.numlist,$this.imglist);
+    },2000)
+  },
+  //处理鼠标事件
+  mouseoverout:function(box,numlist)
+  {
+   var $this=this;
+   box.onmouseover=function()
+   {
+    clearInterval($this.play);
+   }
+   box.onmouseout=function()
+   {
+    $this.autoplay($this.index);
+   }
+   for(var i=0;i<numlist.length;i++)
+   {
+    numlist[i].index=i;
+    numlist[i].onmouseover=function(){
+     $this.prov=$this.index;
+     $this.imgshow(this.index,$this.numlist,$this.imglist);
+    }
+   }
+  }
+ }
+ window.onload=function(){
+  var runimg=new runImg();
+  runimg.count=5;
+  runimg.imgurl=[
+  "![](\)",
+  "![](\)",
+  "![](\)",
+  "![](\)",
+  "![](\)"];
+  runimg.info("#box");
+  runimg.action("#box");
+ }
+--><br></script><br></head><br><br><body><br><center><br><br># Author:wyf<br><br>2012/2/25<br></center><br><div id="box"></div><br></body><br></html>
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="545" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>寻最短路径问题2 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="寻最短路径问题。 重新整理了一下，加了些注释，以备后面参考。
+&amp;nbsp;
+/==============================================================================// @pos          =&amp;gt; 起点坐标id// @">
+  
+
+  <meta property="og:title" content="寻最短路径问题2"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        寻最短路径问题2
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-03-06T18:02:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-03-07
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>寻最短路径问题。 重新整理了一下，加了些注释，以备后面参考。</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008000;">/<em></em></span><span style="color: #008000;"><br>==============================================================================<br>// @pos          =&gt; 起点坐标id<br>// @endId        =&gt; 终点坐标id<br>// @key          =&gt; 返回的字符串，保存上一层递归完成的路径节点<br>// @len          =&gt; 节点的id差（本例中没用到）<br>// @startId         =&gt; 原始起点，防止走回头路<br>// @deep         =&gt; 递归深度<br>// @startDeep    =&gt; 递归初始深度，用来确定是否为首次递归，防止走回头路，陷入死循环。<br>==============================================================================<br> </span><span style="color: #008000;">/</span><br><br><span style="color: #0000ff;">function</span><span style="color: #000000;"> tree(beginId, endId, pathArray, key, startId, deep, startDeep) {<br><br>    </span><span style="color: #0000ff;">if</span> (deep &lt; 0) <span style="color: #0000ff;">return</span>;  <span style="color: #008000;">//</span><span style="color: #008000;">到达递归层数，退出递归</span><br><br>    <span style="color: #0000ff;">var</span> others =<span style="color: #000000;"> [];<br><br>    </span><span style="color: #0000ff;">for</span> (x <span style="color: #0000ff;">in</span><span style="color: #000000;"> pathArray) {<br>        </span><span style="color: #0000ff;">var</span> tmp =<span style="color: #000000;"> pathArray[x];<br><br>        </span><span style="color: #0000ff;">if</span> (tmp[0] == beginId || tmp[1] == beginId) { <span style="color: #008000;">//</span><span style="color: #008000;">找到本次循环的起点</span><br><br>            <span style="color: #0000ff;">var</span> other = tmp[0] == beginId ? tmp[1] : tmp[0]; <span style="color: #008000;">//</span><span style="color: #008000;">本次循环起点的另一端</span><br><br>            <span style="color: #008000;">//</span><span style="color: #008000;">防止走回头路</span><br>            <span style="color: #0000ff;">if</span> (deep &lt; startDeep &amp;&amp; beginId == startId)  <span style="color: #0000ff;">continue</span><span style="color: #000000;">;<br><br>            others.push(other); </span><span style="color: #008000;">//</span><span style="color: #008000;">经过筛选的路径保存到others数组里面</span><br><span style="color: #000000;"><br>        }<br>    }<br><br>    </span><span style="color: #008000;">//</span><span style="color: #008000;">遍历经过筛选的节点进行第二次查找，并根据判断结果进行递归</span><br>    <span style="color: #0000ff;">for</span> (y <span style="color: #0000ff;">in</span><span style="color: #000000;"> others) {<br>        other </span>=<span style="color: #000000;"> others[y];<br><br>        </span><span style="color: #0000ff;">if</span> (other == endId) { <span style="color: #008000;">//</span><span style="color: #008000;">找到通往重点的一条路径，保存到result数组</span><br>            result.push(key + endId + “,|”<span style="color: #000000;">);<br>            </span><span style="color: #0000ff;">continue</span><span style="color: #000000;">;<br>        }<br><br>        tree(other, endId, pathArray, key </span>+ other + “,”, startId, deep - 1<span style="color: #000000;">, startDeep);<br>    }<br>}</span></pre><br></div>
+
+<p>后面这一段，是从上面遍历所有可用路径的列表中找到最短的一条。 结尾处附运行示例。</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008000;">/<em></em></span><span style="color: #008000;"><br>==============================================================================<br>// 获取最短路径<br><br>// @a           =&gt;  起点节点ID<br>// @b           =&gt;  终点节点ID<br>// @pathArray  =&gt;  路径数组，二维数组  如<br>// var pathArray = [[185,184],[186,185],[187,186],[188,187],[189,187],[191,189]];<br>// 返回结果为[a,b,c] 最短路径的节点ID数组<br>==============================================================================<br></span><span style="color: #008000;">/</span><br><br><span style="color: #0000ff;">function</span><span style="color: #000000;"> get_min_path(a, b, pathArray) {<br><br>    </span><span style="color: #0000ff;">var</span> ret_path =<span style="color: #000000;"> [a];<br><br>    </span><span style="color: #008000;">//</span><span style="color: #008000;">先判断是否能直接到达，若能直接达到则直接返回结果即可</span><br>    <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">var</span> i = 0; i &lt; pathArray.length; i++<span style="color: #000000;">) {<br>        </span><span style="color: #0000ff;">var</span> e =<span style="color: #000000;"> pathArray[i];<br>        </span><span style="color: #0000ff;">if</span> (e.toString() == a + ‘,’ + b || e.toString() == b + ‘,’ +<span style="color: #000000;"> a) {<br>            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> [a,b];<br>        }<br>    };<br><br>    </span><span style="color: #008000;">//</span><span style="color: #008000;">若未能直接找到，则进行最短路径的查找</span><br>    tree(a, b, pathArray, “”, a, 5, 5<span style="color: #000000;">);<br>    </span><span style="color: #0000ff;">var</span> ret =<span style="color: #000000;"> result;<br>    result </span>=<span style="color: #000000;"> [];<br>    </span><span style="color: #0000ff;">var</span> min = 100<span style="color: #000000;">;<br>    </span><span style="color: #0000ff;">var</span> min_path_str = ‘’<span style="color: #000000;">;<br>    </span><span style="color: #008000;">//</span><span style="color: #008000;">求出最短的路径</span><br>    <span style="color: #0000ff;">for</span> (x <span style="color: #0000ff;">in</span><span style="color: #000000;"> ret) {<br>        </span><span style="color: #0000ff;">var</span> path_arr_str = ret[x].split(‘|’)[0<span style="color: #000000;">];<br>        </span><span style="color: #0000ff;">var</span> path_arr = path_arr_str.split(“,”<span style="color: #000000;">);<br>        </span><span style="color: #0000ff;">var</span> rank =<span style="color: #000000;"> path_arr.length;<br>        </span><span style="color: #0000ff;">if</span> (rank &lt;<span style="color: #000000;"> min) {<br>            min </span>=<span style="color: #000000;"> rank;<br>            min_path_str </span>=<span style="color: #000000;"> path_arr_str;<br>        }<br>    }<br>    </span><span style="color: #0000ff;">return</span> ret_path.concat(min_path_str.slice(0, -1).split(“,”<span style="color: #000000;">));<br>}<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;"> 这里是一个参数的示例，方便后续构造</span><span style="color: #008000;"><br>//</span><span style="color: #008000;"> 所有路径，不区分开始和结束节点的前后顺序</span><br><span style="color: #0000ff;">var</span> pathArray = [[185,184],[186,185],[187,186],[188,187],[189,187],[191,189<span style="color: #000000;">]];<br></span><span style="color: #0000ff;">var</span> pathArray = [[34,50],[35,30],[40,35],[50,40<span style="color: #000000;">]];<br></span><span style="color: #008000;">//</span><span style="color: #008000;">起点ID</span><br><span style="color: #0000ff;">var</span> begId = 34<span style="color: #000000;">;<br></span><span style="color: #008000;">//</span><span style="color: #008000;">终点ID</span><br><span style="color: #0000ff;">var</span> endId = 40<span style="color: #000000;">;<br>console.log(get_min_path(begId,endId,pathArray));<br>console.log(get_min_path(</span>35,50,pathArray));</pre><br></div>
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="538" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

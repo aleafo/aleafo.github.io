@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>IE兼容问题整理 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="前言：本文试图整理web前端开发过程中常见的一些IE、FF等浏览器的兼容问题，并对其中的一些问题给出了分析的连接，让读者更好的理解问题出现的原因并加深印象。读者可以从右侧目录中跳读本文的部分内容。
+1.超链接访问过后hover样式就不出现的问题被点击访问过的超链接样式不在具有hover和active">
+  
+
+  <meta property="og:title" content="IE兼容问题整理"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        IE兼容问题整理
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-04-05T07:49:55.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-04-05
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/html/">HTML</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/ie/">ie</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>本文试图整理web前端开发过程中常见的一些IE、FF等浏览器的兼容问题，并对其中的一些问题给出了分析的连接，让读者更好的理解问题出现的原因并加深印象。读者可以从右侧目录中跳读本文的部分内容。</p>
+<h2 id="1-超链接访问过后hover样式就不出现的问题"><a href="#1-超链接访问过后hover样式就不出现的问题" class="headerlink" title="1.超链接访问过后hover样式就不出现的问题"></a>1.超链接访问过后hover样式就不出现的问题</h2><p>被点击访问过的超链接样式不在具有hover和active了,很多人应该都遇到过这个问题,解决方法是改变CSS属性的排列顺序: L-V-H-A ，扩展：<a href="http://liangsandian.com/a/css-priority/" title="CSS优先级浅析">CSS优先级浅析</a></p>
+<h2 id="2-FireFox下如何使连续长字段自动换行"><a href="#2-FireFox下如何使连续长字段自动换行" class="headerlink" title="2.FireFox下如何使连续长字段自动换行"></a>2.FireFox下如何使连续长字段自动换行</h2><p>众所周知IE中直接使用 word-wrap:break-word 就可以了, 从CSS3.0开始，FF和webkit核心的浏览器也支持此属性，因此我们可以不再对FF等专门设置js的解决方案了，扩展阅读<a href="http://liangsandian.com/a/white-space-word-wrap/" title="white-space word-wrap word-break">white-space word-wrap word-break的简单应用</a>。</p>
+<h2 id="3-ff下为什么父容器的高度不能自适应"><a href="#3-ff下为什么父容器的高度不能自适应" class="headerlink" title="3.ff下为什么父容器的高度不能自适应"></a>3.ff下为什么父容器的高度不能自适应</h2><p>在子容器加了浮动属性后,该容器将不能自动撑开,解决方法是在标签结束后加上一个清除浮动的元素。或者查看更多 <a href="http://liangsandian.com/a/div-can-not-auto-expand/" title="解决父容器高度不能自动撑开的方法">解决父容器高度不能自动撑开的方法</a></p>
+<h2 id="4-IE6的双倍边距BUG"><a href="#4-IE6的双倍边距BUG" class="headerlink" title="4.IE6的双倍边距BUG"></a>4.IE6的双倍边距BUG</h2><p>浮动后本来外边距10px,但IE解释为20px,解决办法是给浮动的层增加属性：display:inline，取消其块级元素的属性。</p>
+<h2 id="5-IE6下绝对定位的容器内文本无法正常选择的问题"><a href="#5-IE6下绝对定位的容器内文本无法正常选择的问题" class="headerlink" title="5. IE6下绝对定位的容器内文本无法正常选择的问题"></a>5. IE6下绝对定位的容器内文本无法正常选择的问题</h2><p>此问题在IE6、7中存在,解决问题的办法是让IE进入到qurks mode。关于<a href="http://www.microsoft.com/china/msdn/library/webservices/asp.net/ ASPNETusStan.mspx?mfr=true" title="微软的quiks mode 解析" target="_blank" rel="external">qurks mode</a>的相关知识，可以点击连接查看微软的帮助。</p>
+<h2 id="6-IE6下为什么图片下有空隙产生"><a href="#6-IE6下为什么图片下有空隙产生" class="headerlink" title="6. IE6下为什么图片下有空隙产生"></a>6. IE6下为什么图片下有空隙产生</h2><p>解决这个BUG的方法也有很多,可以是改变html的排版,或者设置img 为display:block 或者设置vertical-align 属性为vertical-align:top | bottom |middle |text-bottom 都可以解决.</p>
+<h2 id="7-IE6-3像素文本偏移BUG"><a href="#7-IE6-3像素文本偏移BUG" class="headerlink" title="7. IE6 3像素文本偏移BUG"></a>7. IE6 3像素文本偏移BUG</h2><p>这个IE的3PX BUG也是经常出现的：一个元素向左浮动，相邻的文本没有浮动就会在IE6-下产生3px的空白间隙。解决的办法是给相邻文本也同样浮动 float:left 或者相对IE6定义.left margin-right:-3px;</p>
+<h2 id="8-list-style-image无法准确定位的问题"><a href="#8-list-style-image无法准确定位的问题" class="headerlink" title="8. list-style-image无法准确定位的问题"></a>8. list-style-image无法准确定位的问题</h2><p>list-style-image的定位问题也是经常有人问的,因为不同的浏览器核心会将list-style-image解析成不同的位置，解决的办法一般是用li的背景模拟,这里采用相对定位的方法也可以解决。</p>
+<h2 id="9-如何垂直居中文本"><a href="#9-如何垂直居中文本" class="headerlink" title="9.如何垂直居中文本"></a>9.如何垂直居中文本</h2><p>将元素高度和行高设为一致。</p>
+<pre>&lt;style type="text/css"&gt; 
+&lt;!-- 
+div {
+height:30px;
+line-height:30px;
+border:1px solid red;
+}
+--&gt;
+&lt;/style&gt;</pre>
+对于文本框可以加上
+<pre>vertical-align:middle;</pre>
+
+<h2 id="10-怎样使一个层垂直居中于浏览器中"><a href="#10-怎样使一个层垂直居中于浏览器中" class="headerlink" title="10.怎样使一个层垂直居中于浏览器中"></a>10.怎样使一个层垂直居中于浏览器中</h2><p>这里我们使用百分比绝对定位,与外补丁负值的方法,负值的大小为其自身宽度高度除以二</p>
+<pre>&lt;style type="text/css"&gt; 
+&lt;!-- 
+div {
+position:absolute; 
+top:50%;
+lef:50%;
+margin:-100px 0 0 -100px; 
+width:200px; 
+height:200px;
+border:1px solid red; 
+}
+--&gt; 
+&lt;/style&gt;</pre>
+
+<h2 id="11-IE相邻未浮动元素外边距折叠"><a href="#11-IE相邻未浮动元素外边距折叠" class="headerlink" title="11. IE相邻未浮动元素外边距折叠"></a>11. IE相邻未浮动元素外边距折叠</h2><p>对于块级元素（display:block），未浮动的垂直相邻元素的上边界和下边界会被压缩，例如：有上下2个元素，上元素的下边界为5px，下面元素的上边界为20px，则实际2个元素的间距为20px（2个边界值中较大的值）。具体可以参看豆猫的 <a href="http://www.ddcat.net/blog/?p=138" title="豆猫-关于盒模型的解释" target="_blank" rel="external">盒模型（Box model）</a></p>
+<h2 id="12-IE7-下margin-bottom不起作用"><a href="#12-IE7-下margin-bottom不起作用" class="headerlink" title="12.IE7-下margin-bottom不起作用"></a>12.IE7-下margin-bottom不起作用</h2><p>今天（2011.5.23）在给一个团购网站做页面布局修改的时候，发现了一个很诡异的问题，IE下最后一个DOM的底边距不起作用，仔细观察后发现，外边距加到了其父元素上了，但是在FF和CHROME下显示正常，最后在蓝色理想找到了一篇帖子，为父元素增加zoom:1，解决了问题。但是现在还是不了解具体触发这个问题的原因，难道就是IE天生的一个BUG，使用haslayout就解决了？</p>
+<p>更多内容持续更新中。</p>
+<h2 id="13-IE6重复字符的BUG"><a href="#13-IE6重复字符的BUG" class="headerlink" title="13. IE6重复字符的BUG"></a>13. IE6重复字符的BUG</h2><p>当一系列浮动元素的第一个和最后一个元素之间有多个注释的时候就会出现这个BUG，前两个注释没有影响，但是后续的每个注释都会导致重复的字符出现。很诡异的BUG，貌似和3px偏移有关，可以通过设置负值的右空白边来修正，但是最好的方法就是删除注视，或者放到另外的位置。</p>
+<h2 id="14-IE6躲猫猫BUG"><a href="#14-IE6躲猫猫BUG" class="headerlink" title="14. IE6躲猫猫BUG"></a>14. IE6躲猫猫BUG</h2><p>当浮动元素设置的高度比父元素文本高度大，而且父元素设置了背景色，并且结尾使用了清除浮动，就会导致父元素内的文本被隐藏。详细内容访问：<a href="http://www.cnblogs.com/JustinYoung/archive/2008/04/01/peekaboo-bug.html" title="IE6躲猫猫" target="_blank" rel="external">IE6躲猫猫</a>，上面的示例解释的很详细。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="74" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

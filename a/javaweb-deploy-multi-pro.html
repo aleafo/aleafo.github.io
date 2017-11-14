@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>javaweb部署多个项目（复制的项目） - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近需要在一台服务器部署两个已经编译完了的javaweb项目，但是因为项目名一样，仅修改文件夹的名字无法实现两个项目共存，最后只能考虑采用部署多个tomcat服务器的方法来实现。搜索后终于找到个好方法，实现的时候也煞费周折，反正主要是jdk的版本问题和环境变量的配置问题，再就是要细心了。 下面是网上">
+  
+
+  <meta property="og:title" content="javaweb部署多个项目（复制的项目）"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        javaweb部署多个项目（复制的项目）
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-02-26T21:54:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-02-27
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近需要在一台服务器部署两个已经编译完了的javaweb项目，但是因为项目名一样，仅修改文件夹的名字无法实现两个项目共存，最后只能考虑采用部署多个tomcat服务器的方法来实现。搜索后终于找到个好方法，实现的时候也煞费周折，反正主要是jdk的版本问题和环境变量的配置问题，再就是要细心了。 下面是网上找到的配置两个tomcat服务器的方法，转载过来。</p>
+<p>由于工作的原因，需要在一个服务器中配置多个tomcat。在网上找了许多的资料，发现在自己的机子上用不了。当第一个tomcat启动后，后面tomcat的server.xml中的端口不管怎么改，仍然会报端口冲突。后来在dos下运行才发现所有的tomcat都会去找CATALINA_HOME和CATALINA_BASE这两个环境变量，因此步骤如下：&nbsp;<br>1.使用压缩版的tomcat不能使用安装版的。&nbsp;<br>2.第一个tomcat的配置不变。&nbsp;<br>3.增加环境变量CATALINA_HOME2，值为新的tomcat的地址；增加环境变量CATALINA_BASE2，值为新的tomcat的地址。&nbsp;<br>4.修改新的tomcat中的startup.bat，把其中的CATALINA_HOME改为CATALINA_HOME2。&nbsp;<br>5.修改新的tomcat中的catalina.bat，把其中的CATALINA_HOME改为CATALINA_HOME2，CATALINA_BASE改为CATALINA_BASE2。&nbsp;<br>6.修改conf/server.xml文件：&nbsp;<br>6.1&nbsp;<server port="8005" shutdown="SHUTDOWN">把端口改为没有是使用的端口。&nbsp;<br>6.2&nbsp;<connector port="8080" maxhttpheadersize="8192" &nbsp;="" maxthreads="150" minsparethreads="25" maxsparethreads="75" enablelookups="false" redirectport="8443" acceptcount="100" connectiontimeout="20000" disableuploadtimeout="true">&nbsp;把端口改为没有是使用的端口。&nbsp;<br>6.3<connector port="8009" &nbsp;="" enablelookups="false" redirectport="8443" protocol="AJP/1.3">&nbsp;把端口改为没有是使用的端口。&nbsp;<br>成功！</connector></connector></server></p>
+<p>2015.2.17 亲测有效</p>
+<p>转自：<a href="http://www.cnblogs.com/littlehb/archive/2012/02/07/2341413.html" target="_blank" rel="external">http://www.cnblogs.com/littlehb/archive/2012/02/07/2341413.html</a></p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="581" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

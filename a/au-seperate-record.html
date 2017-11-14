@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>Adobe Audio 分轨录音教程（需要KX，Live机架） - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="一、需要的硬件和软件1. 创新5.1声卡或7.1声卡；
+2. 已安装KX驱动和Live机架，经过测试安装后需要重启电脑才能生效。
+3. 已安装Adobe Audition 3.0
+二、测试环境WIN7 64bit&amp;nbsp;
+三、分轨录音的步骤：1. 首先启动KX和Live机架2. kx连线设置打开">
+  
+
+  <meta property="og:title" content="Adobe Audio 分轨录音教程（需要KX，Live机架）"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Adobe Audio 分轨录音教程（需要KX，Live机架）
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-07-19T00:07:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-07-19
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="一、需要的硬件和软件"><a href="#一、需要的硬件和软件" class="headerlink" title="一、需要的硬件和软件"></a>一、需要的硬件和软件</h2><p>1. 创新5.1声卡或7.1声卡；</p>
+<p>2. 已安装KX驱动和Live机架，经过测试安装后需要重启电脑才能生效。</p>
+<p>3. 已安装Adobe Audition 3.0</p>
+<h2 id="二、测试环境"><a href="#二、测试环境" class="headerlink" title="二、测试环境"></a>二、测试环境</h2><p>WIN7 64bit&nbsp;</p>
+<h2 id="三、分轨录音的步骤："><a href="#三、分轨录音的步骤：" class="headerlink" title="三、分轨录音的步骤："></a>三、分轨录音的步骤：</h2><h3 id="1-首先启动KX和Live机架"><a href="#1-首先启动KX和Live机架" class="headerlink" title="1. 首先启动KX和Live机架"></a>1. 首先启动KX和Live机架</h3><h3 id="2-kx连线设置"><a href="#2-kx连线设置" class="headerlink" title="2. kx连线设置"></a>2. kx连线设置</h3><p>打开KX的数字信号处理器。通常都是把asio14/15 作为麦克风输入的线路（其他线路同理）。</p>
+<p>我们需要做的就是将要录制的音源分轨连接到Asio的不同端子上，然后通过Au3.0接收Asio各个轨道的声音进行分轨录制。</p>
+<p>如下图所示，我们将混响效果连接到 Asio 13/14 端子上，酷狗音乐连接到 Asio的 12/13端子上，这样就实现了我们要分轨的音源分开输入到了Asio中</p>
+<p><img src="/uploads/2016/08/191542036881954.jpg" alt=""></p>
+<h3 id="3-AU-3-0中进行设置"><a href="#3-AU-3-0中进行设置" class="headerlink" title="3. AU 3.0中进行设置"></a>3. AU 3.0中进行设置</h3><p>连接好了Asio之后，我们就可以进入到 AU 3.0中进行设置</p>
+<p>①设置录制音频设备为kx Asio，首先打开Au 3.0 点击菜单栏中的&ldquo;编辑&rdquo;&mdash;&mdash;&ldquo;音频硬件设置&rdquo;&mdash;&mdash;在音频设备中选择&ldquo;kx ASIO kx Generic (c000)&rdquo; 确定即可。</p>
+<p><img src="/uploads/2016/08/191545455484476.jpg" alt=""></p>
+<p>② 将vst效果添加到au 3.0 中。 切换到 编辑状态&mdash;&mdash;点击菜单栏中的&ldquo;效果&rdquo;&mdash;&mdash;&ldquo;添加与移除vst目录&rdquo;，将默认的文件夹移除，点击添加，找到我们安装机架时候的&ldquo;vst插件&rdquo;文件夹，将效果全选（你也可以只选择自己常用的效果），确定即可看到扫描进度并完成添加。</p>
+<p><img src="/uploads/2016/08/191552450488249.png" alt=""></p>
+<h3 id="4-Au中多轨分轨设置"><a href="#4-Au中多轨分轨设置" class="headerlink" title="4. Au中多轨分轨设置"></a>4. Au中多轨分轨设置</h3><p>下面我们即可对各个音轨进行分轨设置。 切换到&ldquo;多轨&rdquo;模式，点击将1-3轨，分别命名为&ldquo;麦克风&rdquo;、&ldquo;混响&rdquo;、&ldquo;酷狗音乐&rdquo;</p>
+<p>然后为每个音轨的输入口选择对应的音轨与第二步中的端子设置保持一致。</p>
+<p>分别将麦克风设置为 &nbsp;Kx In 14, &nbsp;混响 -&gt; &nbsp;kx In 12 ， 酷狗音乐 -&gt; kx In 10。</p>
+<p>如下图所示：</p>
+<p><img src="/uploads/2016/08/191557126738922.jpg" alt=""></p>
+<p>&nbsp;</p>
+<h3 id="5-开始分轨录音"><a href="#5-开始分轨录音" class="headerlink" title="5. 开始分轨录音"></a>5. 开始分轨录音</h3><p>经过上面的设置之后，我们只需要打开每个（上面设置了3个）音轨的 R 按钮（Record 录音的英文缩写）即使得该音轨录音生效。然后点击下方的开始录音的红色圆形按钮即可开始录音。 此时的酷狗音乐以及人声和混响是分不同的音轨进行录制的，所以可以用于后期的再合成等制作。</p>
+<h3 id="6-录音回放试听"><a href="#6-录音回放试听" class="headerlink" title="6. 录音回放试听"></a>6. 录音回放试听</h3><p>录制完成后，点击方形的按钮即可停止录音，录音停止后，再次点击每个音轨的R按钮取消录制（即表示停止录制音轨），然后在时间轴中点击一下开始的位置，再点点击三角形的播放按钮即可听到每个音轨的声音。可以使用M按钮来关闭或打开每个各个音轨，或者使用音量调节按钮来调大或调小每个音轨的音量。</p>
+<p>通过菜单栏中的文件可以导出我们试听好的音频文件，通常导出WAV格式是最高效的。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="549" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

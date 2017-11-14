@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>web前端开发工具Dreamweaver常见问题集锦 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="1.在onLoad运行_onOpen.htm时,发生了以下javascript错误(Dreamweaver CS4)在用dreamweaver cs4的时候，开始还是好好的，过了几天就开始出现问题了，提示：在onLoad运行_onOpen.htm时，发生了以下JavaScript错误:在文件“_on">
+  
+
+  <meta property="og:title" content="web前端开发工具Dreamweaver常见问题集锦"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        web前端开发工具Dreamweaver常见问题集锦
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2010-12-12T08:30:52.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2010-12-12
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/tools/">TOOLS</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="1-在onLoad运行-onOpen-htm时-发生了以下javascript错误-Dreamweaver-CS4"><a href="#1-在onLoad运行-onOpen-htm时-发生了以下javascript错误-Dreamweaver-CS4" class="headerlink" title="1.在onLoad运行_onOpen.htm时,发生了以下javascript错误(Dreamweaver CS4)"></a>1.在onLoad运行_onOpen.htm时,发生了以下javascript错误(Dreamweaver CS4)</h2><p>在用dreamweaver cs4的时候，开始还是好好的，过了几天就开始出现问题了，提示：<br>在onLoad运行_onOpen.htm时，发生了以下JavaScript错误:<br>在文件“_onOpen”中:onOpen is not defined<br>虽说不影响使用，但是没错关闭文件打开文件，老是提示，很麻烦，而且发现复制粘贴功能也无法使用了。于是重新安装dw cs4，问题还是没有解决，看样子是缓存的问题了，查找了下，解决方法其实很简单：<br>在 C:\Documents and Settings\用户名\Application Data\Adobe\Dreamweaver CS4\zh_CN\Configuration<br>这个目录下面，有一个类似WinFileCache-81127F42.dat这样的dat文件，只要把这个删除了就可以解决问题了。<br>其他的操作系统下面也是使用相似的方法，只不过路径不同，当然上面的C是指系统盘符。</p>
+<h2 id="2-dreamweaver-cs4-在win7系统下菜单栏全部变成英文形如menu-…这种类似的乱码形式。"><a href="#2-dreamweaver-cs4-在win7系统下菜单栏全部变成英文形如menu-…这种类似的乱码形式。" class="headerlink" title="2. dreamweaver cs4 在win7系统下菜单栏全部变成英文形如menu/…这种类似的乱码形式。"></a>2. dreamweaver cs4 在win7系统下菜单栏全部变成英文形如menu/…这种类似的乱码形式。</h2><p>在网上找了很久解决的方法，一直没能找到一个满意的答案，无奈之下只有自己动手了。我想这个菜单的内容应该保存在类似配置文件或者xml这类的文件中，所以可以使用Windows自带的搜索功能来全文检索一下这些文字，果不其然，让我找到了这个文件。埋的还真够深的。</p>
+<p>C:\Users\haixin\AppData\Roaming\Adobe\Dreamweaver CS4\zh_CN\Configuration\Menus\Cache\Menus</p>
+<p>藏到了这里了。winxp下的路径应该是C:\Documents and Settings\&lt;用户名&gt;\Application Data\Adobe\Dreamweaver <em>CS4</em>\</p>
+<p><div>zh_CN\Configuration 这里。</div><br>那解决方法应该很简单了，其实跟第一条的问题类似，我们先关闭dw，然后直接删除menus文件夹，再重新打开dw，哈哈，熟悉的界面终于重现眼前了。英文也不是不好，但是它这个英文又臭又长的，很不美观，对于我这个有点电脑洁癖的人来说无法容忍。好了，就介绍到这里，希望对大家有帮助。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="29" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

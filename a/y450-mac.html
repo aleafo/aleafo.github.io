@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>Y450安装 Mac OS（苹果雪豹系统）10.6并升级10.6.6及完美驱动 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="Y450安装 Mac OS （苹果雪豹系统）10.6并升级10.6.6及完美驱动，首先感谢远景论坛Mac OS X Snow Leopard的大牛们，是你们的辛苦研究成果让我得以安装成功。
+实施步骤如下，首先给大家一个 新手安装指南：一步一步在Windows安装苹果雪豹系统  或者：新手window">
+  
+
+  <meta property="og:title" content="Y450安装 Mac OS（苹果雪豹系统）10.6并升级10.6.6及完美驱动"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Y450安装 Mac OS（苹果雪豹系统）10.6并升级10.6.6及完美驱动
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-07-26T03:12:51.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-07-26
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/mac/">mac</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>Y450安装 Mac OS （苹果雪豹系统）10.6并升级10.6.6及完美驱动，首先感谢<a href="http://bbs.pcbeta.com/forum-185-1.html" title="远景论坛Mac OS X Snow LeoPard 雪豹系统专区" target="_blank" rel="external">远景论坛Mac OS X Snow Leopard</a>的大牛们，是你们的辛苦研究成果让我得以安装成功。</p>
+<p>实施步骤如下，首先给大家一个 <a href="http://bbs.pcbeta.com/viewthread-592288-1-1.html" title="新手安装指南：一步一步在Windows安装苹果雪豹系统" target="_blank" rel="external">新手安装指南：一步一步在Windows安装苹果雪豹系统</a>  或者：<a href="http://bbs.pcbeta.com/viewthread-763656-1-1.html" title="新手windows下安装苹果教程。最详细，最全面，最值得看的教程！" target="_blank" rel="external">新手windows下安装苹果教程 - 最详细，最全面，最值得看的教程！</a>，仔细通读上面的教程，然后再进行安装。多花点时间准备上，比你到后面碰到问题再解决要好的多，工欲善其事必先利其器。</p>
+<p>下面说说自己的安装注意事项和安装驱动（我大部分时间都花在了安装驱动上面了）的注意事项，请先把这部分看完再开始安装。</p>
+<h2 id="1-安装注意事项："><a href="#1-安装注意事项：" class="headerlink" title="1. 安装注意事项："></a>1. 安装注意事项：</h2><p>安装Mac之前，记得bootthink驱动Kext文件，也就是C盘的 /Darwin/System/LibrarySL/Extensions 里面的文件只保留fakesmc.kext和OpenHaltRestart.kext这两个，其他到全部移动到别的地方备用，同时把/Darwin/dsdt.aml也移动到别处备用。如果不这么做，你的苹果系统安装完成后很可能五国（出现五国语言，只能断电重启）等，那就只能进win系统删除kext和dsdt.aml了；</p>
+<p>安装Mac系统的时候，注意在前面的安装向导部分，记得把打印机的选项勾去掉，否则安装会很慢、时间很长；</p>
+<p>安装进行的过程中，一定记得每隔几分钟动一下鼠标或者拍一下键盘，否则联想Y450可能会进入硬盘休眠状态，那安装就费费了；</p>
+<p>如果安装到最后只剩一点，然后一直不动，可以强制断电，可能已经安装成功了，重启试试看。</p>
+<p>安装完成后，先去官方网站<a href="http://support.apple.com/kb/DL1349?viewlocale=zh_CN&amp;locale=zh_CN" target="_blank" rel="external">下载Mac OS  X v10.6.6的组合更新升级包</a>（可以在win系统下访问网站下载），不要直接在线升级，那会直接升级到10.6.8或更高，重启后直接无法进入系统，删除kext都不行，切记。</p>
+<h2 id="2-安装驱动及其注意事项"><a href="#2-安装驱动及其注意事项" class="headerlink" title="2. 安装驱动及其注意事项"></a>2. 安装驱动及其注意事项</h2><p><span class="Apple-style-span" style="font-size: 15px; font-weight: bold;">2.1 boothink及其驱动下载</span></p>
+<p>bootthink是国产的用于安装多系统的引导工具，直接解压后放在C盘根目录，然后运行其中的install.bat(win7下必须以管理员身份运行)，即可安装成功。</p>
+<p>关于DSDT，DSDT.aml文件是用来描述苹果系统的电脑硬件信息的，mac可以根据这里的内容来正确的识别电脑的硬件信息。很多牛人也都根据不同的硬件制作了不同的dsdt在论坛里面可以很容易的搜素到。</p>
+<p>打包好的bootthink（含远景zwt提供的这个2010年12月11更新的dsdt可以调节屏幕亮度的以及Y450 TSI GT240M for Mac OS 10.6.6完美驱动下载）下载地址</p>
+<p>Dbank: <a href="http://dl.dbank.com/c0fqhb0b9g" title="Y450 TSI GT240M for Mac OS 10.6.6完美驱动下载 - Dbank网盘" target="_blank" rel="external">http://dl.dbank.com/c0fqhb0b9g</a></p>
+<p>115网盘：<a href="http://u.115.com/file/aqzhovqm" title="Y450 TSI GT240M for Mac OS 10.6.6完美驱动下载 - 115网盘" target="_blank" rel="external">http://u.115.com/file/aqzhovqm</a></p>
+<p><span class="Apple-style-span" style="font-size: 15px; font-weight: bold;">2.2 Y450 mac OS 10.6网卡驱动</span></p>
+<p>Y450 mac OS 10.6的网卡是BCM5754，没有这个型号的标准驱动。驱动能直接使用的kext文件非常难找，所以这里建议大家使用修改过的AppleBCM5701Ethernet.kext （已经包含在2.1中）直接复制到 SLE下（mac系统的 /System/Library/Extensions/ 中文显示应为 系统-&gt;资源库-&gt;Extensions），然后使用命令修复权限，重启即可。修复权限的步骤如下：<br>应用程序——实用工具——终端，输入</p>
+<p>sudo -s 回车 （显示Password:即输入密码，你输入的时候是看不到的，输入完了回车即可）<br>chown -R root:wheel /system/Library/Extensions/AppleBCM5701Ethernet.kext<br>chmod -R 755 /System/Library/Extensions/AppleBCM5701Ethernet.kext<br>exit<br>reboot</p>
+<p>上面第2行赋予使用者为root，第3行设置读写权限为755,第4行exit为退出，最后是重启电脑。</p>
+<p>Y450 Mac OS 无线网卡驱动，因为5100暂时无解，所以如果非常需要这个功能，那建议先去换个网卡把原配的英特尔5100无线网卡换成Atheros AR9280，此卡在雪豹下自动驱动。</p>
+<p><span class="Apple-style-span" style="font-size: 15px; font-weight: bold;">2.3 Y450 Mac OS声卡驱动</span></p>
+<p>Y450 mac OS 的声卡驱动方式有两种，第一是使用VoodooHDA.kext 这个是其中的一种方法，但是我测试过之后总是有问题，所以不推荐；<br>第二种驱动动方法是使用两个文件 AppleHDA.kext 和 LegencyAppleHDA.kext，将这两个文件直接复制到SLE下，修复权限然后重启即可（方法同2.2网卡驱动）</p>
+<p>Y450 TSI GT240M for Mac OS 10.6.6 声卡驱动文件下载地址：</p>
+<p>Dbank下载：<a href="http://dl.dbank.com/c00nczh1zl" title="Y450 TSI GT240M for Mac OS 10.6.6 声卡驱动" target="_blank" rel="external">http://dl.dbank.com/c00nczh1zl</a></p>
+<p>115网盘下载：<a href="http://u.115.com/file/dn6xopzn" title="Y450 TSI GT240M for Mac OS 10.6.6 声卡驱动" target="_blank" rel="external">http://u.115.com/file/dn6xopzn</a></p>
+<p><span class="Apple-style-span" style="font-size: 15px; font-weight: bold;">2.4 其他驱动</span></p>
+<p>其他驱动直接放在/Darwin/System/LibrarySL/Extensions下即可，这里直接使用本文中2.1 的bootthink里面自带的驱动kext文件即可全部正常驱动了。</p>
+<h2 id="3-其他说明及注意事项"><a href="#3-其他说明及注意事项" class="headerlink" title="3 其他说明及注意事项"></a>3 其他说明及注意事项</h2><p>3.1 Y450 Mac OS Fn+上下箭头调节亮度问题：其实这个DSDT文件设置的并不是使用Fn+上下箭头，而是Fn+F9和Fn+F11来调节亮度的。</p>
+<p>3.2 Y450 Mac OS 设置开机亮度问题，这个问题可以参考这里 <a href="http://bbs.pcbeta.com/viewthread-830707-1-1.html" target="_blank" rel="external">http://bbs.pcbeta.com/viewthread-830707-1-1.html</a></p>
+<p>3.3 Y450 Mac OS 每隔一段时间光驱就会响一次（光驱总响，吱嘎声），这是硬盘的节电功能导致的，打开偏好设置，在节能器里面将“如果可能，使硬盘进入睡眠”的勾去掉即可</p>
+<p>3.4 Mac OS文件路径怎么找，在Finder中上面的工具栏按钮空白区域右键——自定义工具栏——将路径拖入即可。</p>
+<p>以上内容为个人分享的心得，转载请注明出处：<a href="http://liangsandian.com/a/y450-mac/ ‎" title="Y450安装 Mac OS（苹果雪豹系统）10.6并升级10.6.6及完美驱动">http://liangsandian.com/a/y450-mac/ ‎</a></p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="376" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

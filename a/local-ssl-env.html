@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>搭建本地wamp https SSL 测试环境 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="前言微信小程序，需要全站的数据均为https的传输协议。 
+之前阿里云的ssl传输，直接使用的cdn 服务端生成的证书，其实是个非完全的加密（用户到 阿里云cdn 属于安全的ssl传输，cdn节点到阿里云自家服务器用的还是传统的传输协议）
+但是，证书申请和配置都非常方便，而且安全性也足够，关键是免费">
+  
+
+  <meta property="og:title" content="搭建本地wamp https SSL 测试环境"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        搭建本地wamp https SSL 测试环境
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-02-28T05:27:26.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-02-28
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">php</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>微信小程序，需要全站的数据均为https的传输协议。 </p>
+<p>之前阿里云的ssl传输，直接使用的cdn 服务端生成的证书，其实是个非完全的加密（用户到 阿里云cdn 属于安全的ssl传输，cdn节点到阿里云自家服务器用的还是传统的传输协议）</p>
+<p>但是，证书申请和配置都非常方便，而且安全性也足够，关键是免费！</p>
+<p>但是本地开发的时候，测试就比较烦恼了。 如果提供了 appid 之后的小程序测试环境，需要读取配置中的可信域名作为数据来源的可信域名测试环境。 因此，就需要配置一个本地的https环境用于开发测试。</p>
+<p>原理其实就是自己给自己颁发一个证书，然后信任自己 ^_^</p>
+<h2 id="配置本地SSL环境流程大致如下"><a href="#配置本地SSL环境流程大致如下" class="headerlink" title="配置本地SSL环境流程大致如下"></a>配置本地SSL环境流程大致如下</h2><ul>
+<li><ol>
+<li>使用openSSL 生成证书（证书中包含域名和来源者的身份信息）；</li>
+</ol>
+</li>
+<li><ol>
+<li>服务端开启对SSL的支持模块</li>
+</ol>
+</li>
+<li><ol>
+<li>服务端配置文件修改映射域名端口和证书路径</li>
+</ol>
+</li>
+<li><ol>
+<li>系统hosts配置文件修改端口（实际这个端口可以不用加，但是加和不加是有区别的）并重启服务。</li>
+</ol>
+</li>
+</ul>
+<h2 id="详细操作流程如下"><a href="#详细操作流程如下" class="headerlink" title="详细操作流程如下"></a>详细操作流程如下</h2><h3 id="1-生成证书"><a href="#1-生成证书" class="headerlink" title="1. 生成证书"></a>1. 生成证书</h3><p>使用openSSL生成证书。 首先下载openSSL，然后生成证书。<br>openssl下载：链接: <a href="http://pan.baidu.com/s/1kUF7Vk7" target="_blank" rel="external">http://pan.baidu.com/s/1kUF7Vk7</a> 密码: 45b4<br>我们只需要公钥，私钥，和证书即可。<br>这里我们的开发环境为 wamp，因此可以直接使用apache自带的openssl 来生成证书。</p>
+<ul>
+<li>找到apache的conf目录， 在该目录下运行cmd（按住Ctrl右键 文件夹空白处），在此处运行cmd</li>
+<li><p>生成server.key </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa 1024&gt;server.key</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成server.csr</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key server.key &gt; server.csr</span><br></pre></td></tr></table></figure>
+<p>需要用户输入国家代码之类的信息，可以随便输入。 除了 Common Name 只能输入域名或IP，而且Common Name 必须和 httpd.conf 中 server name 必须一致， 否则 apache 不能启动</p>
+</li>
+<li>生成server.crt <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -x509 -days 365 -key server.key -in server.csr &gt; server.crt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-以wamp环境为例，修改服务端配置"><a href="#2-以wamp环境为例，修改服务端配置" class="headerlink" title="2. 以wamp环境为例，修改服务端配置"></a>2. 以wamp环境为例，修改服务端配置</h3><ul>
+<li>配置：httpd.conf，取消注释： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Include conf/extra/httpd-ssl.conf </span><br><span class="line">LoadModule ssl_module modules/mod_ssl.so</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意这里的”httpd-ssl.conf “ 文件中，默认有一个主机配置，如果需要使用，请修改对应的网站根目录路径和apache路径，否则会导致apache启动失败。 这里我们建议使用包含vhosts文件的形式。</p>
+<ul>
+<li><p>配置vhosts文件，端口改为443，然后在对应的vhosts文件中增加证书和服务器公钥文件路径。其中 C:/wamp/bin/apache/apache2.4.9/ 替换为apache路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SSLEngine on</span><br><span class="line">SSLCertificateFile &quot;C:/wamp/bin/apache/apache2.4.9/conf/server.crt&quot;</span><br><span class="line">SSLCertificateKeyFile &quot;C:/wamp/bin/apache/apache2.4.9/conf/server.key&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启apache，如果出现无法启动的情况，请检查apache路径。</p>
+</li>
+</ul>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="251" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>ECSHOP添加digg顶一下插件 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最新开发了为Ecshop添加digg顶一下的功能插件。使用Ecshop经营网上商城的人很多，官方的论坛上提问的人也很多，但是真正愿意无私分享技术的人却没有几个，希望大家可以更活跃的分享自己的开发心得，让Ecshop变得越来越强大。
+下面说下在Ecshop中digg插件具体实现步骤和插件下载地址。
+/">
+  
+
+  <meta property="og:title" content="ECSHOP添加digg顶一下插件"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        ECSHOP添加digg顶一下插件
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-06-19T09:28:58.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-06-19
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">PHP</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/cms/">cms</a>·<a href="/tags/ecshop/">ecshop</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最新开发了为Ecshop添加digg顶一下的功能插件。使用Ecshop经营网上商城的人很多，官方的论坛上提问的人也很多，但是真正愿意无私分享技术的人却没有几个，希望大家可以更活跃的分享自己的开发心得，让Ecshop变得越来越强大。</p>
+<p>下面说下在Ecshop中digg插件具体实现步骤和插件下载地址。</p>
+<p><pre>/*</pre></p>
+<ul>
+<li>Author: aleafo</li>
+<li>URI: <a href="http://liangsandian.com">http://liangsandian.com</a></li>
+<li>Version: v1.0<br><em>/<br>1.后台运行sql语句，增加digg字段<br><pre>alter table <code>ecs_goods</code> add <code>digg</code> int(11) default 0; //若安装时修改了数据库前缀，这里同样修改</pre><br>2. 在goods.php文件 大约第198行增加<br><pre>        /</pre></em> digg */<pre><code>$smarty-&amp;gt;assign(&apos;digg&apos;,           $goods[&apos;digg&apos;]);&lt;/pre&gt;
+</code></pre>3. 在页面中调用方式为：<br><pre>&lt;style type=”text/css”&gt;<br>.digg{float:right; height:70px; width:60px; background:url(<br>themes/default/library/diggc/images/digg.gif) no-repeat 0 0; padding-right:20px; padding-top:7px; text-align:center; font:bold 16px Tahoma;}<br>.digg a{display:block; width:50px; color:#666; height:60px;}<br>.digg a:hover{text-decoration:none;}<br>&lt;/style&gt;<br>&lt;script language=”javascript” src=”themes/default/library/diggc/digg.js”&gt;&lt;/script&gt;<br>&lt;script type=”text/javascript”&gt;var url = “themes/aleafo/library/diggc/“;&lt;/script&gt;<br>&lt;div class=”digg”&gt;&lt;a href=”javascript:sEval({$goods.goods_id})” id=”digg”&gt;{$goods.digg}&lt;/a&gt;&lt;/div&gt;</pre><br>其中的themes/default/ 为你的主题目录地址<br>4.  上传插件文件到你的 themes/default/library/下,本结果中的计算方式是通过用户的COOKIE来计算的，所以同一台电脑对同一个产品1小时内只能digg一次，或者等cookies失效后可以继续digg。</li>
+</ul>
+<p>最后附上 插件的下载地址，下载后修改扩展名为rar解压即可。<a href="/uploads/2011/06/diggc.jpg" title="下载后扩展名改为rar解压即可">Ecshop添加digg顶一下插件</a> 下载</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="310" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

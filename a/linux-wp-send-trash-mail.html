@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>linux 安装wordpress 无故往外发送大量垃圾邮件 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="linux 安装wordpress 无故往外发送大量垃圾邮件 始末
+表现出来的现象就是， 网站运行没多久，mysql服务就挂了，重启也无法启动起来，提示 No such file or dicrionary &amp;nbsp;但是很明显mysql是存在的，但是为什么出现这个提示，后来搜了一下，发现是因为磁">
+  
+
+  <meta property="og:title" content="linux 安装wordpress 无故往外发送大量垃圾邮件"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        linux 安装wordpress 无故往外发送大量垃圾邮件
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-11-27T07:58:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-11-27
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">PHP</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/linux/">linux</a>·<a href="/tags/wordpress/">wordpress</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>linux 安装wordpress 无故往外发送大量垃圾邮件 始末</p>
+<p>表现出来的现象就是， 网站运行没多久，mysql服务就挂了，重启也无法启动起来，提示 No such file or dicrionary &nbsp;但是很明显mysql是存在的，但是为什么出现这个提示，后来搜了一下，发现是因为磁盘空间不足。</p>
+<p>然后运行 df -l 发现磁盘使用不到30% &nbsp;怎么会不足呢。 继续搜， 发现原来是 inode 节点不足了。 使用命令 df -i 查看发现 inode节点使用100% 已经满了。</p>
+<p>inode节点不足是怎么造成的呢，于是继续搜索。 然后发现是因为巨量的小文件导致 inode节点不足。 那这个巨量的小文件在哪呢，怎么查找，头疼。 毕竟菜鸟对linux命令不熟悉。</p>
+<p>然后继续搜索，发现可以使用linux命令查找最近的文件，因为这个问题是最近几天才出现的，所以可以查找一下最近几天增加的文件有哪些。然后使用 find / mtime +2 即可查看最近2天新增的文件。 然后从列表中发现在&nbsp;var/spool/postfix/maildrop/ 目录中发现有大量文件。 使用命令 &nbsp;ls -l |grep “^-“|wc -l 查看该目录下的文件个数，有30多万个，乖乖，问题找到了。&nbsp;</p>
+<p>然后搜了一下 发现这个目录的文件之所以会有这么多 就是因为发送邮件失败后都会有文件被存放到这里，就类似于一个队列的感觉。 然后把这个目录的所有文件删除。 进入该目录后，使用 rm -rf * 发现提示命令超过最大长度。乖乖，删还费劲啊，然后继续搜索，删除巨量文件的linux命令</p>
+<pre class="best-text mb-10">ls|xargs rm -f</pre>
+
+<p>光把这里删了还不行，还需要修改一下mail服务里面的配置，让它以后不再保存这些队列邮件了</p>
+<p> 解决方法：<br>     修改&ldquo;/etc/crontab&rdquo;<br>     将&lsquo;MAILTO=root&rsquo;替换成&lsquo;MAILTO=””&rsquo;修改之后没有成功，需要重启crond服务才可以 service crond restart</p>
+<p>修改完以上内容后，开启邮件服务，然后 垃圾邮件还是继续发。 我就奇怪了，这到底是为啥呢。</p>
+<p>然后以为网站中毒，于是逐个扫描病毒。 使用了360提供的 主机卫士&nbsp;<a href="http://zhuji.360.cn/" target="_blank" rel="external">http://zhuji.360.cn/</a> &nbsp;查杀网站后门文件。 清理完毕后仍然无效</p>
+<p>再后来搜到一篇文章，说是空间被当作代理服务器发送邮件，因为没有屏蔽未经认证的域名。 然后在apche的配置文件中</p>
+<p>httpd.conf 修改一下非允许域名不能解析到本空间地址。</p>
+<div class="cnblogs_code"><br><pre><virtualhost *:80=""><span style="color: #000000;"><br>  ServerName </span>你的IP地址<br>  <location><span style="color: #000000;"><br>    Order Allow</span>,<span style="color: #000000;">Deny<br>    Deny from all<br>  </span></location><br></virtualhost></pre><br></div>
+
+<p>&nbsp;</p>
+<p><span style="line-height: 1.5;">对允许的域名做如下设置，允许的域名这段代码放在上面禁止的代码之后：</span></p>
+<div class="cnblogs_code"><br><pre><virtualhost *:80=""><span style="color: #000000;"><br>     ServerName domain</span>.<span style="color: #000000;">com<br>     ServerAlias www</span>.domain.<span style="color: #000000;">com<br>     DocumentRoot </span>/<span style="color: #0000ff;">var</span>/www/<br>     <directory "="" var="" www=""><span style="color: #000000;"><br>          Options Indexes FollowSymLinks<br>          AllowOverride all<br>          Order allow</span>,<span style="color: #000000;">deny<br>          Allow from all<br>     </span></directory><br></virtualhost></pre><br></div>
+
+<p>如果有多个域名，复制多个即可。</p>
+<p>原文见这里&nbsp;<a href="http://blog.itpub.net/59745/viewspace-611292/" target="_blank" rel="external">http://blog.itpub.net/59745/viewspace-611292/</a></p>
+<p>&nbsp;</p>
+<p>上的设置已经完成，重启以观后效</p>
+<p>&nbsp;</p>
+<p>后续补充:</p>
+<p>经过一段时间测试后发现 maildrop又被塞满了，然后 使用crontab -e 对 root的crontab进行了编辑。 增加一行 MAILTO=”” 再试试吧。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="540" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

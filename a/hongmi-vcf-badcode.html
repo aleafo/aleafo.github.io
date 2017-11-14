@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>小米/红米导入VCF联系人乱码问题解决 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="PS：尽量不要用什么豌豆荚啊、微信啊、QQ啊之类的通讯录备份，那就等于把自己的通讯录免费送给腾讯他们了。。。。还是自己手动的好一些，但是小白用户或者经常丢手机的卖就卖吧，总比联系人都丢了要好~~~
+默认的 什么诺基亚PC套件啊，什么windows通讯录啊，豌豆荚啊 之类的到处的VCF格式的文件编码都">
+  
+
+  <meta property="og:title" content="小米/红米导入VCF联系人乱码问题解决"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        小米/红米导入VCF联系人乱码问题解决
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2013-12-08T22:39:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2013-12-09
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>PS：尽量不要用什么豌豆荚啊、微信啊、QQ啊之类的通讯录备份，那就等于把自己的通讯录免费送给腾讯他们了。。。。还是自己手动的好一些，但是小白用户或者经常丢手机的卖就卖吧，总比联系人都丢了要好~~~</p>
+<p>默认的 什么诺基亚PC套件啊，什么windows通讯录啊，豌豆荚啊 之类的到处的VCF格式的文件编码都不一样，所以再导入到手机的时候中文部分就会出现乱码。</p>
+<p>先说下把多个VCF文件合并成一个。</p>
+<p>导出的vcf联系人是一个人一个VCF文件，一个一个导入太慢了。现有如下方法合并VCF文件：<br>1.C盘根目录下建contact文件夹，把所有要合并的VCF文件放在里面<br>2.开始-》运行-》键入”cmd”回车，此时要确保位置在contact文件夹下（方法：光标处输入”cd\”回车，回到c盘根目录，输入”cd contact”回车，此时光标前应该是”c:\contact&gt;”)<br>3.输入”copy /B <em>.vcf all.vcf”（或者：&ldquo;type </em>.vcf&gt;&gt;all.vcf&rdquo;）回车，此目录下就建立了一个all.vcf包含所有的联系人<br>    回车</p>
+<p>然后说如何解决乱码问题：</p>
+<p>首先你要有个gmail邮箱，注册地址 gmail.com &nbsp;登录gmail邮箱之后，点击左上角的GMAIL -&gt;通讯录，导入上面的VCF 然后再从通讯录中将VCF导出为VCARD文件，这样再导入小米手机就OK啦~~~ &nbsp;</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="600" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

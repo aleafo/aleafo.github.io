@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>【吐槽】关于256个 class可以覆盖一个id的问题 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="还是说今天下午面试的事情，被面试官问了 40多分钟的问题，我觉得丫 一定是从哪个网站down了几份面试题，自个儿整合了一下，然后挨个问，刚开始感觉哟，不错哦，面试官懂的蛮多的。 然后问到某个问题之后，我有一种被深深的套路了的感觉，好感度瞬间降到冰点，然后心情真心不太爽。 下面就拿这个问题来说吧，以前">
+  
+
+  <meta property="og:title" content="【吐槽】关于256个 class可以覆盖一个id的问题"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        【吐槽】关于256个 class可以覆盖一个id的问题
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-08-09T08:04:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-08-09
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>还是说今天下午面试的事情，被面试官问了 40多分钟的问题，我觉得丫 一定是从哪个网站down了几份面试题，自个儿整合了一下，然后挨个问，刚开始感觉哟，不错哦，面试官懂的蛮多的。 然后问到某个问题之后，我有一种被深深的套路了的感觉，好感度瞬间降到冰点，然后心情真心不太爽。 下面就拿这个问题来说吧，以前真心没注意过，试问谁会在一个dom上写256个class</p>
+<p>起因就是 css权重问题，其实是个老生常谈，一般人都会这么回答， ID是100 &nbsp;class 10 &nbsp;tagname 是1 &nbsp;云云。 然而，这考官说，那class是否有可能覆盖id 我说 不能。 多少个都不能么? 此刻我其实是稍微有点动摇的，但是考官既然单独拎出来问，估计是能的。然而我还是跟着自己的感觉走，因为我即使说能，那我也不知道如何解释，所以我说不能，多少个都不能。 然后考官大人就说，之前的一个面试者也是这么回答的，但实际上是能的，class超过256个的话是可以覆盖的。</p>
+<p>此时，我只能作崇拜状，哇，长知识了，这个我以前还真不知道。</p>
+<p>然而，到家晚饭后忽然又想起这个问题来，表示怀疑中，然后自己亲测了一下，结果：</p>
+<p>chrome safari 以及移动端webkit内核（通常都是停留在webkit40左右） 新版的 256个class已然无法覆盖id， 很显然，浏览器厂商也认为这特么是个BUG ，有木有。（<a href="http://corpus.hubwiz.com/1010000002986983.html）" target="_blank" rel="external">http://corpus.hubwiz.com/1010000002986983.html）</a></p>
+<p>可惜，IE 还是死性不改， EDGE &nbsp;FF也依然是 256个class可以覆盖id的~ &nbsp;（2016.8.9 亲测~）</p>
+<p><span style="line-height: 1.5;">结论： 考官装逼失败，你虽然知道256个class是有可以覆盖id的情况，但是你并不清楚最新的浏览器标准已经修复了该BUG，拿已给小众小众不能再小众的问题来考倒面试者，确定不是在装13？？？ 本来刚到了之后面试感觉还是蛮不错的公司，考官的一些LOW逼问题让人无语，你考基础归考基础，可是别炫技装逼咱们还能好好做朋友的。</span></p>
+<p>本来呢，是不怎么打算考虑这家了，然而人力资源的小胖MM态度蛮好，很热情。 临走出门的时候，前台的小姑娘，很漂亮有木有，出门之前正好跟在我后面，让妹子帮忙刷了下门禁。 我不是内中看到漂亮姑娘就走不动的人好么。</p>
+<p>然而，最终，如果钱给到了，这些嘛不重要啦，都是敲代码在哪不一样，活干好了，没人会委屈你~~</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="504" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

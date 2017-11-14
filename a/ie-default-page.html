@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>IE主页修改那点事 - 锁定、不可设置、注册表等 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="现在的Windows xp ghost版本的操作系统满天飞，各种版本数不胜数，其中很多版本被一些人用作营销工具，修改你的主页，而且对于一般的新手而言几乎无法去掉，因为牵扯的内容和知识面非常的广，令人瞠目结舌，本文从笔者经历进行一次讲解。
+首先打开IE，发现主页被锁定为一个导航网址。而且Interne">
+  
+
+  <meta property="og:title" content="IE主页修改那点事 - 锁定、不可设置、注册表等"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        IE主页修改那点事 - 锁定、不可设置、注册表等
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2011-09-16T09:23:24.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2011-09-16
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/scrawl/">我的涂鸦</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/ie/">ie</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>现在的Windows xp ghost版本的操作系统满天飞，各种版本数不胜数，其中很多版本被一些人用作营销工具，修改你的主页，而且对于一般的新手而言几乎无法去掉，因为牵扯的内容和知识面非常的广，令人瞠目结舌，本文从笔者经历进行一次讲解。</p>
+<p>首先打开IE，发现主页被锁定为一个导航网址。而且Internet选项中 使用当前页、使用默认页、使用空白页几个选项全部为灰色不可用状态，很是纠结。仔细观察发现桌面上的IE浏览器并非原生的，而是一个快捷方式，查看后面的参数才发现，原来是被修改了参数。</p>
+<p>那接下来我们就删除这个快捷方式，之后再到桌面属性中自定义桌面，发现IE竟然没有了，其实这是因为 系统盘 C:\windows\System32\shell32.dll 这个文件被修改的原因，解决方法有两种：第一，直接按下Alt+I 就可以选中了，尽管我们看不到，然后确定就可以恢复正常的IE图标； 第二，到一台正常的电脑中拷贝一个Shell32.dll过来也可以解决这个问题。</p>
+<p>我们使用Alt+I选中之后，发现图标是回来了，但是主页依然无法修改。其实主页被修改从注册表的角度来讲主要由以下几个方面：</p>
+<p>1、我们的IE浏览器参数被修改，实际上是我们的Windows注册表中“HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main”小节和“HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main”小节里的几个键的键值被修改。其中：IE浏览器起始页（首页）和标题栏被修改，实际上分别是“Start Page”键和“Window Title”键的键值被修改。</p>
+<p>2、设置IE首页被禁止（使修改处变灰暗，无法修改内容）实际上是：在Windows注册表“HKEY_CURRENT_USER\Software\Policies\Microsoft”中被添加了主键：“Internet Explorer\Control Panel”后再加上一个DWORD值键：“HomePage”取值为：“1”（或“0”）。</p>
+<p>3、Windows注册表被加锁实际上是：在Windows注册表中“HKEY_USERS.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Policies”小节被加上主键：“DisableRegistryTools”取键值为：“1”。（Windows2000则是：“HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System”小节被加上主键：“DisableRegistryTools”取键值为：“1”。）</p>
+<p>4、开机时弹出一个页面，自动连接到某站点，实际上是：某些*.hta文件被自动下载后，其快捷方式被加入启动组或注册表自动运行键里了。</p>
+<p>5、按右键的弹出的菜单里，被加入了某些网站连接，其实是：在Windows注册表 “HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\MenuExt “ 中被添加了某些主键或键值。</p>
+<p>进行了上述全部修改之后，我们发现C盘中的IE可以正常打开空白页了，但是从快捷栏启动的IE依然会打开那个导航网址，查看属性，发现快捷栏的属性里面有网址参数，很简单，删掉参数即可。</p>
+<p>最后，我们再看桌面上的IE图标，打开后依然会发现启动了导航网址，参数也没有，注册表也修改了，主页也设置为空白了，但这是为什么呢。 仔细思量之后，觉得问题可能出现在IE的关联项目被修改。</p>
+<p>然后我们使用下面的方法，找到</p>
+<p><pre>主键：HKEY_CLASSES_ROOT\CLSID{871C5380-42A0-1069-A2EA-08002B30309D}<br>子键：shell\OpenHomePage\Command<br>键值：”%Programfiles%\Internet Explorer\iexplore.exe”<br>iexplore.exe 后面添加恶意网址。</pre><br>至此，我的问题彻底解决了。</p>
+<p>上面几乎提到了所有的修改方式，如果还有问题，那我们就只能使用终极方法，搜索恶意网址，但是要注意有些恶意网址采用跳转的方式，你看到地址栏里显示的不一定是注册表的，那就需要你在打开IE的瞬间看标题栏然后借助一些辅助工具找到本机访问的网站对应IP，然后根据IP查找网址，可以通过某些网站实现。 最后再到注册表中搜索找到的恶意网址，删除。</p>
+<p>但是有时候这些网址不是直接明文存放在注册表里面的，而是使用了十六进制的方式存储，大家可以将网址转换为十六进制（在线转换网址：<a href="http://htwy.org.ru/url.htm）之后再到注册表中进行搜索。" target="_blank" rel="external">http://htwy.org.ru/url.htm）之后再到注册表中进行搜索。</a></p>
+<p>看样子做这个ghost系统的人，修改这个主页真是做足了工作啊，一般的用户谁又能不借助工具来修改好呢，我喜欢折腾其实是不喜欢装360这类的软件，因为装了这些不但拖慢速度，而且还经常会有烦人的框框弹出来。</p>
+<p>记录在此，仅为后用。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="400" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>Hexo + GitPages开启markdown之旅 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="转来转去最后发现，自己维护空间神马的真心费力，我只是想专心的写个文字，记录一下，吐个槽而已，由此开启我的Hexo + GitPages + Git 之旅。">
+  
+
+  <meta property="og:title" content="Hexo + GitPages开启markdown之旅"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Hexo + GitPages开启markdown之旅
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-08-30T08:27:42.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-08-30
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/tools/">TOOLS</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/git/">git</a>·<a href="/tags/hexo/">hexo</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>转来转去最后发现，自己维护空间神马的真心费力，我只是想专心的写个文字，记录一下，吐个槽而已，由此开启我的Hexo + GitPages + Git 之旅。<a id="more"></a></p>
+<h2 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h2><p>大学时期就在写博，内个时候的互联网跟现在没法比（2005年），从最早的网易免费虚拟空间开始，到后来的QQ空间，百度hi/新浪博客，再到后来自己搭建技术博客，最早使用各种荒野虚拟空间，价格贵，而且不稳定，再后面用了几年的MediaTemplate（这在当时可是很多特别爱写博客的人才舍得购买的），最后直到近两年开始使用阿里云。</p>
+<p>使用的CMS更不必说，从最早的自己asp原创，到后来使用WordPress，然后自己也编写或修改了至少3个wp主题（然而没有一个令自己满意的），改来改去，最后发现耗费了很大的精力在这些造轮子的事情上面，反而没能坚持把博客写下去，并且WordPress在很多低配主机上面特别耗内存，又转战php版的z-blog等等，最后发现这些真心都有点笨重，而且总是在不停的折腾。</p>
+<p>转来转去最后发现，自己维护空间神马的真心费力，我只是想专心的写个文字，记录一下，吐个槽而已，由此开启我的Hexo + GitPages + Git 之旅。</p>
+<p>OK，吐槽结束，作为一个“资深”博主（手动嘲讽一下我自己），写了很多水文，有些内容甚至自己都没有吃透，其实写的时候就是为了记录，希望从这里开始，可以post一些高质量的好文吧。</p>
+<h2 id="先说一下为什么选择这套组合"><a href="#先说一下为什么选择这套组合" class="headerlink" title="先说一下为什么选择这套组合"></a>先说一下为什么选择这套组合</h2><h3 id="基于nodejs"><a href="#基于nodejs" class="headerlink" title="基于nodejs"></a>基于nodejs</h3><p>无论是Windows下还是Mac下，部署起来都很简单（看个别的Jekyll基于Ruby，不是太方便），当然这不是重点，因为作为一个前端，用Sass的话还是必然要装Ruby的</p>
+<h3 id="插件支持和主题"><a href="#插件支持和主题" class="headerlink" title="插件支持和主题"></a>插件支持和主题</h3><p>当然，作为前端狗，这不是重点，毕竟咱可以自己想怎么玩就怎么玩。 但是，我懒，还是用现成的吧。</p>
+<h3 id="跟其他选择比较"><a href="#跟其他选择比较" class="headerlink" title="跟其他选择比较"></a>跟其他选择比较</h3><p>跟WordPress对比，我靠~ 无论是主题还是插件被WP秒了N条街，然并卵，我只是想简单的写写博客，敲敲代码而已，用它足够了。</p>
+<p>跟自己搭建服务器对比，我靠~ 自己搭建的服务器，起码服务端的数据是私有的，而github上发表的东西人家分分钟可以给你clone走。再次然并卵，隐私数据我只需要用evernote之类的即可，干嘛发到博客上，发上来就是给人看的呀，还巴不得大家都来抄呢。 </p>
+<p>速度对比，github自带cdn，完全免费，几乎不存在宕机或者被DDOS的可能。</p>
+<p>暂时就想到这些，后面可以再补充，废话好多呀，下面进入正题吧</p>
+<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><p>并不详细，只是做个记录，把一些容易忘记的写一下，需要详细教程的可以自行搜索</p>
+<h3 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h3><p>如何安装？ 好吧，我只丢个nodejs下载地址，剩下的自己弄<br> <a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="external">nodeJs下载地址</a></p>
+<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>还是只丢一个地址，剩下的自己弄<br><a href="https://git-scm.com/downloads" target="_blank" rel="external">Git下载地址</a></p>
+<h3 id="注册并登陆GitHub"><a href="#注册并登陆GitHub" class="headerlink" title="注册并登陆GitHub"></a>注册并登陆GitHub</h3><p><a href="https://github.com" target="_blank" rel="external">GitHub</a></p>
+<h3 id="为hexo新建项目地址"><a href="#为hexo新建项目地址" class="headerlink" title="为hexo新建项目地址"></a>为hexo新建项目地址</h3><p>在github网站新建项目，命名为 yourname.github.io </p>
+<p>注意，此处的yourname必须是你github上的username。 然后点击该项目中的settings（是网页上该项目的settings哦，不是用户头像的settings），然后在GitHub Pages 处的 Source后面选择master分支，并保存。</p>
+<p>好了，这一步将该项目的git地址复制备用。</p>
+<h3 id="生成git公钥"><a href="#生成git公钥" class="headerlink" title="生成git公钥"></a>生成git公钥</h3><p>在你的电脑中，新建想要保存网站项目的文件夹，右键——GitBash Here<br>在打开的命令窗口中，输入如下命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"yourname"</span> <span class="comment">#配置你的github用户名</span></span><br><span class="line">git config --global user.email <span class="string">"yourname@domain.com"</span> <span class="comment">#配置你的github邮箱</span></span><br></pre></td></tr></table></figure></p>
+<p>说明：这里地用户名和邮箱跟你的github上的用户名并没有任何关系，此处仅仅是为了区分当前电脑使用者的身份（笔者的理解）。<br>好的，到此，你已经向git标识了你的身份，然后根据身份生成一个公钥用来与服务端配对</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"your_email@youremail.com"</span></span><br></pre></td></tr></table></figure>
+<p>默认，会在你的系统用户目录（windows用户通常为C:\Users\Administrator，linux用户通常为/usr/或/etc/）下生成一个.ssh的文件，打开后找到.pub扩展名的文件，用文本编辑器打开，即可看到一堆代码，全选复制。</p>
+<h3 id="将标识你身份的公钥粘贴到github上实现身份识别配对"><a href="#将标识你身份的公钥粘贴到github上实现身份识别配对" class="headerlink" title="将标识你身份的公钥粘贴到github上实现身份识别配对"></a>将标识你身份的公钥粘贴到github上实现身份识别配对</h3><p>然后登陆github网站，点击右上角用户头像——设置（head icon -&gt; Settings），SSH and GPG keys 点击，News SSH key，将上一步中复制的内容粘贴进去即可完成配对。</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#hexo-cli代表 hexo commond line interface </span></span><br><span class="line"><span class="comment">#-g代表全局安装，这样可以直接在windows命令行运行</span></span><br><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>然后，安装hexo并保存到配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo --save</span><br></pre></td></tr></table></figure>
+<p>初始化hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>然后执行安装操作（init初始化各种依赖包，类似于加载了package.json）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<h3 id="配置hexo"><a href="#配置hexo" class="headerlink" title="配置hexo"></a>配置hexo</h3><p>经过上面的步骤，我们已经把hexo默认内容全部拉取到这个文件夹了，下面只需要进行简单的配置就可以开启你的hexo之旅了<br>配置文件保存在项目根目录下的 _config.yml 文件中。 打开之后根据英文自己对照修改吧。 注意格式。下面说一下如何同步到github</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: git@github.com:yourname/yourname.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>将配置文件中的 repo 地址改为上面从gihub新建项目获得的地址</p>
+<h3 id="更多-config-yml-配置"><a href="#更多-config-yml-配置" class="headerlink" title="更多 _config.yml 配置"></a>更多 _config.yml 配置</h3><h4 id="主题语言配置"><a href="#主题语言配置" class="headerlink" title="主题语言配置"></a>主题语言配置</h4><p>语言的配置，说明：这里跟随的zh-CN对应themes/xxx 目录下的languages文件夹下的目录名称，然后在模板中采用sprintf的方式进行调用，详见hexo官方手册的说明<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">language: zh-CN</span><br></pre></td></tr></table></figure></p>
+<h4 id="分类-标签别名设置"><a href="#分类-标签别名设置" class="headerlink" title="分类/标签别名设置"></a>分类/标签别名设置</h4><p>按照以下格式设置后即可实现对应的分类或者标签URL以别名的形式显示，注意修改该配置后需要生成并重启server才能生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">category_map:</span><br><span class="line">  我的涂鸦: scrawl</span><br><span class="line">  读书笔记: readnote</span><br><span class="line">tag_map:</span><br><span class="line">  兼容性: compatibility</span><br></pre></td></tr></table></figure></p>
+<h4 id="设置feed-url以及sitemap"><a href="#设置feed-url以及sitemap" class="headerlink" title="设置feed url以及sitemap"></a>设置feed url以及sitemap</h4><p>要想使用feed订阅功能，需要先安装hexo-generator-feed 以及 hexo-generator-sitemap 两个插件，然后执行hexo generate 即可生成对应的feed文件和sitemap文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-sitemap --save</span><br><span class="line">hexo generate</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后也是需要生成一下</p>
+<h4 id="设置主页-分类页-标签页每页显示的文章数"><a href="#设置主页-分类页-标签页每页显示的文章数" class="headerlink" title="设置主页/分类页/标签页每页显示的文章数"></a>设置主页/分类页/标签页每页显示的文章数</h4><p>注意：该功能修改后，需要clean一下，并重新生成重启server，否则无效（此处被坑的很惨）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#设置feed订阅，依赖hexo-generator-feed</span><br><span class="line">feed:</span><br><span class="line">  type: atom #feed类型 atom或者rss2</span><br><span class="line">  path: atom.xml #feed路径</span><br><span class="line">  limit: 20  #feed文章数量</span><br><span class="line"></span><br><span class="line">#存档页面显示设置</span><br><span class="line">archive_generator:</span><br><span class="line">  per_page: 0 #存档页面每页显示条数，0代表显示全部，无翻页</span><br><span class="line">  yearly: true #是否生成按年保存的存档页面</span><br><span class="line">  monthly: false #是否生成按月保存的存档页面</span><br><span class="line">  daily: false #是否生成按日保存的存档页面</span><br><span class="line">category_generator:</span><br><span class="line">  per_page: 0 #分类页面每页显示条数，0代表显示全部，无翻页</span><br></pre></td></tr></table></figure></p>
+<h4 id="添加搜索功能"><a href="#添加搜索功能" class="headerlink" title="添加搜索功能"></a>添加搜索功能</h4><p>搜索功能依赖插件hexo-generator-search，安装插件后即可自动在根目录生成search.xml文件，然后配合search.js（某些主题中包含，例如pln主题，大家也可以自行搜索）即可实现搜索功能<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure></p>
+<h3 id="运行并部署hexo"><a href="#运行并部署hexo" class="headerlink" title="运行并部署hexo"></a>运行并部署hexo</h3><p>最后一步，马上看到曙光啦，哈哈<br>hexo 3.0版本以后，还需要安装一个插件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<p>安装后就可以在本地的gitbash中执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>
+<p>然后，如果配置文件你没改错都话，等命令运行完毕，即可通过 yourname.github.io 查看到你的博客啦。</p>
+<h3 id="本地浏览器预览，可以通过执行命令"><a href="#本地浏览器预览，可以通过执行命令" class="headerlink" title="本地浏览器预览，可以通过执行命令"></a>本地浏览器预览，可以通过执行命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="配置独立域名"><a href="#配置独立域名" class="headerlink" title="配置独立域名"></a>配置独立域名</h3><p>当然，Hexo + GitPages 是支持独立域名的。 只需要在项目的sources目录下新建CNAME文件（大写，无扩展名），并输入你要绑定的域名即可。然后进入域名控制面板设置cname解析到 yourname.github.io 即可生效。</p>
+<p>购买SSL证书，还可以支持https的哦~</p>
+<h2 id="一些高级用法"><a href="#一些高级用法" class="headerlink" title="一些高级用法"></a>一些高级用法</h2><h3 id="生成和部署命令支持缩写"><a href="#生成和部署命令支持缩写" class="headerlink" title="生成和部署命令支持缩写"></a>生成和部署命令支持缩写</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment">#等价于hexo generate</span></span><br><span class="line">hexo d <span class="comment">#而等价于hexo deploy</span></span><br><span class="line">hexo d -g <span class="comment">#等价于以上两行命令之和</span></span><br></pre></td></tr></table></figure>
+<h3 id="在多台设备之间共同维护hexo"><a href="#在多台设备之间共同维护hexo" class="headerlink" title="在多台设备之间共同维护hexo"></a>在多台设备之间共同维护hexo</h3><p>使用git创建一个新的branch，然后提交到github<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在本地的hexo工作目录（假设已经搭建好了）初始化创建git</span></span><br><span class="line">git init</span><br><span class="line"><span class="comment">#创建并切换到分支，等价于git branch hexo &amp; git checkout hexo</span></span><br><span class="line">git checkout -b hexo </span><br><span class="line"><span class="comment">#将所有文件添加到git缓存区</span></span><br><span class="line">git add .</span><br><span class="line"><span class="comment">#注意，默认的缓存大小比较小，需要更改缓存大小，因此需要执行下面的语句</span></span><br><span class="line">git config http.postBuffer 524288000</span><br><span class="line"><span class="comment">#然后再执行提交操作，将文件提交到待提交区</span></span><br><span class="line">git commit -m <span class="string">"commit introduction"</span></span><br><span class="line"><span class="comment">#最后push到github远程</span></span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin hexo</span><br></pre></td></tr></table></figure></p>
+<p>这样在其他设备上面就可以执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:aleafo/aleafo.github.io.git</span><br><span class="line">git checkout -b hexo</span><br><span class="line">git add remote origin hexo</span><br></pre></td></tr></table></figure></p>
+<p>对hexo编写的环境等进行同步了。</p>
+<h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><p>写作支持md文件的变量，可以直接在source/_posts下新建md文件，或者运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n [filename]</span><br></pre></td></tr></table></figure></p>
+<p>来新建一个md文件。<br>新建完成后，在md文件中可以使用如下方式给文档设置标题<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: This is your article title, you can use this variable</span><br><span class="line">tags: </span><br><span class="line">    - tag1</span><br><span class="line">    - tag2</span><br><span class="line">categories: </span><br><span class="line">    - catname</span><br><span class="line">date: 2016-08-30 16:27:42</span><br><span class="line">---</span><br><span class="line">And this is some decription about the article <span class="comment">&lt;!--more--&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>通过上面的形式即可设置标题和摘要，系统将自动提取’—‘上方的部分作为变量，详见官方文档 <a href="https://hexo.io/zh-cn/docs/front-matter.html" target="_blank" rel="external">Front-matter</a>。</p>
+<ul>
+<li>title =&gt; 文档标题</li>
+<li>tags  =&gt; 文档标签，换行后以短横线+空格+标签名，每行一个</li>
+<li>categories =&gt; 分类名称，目前hexo只支持一个分类，如果填写多个，后面的分类将被当做子分类</li>
+<li>date =&gt; 文档发表日期</li>
+<li>&lt;!–more–&gt; =&gt; 系统变量三横线正文开始到more之前的部分将作为摘要</li>
+</ul>
+<h3 id="使用sublime的markdown插件编写md文档"><a href="#使用sublime的markdown插件编写md文档" class="headerlink" title="使用sublime的markdown插件编写md文档"></a>使用sublime的markdown插件编写md文档</h3><ul>
+<li>在sublime的包安装管理器中，搜索MarkdownEditing回车即可安装markdown编辑器，系统将自动识别markdown的文档</li>
+<li>安装ominiMarkdownPreviewer插件，可以在编写md文档的同时在浏览器中实时查看效果</li>
+</ul>
+<p>更多写作技巧待补充。您也可以查看markdown的官方文档，获取更多详细的关于markdown的创始人文档 <a href="http://wowubuntu.com/markdown/index.html" target="_blank" rel="external">markdwon语法说明简体中文版</a>，英文好的直接看这里 <a href="http://daringfireball.net/projects/markdown/" target="_blank" rel="external">Markdown</a></p>
+<p>当然你也可以直接使用一些markdown的神器来编写文档，例如windows下的markdownPad, Mac下的Mou等</p>
+<h3 id="开启github-pages的-SSL加密访问模式-https访问"><a href="#开启github-pages的-SSL加密访问模式-https访问" class="headerlink" title="开启github pages的 SSL加密访问模式 https访问"></a>开启github pages的 SSL加密访问模式 https访问</h3><p>默认github pages就是支持https的，这里选择最简便的方式，就是使用CloudFlare(以下简称CF)的DNS免费版的HTTPS加密模式。</p>
+<ul>
+<li>到 <a href="https://www.cloudflare.com/" target="_blank" rel="external">CloudFlare</a> 注册一个账号，然后添加域名，一路Continue（下一步），最后会给你分配两个DNS</li>
+<li>到你的域名控制面板，把DNS修改为CF分配给你的DNS</li>
+<li>在CF的域名管理界面，设置好CNAME到你的github pages的域名。</li>
+<li>在CF顶部的导航点击Page Rules，Create Page Rule，然后URL处输入 <a href="http://*.yourblogdomain.com/*，下面的设置选择" target="_blank" rel="external">http://*.yourblogdomain.com/*，下面的设置选择</a> Always Use HTTPS，点击Save And Deploy.</li>
+<li><p>将hexo的配置文件_config.yml修改如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url: https://yourblogdomain.com <span class="comment">#blog的URL，修改为https前缀</span></span><br><span class="line">enforce_ssl: yourblogdomain.com <span class="comment">#blog的URL，强制SSL模式访问</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在生成并部署即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="导入wordpress-和-cnblog"><a href="#导入wordpress-和-cnblog" class="headerlink" title="导入wordpress 和 cnblog"></a>导入wordpress 和 cnblog</h3><p>因为之前的很多文章大部分都是发表在了wordpress，以及后来记录到了cnblogs，而且数量还不少，所以有必要使用导入的功能。<br>wordpress使用系统自带的导出功能，导出为xml备份即可，然后使用插件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-migrator-wordpress --save</span><br><span class="line"><span class="comment">#web.wordpress.xxx.xml即为导出的文件，放到当前命令行所在目录</span></span><br><span class="line">hexo migrate wordpress web.wordpress.xxx.xml</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以成功将wordpress导入到hexo了。同样的cnblogs也提供了一款插件，不过从hexo3.0就不再支持了（作者自己说的），其实有一个迂回的方法，就是先下载一个wp的插件，名字叫做博客搬家到wordpress，可以将博客园、OSChina、CSDN、点点、LOFTER搬家到wordpress，然后再同上面的步骤导入即可。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="335" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

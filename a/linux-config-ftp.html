@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>LINUX配置FTP（添加用户，锁定FTP目录，设置FTP用户权限等） - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="前言对于阿里云的centos 已经用过N次了，不过对linux的这些东东了解的并不完善，仍然处在运维的入门选手的水平。 本文主要用于记录如何设置FTP账户，并赋予权限及锁定目录等。
+安装VSFTP一般来说cent都可以使用yum来安装1yum install vsftp
+新增系统用户，并设定用户目录">
+  
+
+  <meta property="og:title" content="LINUX配置FTP（添加用户，锁定FTP目录，设置FTP用户权限等）"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        LINUX配置FTP（添加用户，锁定FTP目录，设置FTP用户权限等）
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-11-18T07:20:46.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2016-11-18
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/LINUX/">LINUX</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对于阿里云的centos 已经用过N次了，不过对linux的这些东东了解的并不完善，仍然处在运维的入门选手的水平。 本文主要用于记录如何设置FTP账户，并赋予权限及锁定目录等。</p>
+<h3 id="安装VSFTP"><a href="#安装VSFTP" class="headerlink" title="安装VSFTP"></a>安装VSFTP</h3><p>一般来说cent都可以使用yum来安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install vsftp</span><br></pre></td></tr></table></figure></p>
+<h3 id="新增系统用户，并设定用户目录"><a href="#新增系统用户，并设定用户目录" class="headerlink" title="新增系统用户，并设定用户目录"></a>新增系统用户，并设定用户目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">useradd -d /aliadata/www/website -s /sbin/nologin ftpusername</span><br><span class="line">passwd ftpusername</span><br><span class="line">//然后输入两遍密码</span><br><span class="line">chown -R ftpusername /aliadata/www/website</span><br><span class="line">chmod -R 777 /aliadata/www/website</span><br></pre></td></tr></table></figure>
+<h3 id="修改vsftpd-conf-配置文件用于限定用户的权限和目录"><a href="#修改vsftpd-conf-配置文件用于限定用户的权限和目录" class="headerlink" title="修改vsftpd.conf 配置文件用于限定用户的权限和目录"></a>修改vsftpd.conf 配置文件用于限定用户的权限和目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">去掉下面两句的<span class="comment">#号</span></span><br><span class="line">chroot_list_enable=yes</span><br><span class="line">chroot_list_file=/etc/vsftpd/chroot_list</span><br><span class="line">然后将想要禁止跳转目录的用户写入文件chroot_list就可以了</span><br><span class="line">第二种</span><br><span class="line">修改vsftp.conf</span><br><span class="line">添加一句</span><br><span class="line">chroot_local_user=NO</span><br><span class="line">去掉下面两句的<span class="comment">#号</span></span><br><span class="line">chroot_list_enable=yes</span><br><span class="line">chroot_list_file=/etc/vsftpd/chroot_list</span><br><span class="line">然后将想要禁止跳转目录的用户写入文件chroot_list就可以了</span><br></pre></td></tr></table></figure>
+<h3 id="重启vsftp，以加载修改的配置"><a href="#重启vsftp，以加载修改的配置" class="headerlink" title="重启vsftp，以加载修改的配置"></a>重启vsftp，以加载修改的配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service vsftpd restart</span><br></pre></td></tr></table></figure>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="583" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

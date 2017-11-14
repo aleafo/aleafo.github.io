@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>thinkphp碰到的一些小问题 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="1. 生成的html自动被去掉换行和空格，压缩挤到一起了。
+解决： 开启debug即可，在入口文件增加
+ define(“APP_DEBUG”,true);
+
+&amp;nbsp;2. 添加mysql的 datetime类型数据，以当前时间为例
+class IndexAction extends Actio">
+  
+
+  <meta property="og:title" content="thinkphp碰到的一些小问题"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        thinkphp碰到的一些小问题
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2014-03-04T21:39:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2014-03-05
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">PHP</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/thinkphp/">thinkphp</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>1. 生成的html自动被去掉换行和空格，压缩挤到一起了。</p>
+<p>解决： 开启debug即可，在入口文件增加</p>
+<div class="cnblogs_code"><br><pre> <span style="color: #008080;">define</span>(“APP_DEBUG”,<span style="color: #0000ff;">true</span>);</pre><br></div>
+
+<p>&nbsp;2. 添加mysql的 datetime类型数据，以当前时间为例</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">class</span> IndexAction <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Action{<br>    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">function</span><span style="color: #000000;"> insert(){<br>        </span><span style="color: #800080;">$data</span>   =   D(‘Operate’<span style="color: #000000;">);<br>        </span><span style="color: #0000ff;">if</span>(<span style="color: #800080;">$data</span>-&gt;<span style="color: #000000;">create()) {<br>            </span><span style="color: #800080;">$data</span>-&gt;optime = <span style="color: #008080;">date</span>(“Y-m-d H:i:s” ,<span style="color: #008080;">time</span>()); <span style="color: #008000;">//</span><span style="color: #008000;">注意必须先create再add，否则无效</span><br>            <span style="color: #800080;">$result</span> =   <span style="color: #800080;">$data</span>-&gt;<span style="color: #000000;">add();<br>            </span><span style="color: #0000ff;">if</span>(<span style="color: #800080;">$result</span><span style="color: #000000;">) {<br>                </span><span style="color: #800080;">$this</span>-&gt;success(‘操作成功！’<span style="color: #000000;">);<br>            }</span><span style="color: #0000ff;">else</span><span style="color: #000000;">{<br>                </span><span style="color: #800080;">$this</span>-&gt;error(‘写入错误！’<span style="color: #000000;">);<br>            }<br>        }</span><span style="color: #0000ff;">else</span><span style="color: #000000;">{<br>            </span><span style="color: #800080;">$this</span>-&gt;error(<span style="color: #800080;">$data</span>-&gt;<span style="color: #000000;">getError());<br>        }<br>    }<br>}</span></pre><br></div>
+
+<p>&nbsp;3. thinkphp中进行字段加减操作更新的方法</p>
+<div class="cnblogs_code"><br><pre>M(‘User’)-&gt;where(‘id=5’)-&gt;setInc(‘score+2’); <span style="color: #008000;">//</span><span style="color: #008000;">字段加操作</span><br>M(‘User’)-&gt;where(‘id=5’)-&gt;setInc(‘score’,5); <span style="color: #008000;">//</span><span style="color: #008000;">字段减操作</span></pre><br></div>
+
+<p>若同时更新两个或以上的字段，需要这样写，用think的表达式写法</p>
+<div class="cnblogs_code"><br><pre><span style="color: #800080;">$Role</span> = M(‘Role’<span style="color: #000000;">);<br></span><span style="color: #800080;">$Role</span> -&gt;heartvalue = <span style="color: #0000ff;">array</span>(‘exp’,”heartvalue - <span style="color: #800080;">$opvalue</span>“); <span style="color: #008000;">//</span><span style="color: #008000;">注意，这里exp后面的表达式必须为双引号，否则变量不起作用，而且变量必须为数字类型才有效</span><br><span style="color: #800080;">$Role</span> -&gt;secretto = <span style="color: #0000ff;">array</span>(‘exp’,”secretto+1”<span style="color: #000000;">);<br></span><span style="color: #800080;">$Role</span>-&gt;where(‘uid=’.<span style="color: #800080;">$opfrom</span>) -&gt;save();</pre><br></div>
+
+<p>&nbsp;4. thinkphp中查询语句书写时，字段若为字符串，必须加引号，若为数字可加可不加，不确定的时候一定记得加。</p>
+<p>错误写法：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008000;">//</span><span style="color: #008000;">pass为字符串，这样对比返回结果是false</span><br><span style="color: #800080;">$list</span> = <span style="color: #800080;">$Proxy</span>-&gt;where(‘imid=’.<span style="color: #800080;">$user</span>.’ AND pass=’.<span style="color: #008080;">md5</span>(<span style="color: #800080;">$pass</span>.’mixedhash’))-&gt;<span style="color: #000000;">find();<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;">错误写法二，变量为字符串还不行，必须是与字段对比的变量的运算结果为字符串</span><br><span style="color: #800080;">$list</span> = <span style="color: #800080;">$Proxy</span>-&gt;where(‘imid=’.<span style="color: #800080;">$user</span>.’ AND pass=’.<span style="color: #008080;">md5</span>(“<span style="color: #800080;">$pass</span>“.’mixedhash’))-&gt;find();</pre><br></div>
+
+<p>正确写法：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #800080;">$list</span> = <span style="color: #800080;">$Proxy</span>-&gt;where(‘imid=’.<span style="color: #800080;">$user</span>.’ AND pass=”‘.<span style="color: #008080;">md5</span>(<span style="color: #800080;">$pass</span>.’mixedhash’).’”‘)-&gt;<span style="color: #000000;">find();<br><br></span><span style="color: #008000;">//</span><span style="color: #008000;">正确写法二，比较保险也比较清晰的写法，这样可以避免忘记加引号</span><br><span style="color: #800080;">$condition</span>[‘imid’] = <span style="color: #800080;">$user</span><span style="color: #000000;">;<br></span><span style="color: #800080;">$condition</span>[‘pass’] = <span style="color: #008080;">md5</span>(<span style="color: #800080;">$pass</span>.’qd’<span style="color: #000000;">);<br></span><span style="color: #800080;">$list</span> = <span style="color: #800080;">$Proxy</span>-&gt;where(<span style="color: #800080;">$condition</span>)-&gt;find(); </pre><br></div>
+
+<p>&nbsp;5. thinkphp中create()自动填充返回false的一些原因分析</p>
+<p>一般出现这种情况是由于传过来的字段为空值导致，首先检查一下提交的表单method是否与获取方式对应，例如form中忘记加method或者form中的method为POST而获取的时候用的是$this-&gt;$_get(“variable”); 这样也会导致获取的变量为空从而create失败。</p>
+<p>6. 设置当前菜单的样式，可以使用thinkphp的系统变量 $Think.ACTION_NAME (代表当前动作的名称对应到页面的function 的name)，使用的时候注意把变量放在后面。 形如：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">a </span><span style="color: #ff0000;">href</span><span style="color: #0000ff;">=”<strong>URL</strong>/ccenter”</span><span style="color: #ff0000;"> <if condition<="" span=""><span style="color: #0000ff;">=”‘ccenter’ eq $Think.ACTION_NAME”</span><span style="color: #0000ff;">&gt;</span>class=current<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">if</span><span style="color: #0000ff;">&gt;</span>&gt;控制中心<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">a</span><span style="color: #0000ff;">&gt;</span></if></span></pre><br></div>
+
+<p>下面的写法不被支持，将报错</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">a </span><span style="color: #ff0000;">href</span><span style="color: #0000ff;">=”<strong>URL</strong>/ccenter”</span><span style="color: #ff0000;"> <if condition<="" span=""><span style="color: #0000ff;">=”$Think.ACTION_NAME eq ‘ccenter’”</span><span style="color: #0000ff;">&gt;</span>class=current<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">if</span><span style="color: #0000ff;">&gt;</span>&gt;控制中心<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">a</span><span style="color: #0000ff;">&gt;</span></if></span></pre><br></div>
+
+<p>（猜测可能是类型转换导致的，比较运算一般都是先转换类型后比较）</p>
+<p>7. thinkphp save()失败的一些原因分析</p>
+<p>首先根据5但中描述的逐一排除：</p>
+<p>① 检查 form中是否忘记加method以及 获取变量的时候是否与method对应（method为post，但是获取的时候使用 I(“get.xxx”)就会导致获取失败为空）；</p>
+<p>② 检查form表单中的input等输入字段的name值是否对应，或者是否漏写、错写name的值；</p>
+<p>③ 如果是使用create()获取表单数据，然后无限制条件进行的save()，形如</p>
+<div class="cnblogs_code"><br><pre><span style="color: #800080;">$Station</span> = D(“Station”<span style="color: #000000;">);<br></span><span style="color: #800080;">$Station</span>-&gt;<span style="color: #000000;">create();<br></span><span style="color: #800080;">$result</span> = <span style="color: #800080;">$Station</span>-&gt;save();</pre><br></div>
+
+<p>这样的代码，那就需要检查数据库中是否设置了主键，如果没设置主键的话 是不会生效的哦。</p>
+<p>④ 今天（2016.4.5）又犯了一个错误，反复save就是不对，最后发现表名写错了。。。尼玛！！！</p>
+<p>8. addAll() 失败的部分原因分析。</p>
+<p>通常使用</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">if</span>(<span style="color: #800080;">$lastId</span> = <span style="color: #800080;">$Table</span>-&gt;addAll(<span style="color: #800080;">$data</span><span style="color: #000000;">)){<br></span><span style="color: #008000;">//</span><span style="color: #008000;">something to do</span><br>}</pre><br></div>
+
+<p>的形式来判断是否插入成功。 那有时候会插入失败，这个时候就要仔细分析数据结构了。 其中一种情况比较特殊的，就是插入的时候偶尔会出现问题（也就是说问题并非总是出现），提示错误如下：</p>
+<p>Column count doesn’t match value count at row x</p>
+<p>这个错误的出现很明显是参数个数与值的个数不一致导致的，但是通常我们都是使用 $data[‘key’] = $value; 的方式来给data赋值的，又怎么会出现键值对不匹配呢。 经过逐项排查发现，其实是因为 赋值过程中，出现了一个空值，也就是 $data[‘keyx’] = $value; 这个$value的值为不可识别的值的时候，那值会被自动舍弃，而键却还在，这样就导致了上面的mysql错误。</p>
+<p>解决方法就是对于不能100%确定$value是否为空的情况下，对$value做一个判断，若为空，给与赋值</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="593" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

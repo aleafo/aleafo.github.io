@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>Three.js 保存camera（视角）设置到数据库，包括场景的缩放、旋转、移动等 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="最近在做的项目中遇到需要保存当前的3d管道视角设置的问题，用户希望在对3d场景内的管道进行了缩放、旋转、移动之后可以将场景当前的视角状态保存在数据库中，并在下次加载时读取。 经过不断的尝试和研究，在同事的帮助下总算完成，下面说一下注意事项并附上实现代码。
+首先，经过测试保存视角取决于两个部分，一个是">
+  
+
+  <meta property="og:title" content="Three.js 保存camera（视角）设置到数据库，包括场景的缩放、旋转、移动等"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Three.js 保存camera（视角）设置到数据库，包括场景的缩放、旋转、移动等
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2014-02-25T18:12:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2014-02-26
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/js/">Javascript</a>
+
+
+
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>最近在做的项目中遇到需要保存当前的3d管道视角设置的问题，用户希望在对3d场景内的管道进行了缩放、旋转、移动之后可以将场景当前的视角状态保存在数据库中，并在下次加载时读取。 经过不断的尝试和研究，在同事的帮助下总算完成，下面说一下注意事项并附上实现代码。</p>
+<p>首先，经过测试保存视角取决于两个部分，一个是camera这个超大的js对象，另一个就是右键平移执行的操作在controls中（开发中使用的是TrackballControls.js）。</p>
+<p>先来说camera这个对象参数非常多，详细参数不再做说明，大家可以直接参考Three.js的 camera定义部分的源码，主要有up(相机的z坐标方向)、position（相机位置）、rotation（相机旋转，里面又包含<span>_quaternion</span>）、<span>scale（比例），除了这些之外还有<span>matrix、<span>matrixWorld、<span>matrixWorldInverse、<span>projectionMatrix这几4&times;4的矩阵，另外还有far、aspect、near参数。这些因素共同决定了相机的视角。要逐个保存这些数据是一项相当繁琐的工作，因此我们想办法将这些对象合并成一个json字符串并在读取时将它们反转。</span></span></span></span></span></p>
+<p><span><span><span><span><span>首先考虑的自然是 JSON.stringify() ，使用该方法转字符串的时候在谷歌浏览器下提示 循环引用的对象（貌似是谷歌的BUG，FF下应该是正常的未测试），因此无法转换，找了一下相关文章发现该方法可以传递一个自定义函数进来，避免循环对象的引用。如下所示</span></span></span></span></span></p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">var tc = camera.clone();<br>var</span> cache =<span style="color: #000000;"> [];<br></span><span style="color: #0000ff;">var</span> pdata = JSON.stringify(tc, <span style="color: #0000ff;">function</span><span style="color: #000000;">(key, value) {<br>    </span><span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">typeof</span> value === ‘object’ &amp;&amp; value !== <span style="color: #0000ff;">null</span><span style="color: #000000;">) {<br>        </span><span style="color: #0000ff;">if</span> (cache.indexOf(value) !== -1<span style="color: #000000;">) {<br>            </span><span style="color: #008000;">//</span><span style="color: #008000;"> Circular reference found, discard key</span><br>            <span style="color: #0000ff;">return</span><span style="color: #000000;">;<br>        }<br>        </span><span style="color: #008000;">//</span><span style="color: #008000;"> Store value in our collection</span><br><span style="color: #000000;">        cache.push(value);<br>    }<br>    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> value;<br>});<br>cache </span>= <span style="color: #0000ff;">null</span>; <span style="color: #008000;">//</span><span style="color: #008000;"> Enable garbage collection</span></pre><br></div>
+
+<p>这样就可以将camera的参数保存为一个json字符串形式从而可以保存到数据库中。</p>
+<p>对于平移的保存，查看TrackballControls.js文件即可找到 控制平移的参数为 controls.target 为一个THREE.Vector3的向量类型，那很轻易的就可以将其保存，如下所示我们将上面的camera和controls.target合并为一个JSON字符串并保存到数据库中即可。</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">var</span> target0 =<span style="color: #000000;"> controls.target.clone();<br></span><span style="color: #0000ff;">var</span> ptarget =<span style="color: #000000;"> JSON.stringify(target0);<br>pdata </span>= ‘{“cam”:’+pdata+’,”ctrl”:’+ptarget+’}’;</pre><br></div>
+
+<p><span style="line-height: 1.5;">上面的方式一般都可以想得到，关键是如何将这个json字符串读取出来并完整的赋值给新的camera对象。</span></p>
+<p>我们使用ajax读取后，并将其反转为JSON对象即 &nbsp;:</p>
+<div class="cnblogs_code"><br><pre><span style="color: #0000ff;">var</span> r = JSON.parse(d.angleView);  <span style="color: #008000;">//</span><span style="color: #008000;">d.angleView为数据库中读取出来的视角字符串参数</span><br><br><span style="color: #008000;">//</span><span style="color: #008000;">关键在这里，使用jquery的extend方法合并相机参数与反转过来的json对象，其中的camera为全局的camera对象，页面初始化时已经定义，此处clone是新生成一个对象，因为camera的赋值均为引用赋值非直接赋值，类似传址</span><br><span style="color: #0000ff;">var</span> tcamera = $.extend(<span style="color: #0000ff;">true</span><span style="color: #000000;">, {}, camera.clone(), r.cam);<br></span><span style="color: #0000ff;">var</span> tctrl = <span style="color: #0000ff;">new</span><span style="color: #000000;">&nbsp;THREE.Vector3(r.ctrl.x,r.ctrl.y,r.ctrl.z);<br><br>camera </span>=<span style="color: #000000;"> tcamera.clone();<br>controls </span>= <span style="color: #0000ff;">new</span> THREE.TrackballControls(camera, renderer.domElement);  <span style="color: #008000;">//</span><span style="color: #008000;">重新为相机加载控制器</span><br>camera.updateProjectionMatrix(); <span style="color: #008000;">//</span><span style="color: #008000;">更新相机</span><br><span style="color: #000000;"><br>controls.target.copy(tctrl);</span><span style="color: #008000;">//</span><span style="color: #008000;">更新控制器的中心点 copy方法可以在TrackballControls.js中找到</span></pre><br></div>
+
+<p>这样 我们就完整的实现了保存相机视角的功能。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="595" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

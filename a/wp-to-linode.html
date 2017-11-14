@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>wordpress搬家到 linode 步骤简析 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="1. 购买并安装系统
+购买就不说了哈，英文不好的自己搜教程。 然后是安装系统
+linode 系统安装：
+购买完成后登录，进入找到购买的vps ，点击 Dashboard (控制面板) 进入后点击 面板上面的 Rebuild (重建系统)按钮。
+在打开的页面中点击 &amp;nbsp;Deploying us">
+  
+
+  <meta property="og:title" content="wordpress搬家到 linode 步骤简析"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        wordpress搬家到 linode 步骤简析
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2015-11-07T05:21:00.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2015-11-07
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/php/">PHP</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/linux/">linux</a>·<a href="/tags/wordpress/">wordpress</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>1. 购买并安装系统</p>
+<p>购买就不说了哈，英文不好的自己搜教程。 然后是安装系统</p>
+<p>linode 系统安装：</p>
+<p>购买完成后登录，进入找到购买的vps ，点击 Dashboard (控制面板) 进入后点击 面板上面的 Rebuild (重建系统)按钮。</p>
+<p>在打开的页面中点击 &nbsp;Deploying using StackScripts （使用批处理脚本重建系统） 在下面找到 wordpress的那个，一般都很靠前，点击进入。</p>
+<p>前面是mysql root密码和数据库名称，这个不用多说了，自己按照要求输入即可，记得把输入的密码找个本本记下来，别忘记了找回也需要时间的啊。</p>
+<p>再下面的Image 根据自己熟悉什么系统就选什么系统。 个人比较喜欢CenOS7，下面的配置方法也是以CentOS 7 为例的，如果你熟悉其他系统，可以在对应系统找到对应文件即可;</p>
+<p>Rootpassword 就是控制台的 超级管理员密码咯， 这个输入一个密码，自己记住即可。其他选项保持默认。确定，稍等几分钟即可自动安装完成。</p>
+<p>&nbsp;</p>
+<p>2. 上传wordpress文件到新空间。&nbsp;</p>
+<p>如果是管理员自己用的话可以使用xftp直接用控制台的root帐号和密码连接即可上传文件，如果是给客户用，为了防止系统文件被删除，可以配置一个ftp，详细配置ftp的方法大家可以自行百度 &ldquo;linux 如何配置ftp&rdquo; 。链接后将原空间的wp-content文件上传并解压覆盖现在的wp-content文件夹即可。然后在控制台为其设置权限为777&nbsp;</p>
+<p>#chmod -R 777 /var/www/yoursite/public_html/wpcontent</p>
+<p>然后再将wp-config.php文件中的数据库信息修改好，注意前缀如果有改动，这里要对应，最好是把之前网站的wp-config.php文件直接复制，然后修改数据库帐号、密码、数据库名称即可。 如果安装了 wp super cache的话还需要给该文件设置777权限，方法和上面一样。</p>
+<p>&nbsp;</p>
+<p>3. 导入数据库文件。</p>
+<p>导入方法一：为了方便数据库管理，可以直接将phpmyadmin上传到网站根目录，连接方式改为cookies验证，就是在phpmyadmin的根目录config.inc.php中的</p>
+<div class="cnblogs_code"><br><pre><span style="color: #800080;">$cfg</span>[‘Servers’][<span style="color: #800080;">$i</span>][‘auth_type’] = ‘config’;<br>//改为<br><span style="color: #800080;">$cfg</span>[‘Servers’][<span style="color: #800080;">$i</span>][‘auth_type’] = ‘cookie’;</pre><br></div>
+
+<p>然后访问该phpmyadmin目录将数据库文件上传即可，超过大小的可以使用服务器文件的方式，详情百度。 上传后将之前网站备份下来的数据库导入即可完成。</p>
+<p>导入这里有需要注意：</p>
+<p>新建数据库的字符集编码要跟之前的数据库统一，现在一般都是使用 utf8_general_ci&nbsp;</p>
+<p>导入方法二：另外，也可以通过控制台导入，现将备份好的数据库文件上传到空间指定目录，然后执行导入命令。 通常建议使用source命令，因为这样才能设置数据库的编码格式，不会出现乱码，否则很容易出现乱码，具体步骤如下：</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008080;">mysql</span> -u dbadmin -<span style="color: #000000;">p<br></span><span style="color: #0000ff;">use</span><span style="color: #000000;"> myblog;<br>set names utf8;  </span><span style="color: #008000;">#</span><span style="color: #008000;">这里的字符集根你的将要导入的数据库的字符集一至。</span><br>source /home/zhangy/blog/database_bak/myblog.sql;</pre><br></div>
+
+<p><span style="line-height: 1.5;">如何备份之前网站的数据库，备份也可以通过phpmyadmin执行，当然也可以通过控制台命令执行</span></p>
+<div class="cnblogs_code"><br><pre>mysqldump -u dbadmin -p myblog &gt; /home/zhangy/blog/database_bak/myblog.sql</pre><br></div>
+
+<p>其中的 dbadmin 为数据库用户名 &nbsp;myblog为数据库名， 后面的路径和文件名为要保存的目标文件路径和名称。回车后会需要你输入数据库的密码，输入后确认即可。</p>
+<p>至此，mysql数据库设置并未完成，因为我们选择的默认的wordpress CentOs 7的镜像还默认安装了一个 MariaDB的东东（mysql数据安全向导），需要运行一次才可以，否则后面将会导致mysql运行一段时间后自动宕机。方法很简单，执行下面三句即可，第三句执行后，按向导设置。</p>
+<p>第一句 是启动 mariadb数据库， 第二句是设置其为开机启动，第三句是运行mysql数据库安全向导</p>
+<div class="cnblogs_code"><br><pre>systemctl start mariadb.<span style="color: #000000;">service<br>systemctl enable mariadb</span>.<span style="color: #000000;">service<br>mysql_secure_installation</span></pre><br></div>
+
+<p>4. 设置网站的域名和伪静态</p>
+<p>如果你的vps需要多个网站，那就要在控制台对/etc/httpd/conf.d 下 新增一个 vhosts.conf（以.conf结尾即可，名字自己随便取） 在里面设置多个网站的目录，格式如下：</p>
+<div class="cnblogs_code"><br><br><virtualhost *:80=""><br>     ServerAdmin webmaster@example.com<br>     ServerName myblog.com<br>     ServerAlias www.myblog.com<br>     DocumentRoot /var/www/myblog.com/public_html/<br></virtualhost><br><br></div>
+
+<p>其中的documentroot 和 servername为必须，其他几项可选。如果同一个网站绑定多个域名，就在AliasName里面 以空格隔开即可。</p>
+<p>修改后需要重启apache，重启命令 &nbsp;service httpd restart</p>
+<p>另外，还需要设置apache开机启动，这样重启linux后就不需要再手动去启动apache了</p>
+<div class="cnblogs_code"><br><pre><span style="color: #008000;">//</span><span style="color: #008000;">设置 apche服务开机启动</span><br>systemctl enable httpd.service</pre><br></div>
+
+<p>&nbsp;</p>
+<p>要支持网站根目录的.htaccess伪静态，还需要在 /etc/httpd/conf &nbsp;中修改 httpd.conf文件，在 Include conf.modules.d/*.conf 后面增加语句</p>
+<div class="cnblogs_code"><br><pre>LoadModule rewrite_module modules/mod_rewrite.so</pre><br></div>
+
+<p>为了实现伪静态的支持，还需要修改允许重写的文件目录，也就是你的网站根目录。架设你的根目录为/var/www，这需要在所有的<directory xxxx="">之后（注意，前面规则的将被后面的覆盖），加入</directory></p>
+<div class="cnblogs_code"><br><pre><directory "="" var="" www"=""><span style="color: #000000;"><br>    AllowOverride All<br>    </span><span style="color: #008000;">#</span><span style="color: #008000;"> Allow open access:</span><br>    <span style="color: #0000ff;">Require</span><span style="color: #000000;"> all granted<br></span></directory></pre><br></div>
+
+<p>也可以直接将存在的Directory 修改为如上所示。</p>
+<p>然后再将原来网站根目录的.htaccess 上传到新网站根目录即可生效。</p>
+<p>&nbsp;</p>
+<p>最后，将域名解析过去，所有的wordpress搬家到 linode的工作全部完成。</p>
+<p>后记：</p>
+<p>上次搬家完成后，WORDPRESS不定时出现错误”Error establishing a database connection” 数据库链接错误。 既然之前能连接，突然不行了，那肯定是mysql数据库挂了， 登录控制台发现无法重启mysql，然后只能重启机器。 重启后发现连httpd都无法启动了，再仔细检查发现磁盘空间不足。 然后升级了一下数据盘的空间，问题得解。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="543" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>

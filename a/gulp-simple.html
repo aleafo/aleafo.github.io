@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <title>Gulp在前端开发中的简单应用 - WEB前端两三点</title>
+  <meta name="author" content="aleafo">
+   <meta name="description" content="前言近几年，前端构建工具，自动化开发工具层出不穷，原来需要手工搭建的东西，一点点的全都被自动化工具代替，前端开发越来越倾向于只关注业务层面的东西，而不需要去做更多繁琐的工作了。
+发展历程其实可以简单归纳为： 自动化工具 Grunt -&amp;gt; Gulp -&amp;gt; Webpack，在依赖加载方面，前">
+  
+
+  <meta property="og:title" content="Gulp在前端开发中的简单应用"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="WEB前端两三点"/>
+ <meta property="og:image" content="undefined"/>
+  
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="WEB前端两三点" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="main">
+    <div class="behind">
+      <div class="back">
+        <a href="javascript:;" onclick="history.go(-1)" class="black-color"><i class="fa fa-times" aria-hidden="true"></i></a>
+      </div>
+      <div class="description">
+        &nbsp;
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Gulp在前端开发中的简单应用
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-11-14T08:46:07.000Z">
+  <i class="fa fa-calendar"></i>&nbsp;
+  2017-11-14
+</time>
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/categories/tools/">TOOLS</a>
+
+
+
+
+    
+    &nbsp;
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="/tags/gulp/">gulp</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近几年，前端构建工具，自动化开发工具层出不穷，原来需要手工搭建的东西，一点点的全都被自动化工具代替，前端开发越来越倾向于只关注业务层面的东西，而不需要去做更多繁琐的工作了。</p>
+<p>发展历程其实可以简单归纳为： 自动化工具 Grunt -&gt; Gulp -&gt; Webpack，在依赖加载方面，前有AMD标准的RequireJs，国内CMD标准的 SeaJs，然而，随着ES6规范的到来，这些依赖加载模块也终将被渐渐埋葬，取而代之的是babel等遵循ES6语法的新生事物。</p>
+<p>在一些中小型的项目中，使用基于内容流的Gulp 还是可以大大提高开发效率的，配合git的自动部署将会成为中小型项目敏捷开发的利器。本文主要介绍Gulp在前端开发中的几个简单应用，适合入门学习和练习。</p>
+<h2 id="Gulp搭建过程"><a href="#Gulp搭建过程" class="headerlink" title="Gulp搭建过程"></a>Gulp搭建过程</h2><h3 id="前情提要及说明"><a href="#前情提要及说明" class="headerlink" title="前情提要及说明"></a>前情提要及说明</h3><p>本例以windows开发环境下为例，项目目录为Thinkphp3.1搭建。<br>本例中的项目目录结构如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Webroot</span><br><span class="line">    -App</span><br><span class="line">        -Lib</span><br><span class="line">        -Conf</span><br><span class="line">        -Lang</span><br><span class="line">        -Tpl</span><br><span class="line">            -Public</span><br><span class="line">                +Js</span><br><span class="line">                +Css</span><br><span class="line">            -Src</span><br><span class="line">                +Js</span><br><span class="line">                +Css</span><br><span class="line">    -Common</span><br><span class="line">    -Conf</span><br><span class="line">    -Lib</span><br><span class="line">    -...</span><br></pre></td></tr></table></figure></p>
+<p>我们需要将Src下的Js 和 Css文件进行自动部署并发布到Pulic目录下。</p>
+<h3 id="要实现的功能"><a href="#要实现的功能" class="headerlink" title="要实现的功能"></a>要实现的功能</h3><p>实现的主要功能如下：</p>
+<ul>
+<li>对项目中的sass文件进行自动转换为css并压缩为最小化并复制到发布目录</li>
+<li>复制没有使用sass的css文件到发布目录</li>
+<li>对项目中的js文件进行自动转换并压缩为最小化并复制到发布目录</li>
+</ul>
+<h3 id="Gulp环境搭建"><a href="#Gulp环境搭建" class="headerlink" title="Gulp环境搭建"></a>Gulp环境搭建</h3><h4 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h4><p>首先Gulp的运行依赖nodejs，因此需要先安装nodejs， <a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="external">点此下载nodejs安装包</a>，选择自己操作系统对应的版本下载即可。下载完成后一路下一步完成安装。</p>
+<h4 id="初始化npm配置文件"><a href="#初始化npm配置文件" class="headerlink" title="初始化npm配置文件"></a>初始化npm配置文件</h4><p>nodejs安装完成后会自动带有npm模块，此时便可以在命令行下使用npm进行安装各种依赖的插件了，在此之前我们要先初始化一个npm配置文件。</p>
+<ul>
+<li>打开项目对应的目录，在项目根目录，按住Shift，点击鼠标右键，在此处打开命令窗口。</li>
+<li><p>我们需要先初始化一个npm的项目依赖配置文件，用来保存该项目依赖的插件名称和版本，方便更换机器或者多人之间协作开发可以快速部署gulp的依赖环境。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据要求输入名称等一些基本信息（其中名称和版本为必填，其他项目可以直接回车确认）</p>
+</li>
+<li>初始化完成之后，在根目录即可看到自动生成了一个 package.json的文件，该文件即为保存项目的插件依赖的配置文件。<br>-<h4 id="安装gulp"><a href="#安装gulp" class="headerlink" title="安装gulp"></a>安装gulp</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g gulp --save-dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>-g代表全局安装，-save-dev 代表将本次安装的插件信息保存到 package.json 中的devDependencies中，方便后续的使用。</p>
+<h4 id="安装需要的插件"><a href="#安装需要的插件" class="headerlink" title="安装需要的插件"></a>安装需要的插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-uglify --save-dev</span><br><span class="line">npm install ulp-minify-css --save-dev</span><br><span class="line">npm install gulp-sass --save-dev</span><br></pre></td></tr></table></figure>
+<p>全部安装完成后即可进入下一步了。但是在我们大天朝，经常会出现有些时候安装失败的情况。其实也早有解决方案，就是使用淘宝的npm镜像</p>
+<h4 id="使用taobao的npm镜像来安装"><a href="#使用taobao的npm镜像来安装" class="headerlink" title="使用taobao的npm镜像来安装"></a>使用taobao的npm镜像来安装</h4><p>具体方法就是先安装一个插件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，即可使用cnpm命令代替npm命令来进行安装了，这样就会从淘宝的服务器进行安装，速度嗖嗖的。</p>
+<p>好了，安装完需要的插件，即可进行配置了。</p>
+<h2 id="Gulp-配置"><a href="#Gulp-配置" class="headerlink" title="Gulp 配置"></a>Gulp 配置</h2><p>上面一大堆内容都是如何把gulp搭建起来，如何配置才能生成需要的功能呢。网上有很多gulp的教程，这里根据代码一行一行的注释看即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引入需要的js包，也就是我们上面安装的依赖插件，并复制给变量</span></span><br><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</span><br><span class="line">    ugjs = <span class="built_in">require</span>(<span class="string">'gulp-uglify'</span>),</span><br><span class="line">    minicss = <span class="built_in">require</span>(<span class="string">'gulp-minify-css'</span>),</span><br><span class="line">    sass = <span class="built_in">require</span>(<span class="string">'gulp-sass'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 制作一个gulp命令sassfile用来将对应目录下的scss文件转换为css并压缩为最小化的css</span></span><br><span class="line"><span class="comment">// 最后复制到目标目录中，在根目录新建文件，命名为gulpfile.js 并输入以下代码保存</span></span><br><span class="line">gulp.task(<span class="string">'sassfile'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    gulp.src(<span class="string">'A/Tpl/Src/Css/*.scss'</span>)</span><br><span class="line">        .pipe(sass())</span><br><span class="line">        .pipe(minicss())</span><br><span class="line">        .pipe(gulp.dest(<span class="string">'A/Tpl/Public/css'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//压缩css文件并复制到目标目录中</span></span><br><span class="line">gulp.task(<span class="string">'minicss'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    gulp.src(<span class="string">'A/Tpl/Src/Css/*.css'</span>)</span><br><span class="line">        .pipe(minicss())</span><br><span class="line">        .pipe(gulp.dest(<span class="string">'A/Tpl/Public/css'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//压缩js文件并复制到目标目录中</span></span><br><span class="line">gulp.task(<span class="string">'ugjs'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    gulp.src(<span class="string">'A/Tpl/Src/js/*.js'</span>)</span><br><span class="line">        .pipe(ugjs())</span><br><span class="line">        .pipe(gulp.dest(<span class="string">'A/Tpl/Public/js'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置build命令，组合执行以上三条命令</span></span><br><span class="line">gulp.task(<span class="string">'build'</span>,[<span class="string">'ugjs'</span>,<span class="string">'sassfile'</span>,<span class="string">'minicss'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置kw命令，用来让gulp监听对应文件的变动，一旦发现变动立即执行对应任务</span></span><br><span class="line">gulp.task(<span class="string">'kw'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    gulp.watch(<span class="string">'A/Tpl/Src/Css/*.scss'</span>,[<span class="string">'sassfile'</span>]);</span><br><span class="line">    gulp.watch(<span class="string">'A/Tpl/Src/Css/*.css'</span>,[<span class="string">'minicss'</span>]);</span><br><span class="line">    gulp.watch(<span class="string">'A/Tpl/Src/Js/*.js'</span>,[<span class="string">'ugjs'</span>]);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>经过以上的编写后，在命令行输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp build</span><br></pre></td></tr></table></figure></p>
+<p>即可自动执行sass编译并压缩，输出、css压缩输出、js压缩输出命令<br>如果不想每次修改后都要运行一下这个命令，那就启动监听<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp kw</span><br></pre></td></tr></table></figure></p>
+<p>这样，每次当你对所有被监听的文件作出修改，并执行保存动作都时候就会触发对应的编译指令，是不是很酷。</p>
+
+
+  </article>
+
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="251" ></div>
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyszuarPQ'; 
+var conf = 'prod_16df064b7932c32946a61373c7bfe666'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("//changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" >
+        <i class="fa fa-arrow-right"></i>
+        </a>
+        ©2015-2099
+    </div>
+    <div class="secondrow">
+        <a href="/about/">
+        ABOUT
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+// comments below to disable loading animation
+function revealOnScroll() {
+  var scrolled = $(window).scrollTop();
+  $(".excerpt, .index-title, .index-meta, p").each(function() {
+    var current = $(this),
+      height = $(window).outerHeight(),
+      offsetTop = current.offset().top;
+    (scrolled + height + 50 > offsetTop) ? current.addClass("animation"):'';
+  });
+}
+$(window).on("scroll", revealOnScroll);
+$(document).ready(revealOnScroll)
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+// back to top scripts
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+  return false;
+});
+</script>
+</body>
+</html>
